@@ -40,7 +40,7 @@
       <section id="que-es" class="section intro-section">
         <div class="section-copy">
           <p class="section-tag">¿Qué es GAMMA Sentinel?</p>
-          <h2>Asistente de soporte, análisis RT y diagnóstico operativo</h2>
+          <h2>Asistente de soporte, análisis y diagnóstico operativo</h2>
           <p>
             GAMMA Sentinel es una solución de soporte inteligente orientada a la operación
             corporativa. Permite analizar incidencias, revisar el estado del backlog,
@@ -149,12 +149,64 @@
           </article>
         </div>
       </section>
+
+      <section id="chat" class="section chat-section">
+        <div class="section-header">
+          <p class="section-tag">Chat GAMMA Sentinel</p>
+          <h2>Haz tu consulta en el chat</h2>
+          <p>
+            Escribe tu pregunta sobre módulos, incidencias, diagnóstico o seguimiento del backlog.
+            Este chat responde con ayuda basada en el conocimiento del sitio y del agente.
+          </p>
+        </div>
+
+        <div class="chat-panel">
+          <div class="chat-header">
+            <div>
+              <h3>GAMMA Sentinel</h3>
+              <p>Responde en español, con orientación operativa.</p>
+            </div>
+            <span class="chat-status">En línea</span>
+          </div>
+
+          <div id="chatMessages" class="chat-messages" aria-live="polite">
+            <article class="message bot">
+              <p>Hola 👋 Soy GAMMA Sentinel. Puedes preguntarme por módulos, diagnóstico de incidencias, backlog o cómo empezar a revisar una situación RT.</p>
+            </article>
+          </div>
+
+          <div class="chat-suggestions">
+            <button type="button" class="suggestion-chip" data-suggestion="¿Qué hace el módulo Tesorería?">¿Qué hace el módulo Tesorería?</button>
+            <button type="button" class="suggestion-chip" data-suggestion="¿Cómo diagnostico una falla en PDV?">¿Cómo diagnostico una falla en PDV?</button>
+            <button type="button" class="suggestion-chip" data-suggestion="¿Qué información necesito revisar en el backlog?">¿Qué información necesito revisar en el backlog?</button>
+          </div>
+
+          <form id="chatForm" class="chat-form">
+            <label class="sr-only" for="chatInput">Escribe tu pregunta</label>
+            <input
+              id="chatInput"
+              name="question"
+              type="text"
+              placeholder="Escribe tu pregunta aquí..."
+              autocomplete="off"
+              required
+            />
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </form>
+
+          <p class="chat-note">
+            El chat usa el backend para IA real y, si ese backend no está disponible, cae al
+            conocimiento del repositorio.
+          </p>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
       <p>GAMMA Sentinel © 2026</p>
       <p>Desplegado en GitHub Pages</p>
       <p>Creado por Alexis Afonso - Tecno Accion La Pampa</p>
+      <p>Colaboración Horacion Braun - Federico Garufi</p>
     </footer>
 
     <script src="js/main.js"></script>
