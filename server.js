@@ -16,7 +16,7 @@ app.get('/health', (_req, res) => {
 });
 
 app.post('/api/chat', async (req, res) => {
-  const { message } = req.body || {};
+  const { message, context } = req.body || {};
 
   if (!message || typeof message !== 'string' || !message.trim()) {
     return res.status(400).json({ error: 'Falta el mensaje' });
@@ -27,6 +27,25 @@ app.post('/api/chat', async (req, res) => {
   }
 
   try {
+    let systemInstruction = 'Sos GAMMA Sentinel, un asistente operativo y técnico de soporte para el ecosistema GAMMA. Responde en español, con claridad funcional y recomendaciones accionables.';
+    let userContent = message.trim();
+
+    if (context && context.trim()) {
+      systemInstruction = `Sos GAMMA Sentinel, un asistente operativo y técnico de soporte para el ecosistema GAMMA.
+Tu objetivo es responder a la pregunta del usuario utilizando EXCLUSIVAMENTE la información provista en la Base de Conocimiento a continuación.
+
+REGLAS ESTRICTAS DE RESPUESTA:
+1. Basa tu respuesta ÚNICAMENTE en la información de la Base de Conocimiento proporcionada.
+2. Si la respuesta no se puede responder directamente o deducir con certeza a partir de la Base de Conocimiento provista, debes responder EXACTAMENTE con esta frase: "Lo siento, la información solicitada no se encuentra en la base de conocimiento del repositorio."
+3. NO utilices tu conocimiento general o entrenamiento previo para inventar detalles, módulos, procedimientos o nombres que no estén explícitamente en el texto provisto. No inventes nada.
+4. Responde siempre en español.`;
+
+      userContent = `Base de Conocimiento:\n${context.trim()}\n\nPregunta: ${message.trim()}`;
+    } else {
+      systemInstruction = `Sos GAMMA Sentinel, un asistente operativo y técnico de soporte para el ecosistema GAMMA.
+REGLA CRÍTICA: Responde en español. No inventes datos, números, módulos o procedimientos sobre el sistema GAMMA que no conozcas con absoluta certeza. Si la pregunta requiere detalles específicos del repositorio y no se proporcionó contexto, responde exactamente: "Lo siento, la información solicitada no se encuentra en la base de conocimiento del repositorio."`;
+    }
+
     const response = await fetch(GROQ_BASE_URL, {
       method: 'POST',
       headers: {
@@ -38,10 +57,9 @@ app.post('/api/chat', async (req, res) => {
         messages: [
           {
             role: 'system',
-            content:
-              'Sos GAMMA Sentinel, un asistente operativo y técnico de soporte para el ecosistema GAMMA. Responde en español, con claridad funcional y recomendaciones accionables.'
+            content: systemInstruction
           },
-          { role: 'user', content: message.trim() }
+          { role: 'user', content: userContent }
         ]
       })
     });

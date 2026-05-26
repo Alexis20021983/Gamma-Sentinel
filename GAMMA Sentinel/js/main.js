@@ -66,7 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
     'knowledge/files/GAMMA-ManualdeUsuariov1.0.pdf_Etf.mcs.yml',
     'knowledge/files/LoteMovil-ManualdeUsuariov1.2.pdf_6JE.mcs.yml',
     'knowledge/files/Manual_RT_GAMMA_Integrado.docx_IgK.mcs.yml',
-    'knowledge/files/NOA-ManualdeUsuariov1.2.pdf_gaK.mcs.yml'
+    'knowledge/files/NOA-ManualdeUsuariov1.2.pdf_gaK.mcs.yml',
+    'knowledge/files/Base_Conocimiento_GAMMA.txt',
+    'knowledge/files/Archivo_SharePoint_GAMMA.txt',
+    'knowledge/files/BacklogGammaMantenimiento.txt',
+    'knowledge/files/GAMMA-ManualdeUsuariov1.0.txt',
+    'knowledge/files/LoteMovil-ManualdeUsuariov1.2.txt',
+    'knowledge/files/Manual_RT_GAMMA_Integrado.txt',
+    'knowledge/files/NOA-ManualdeUsuariov1.2.txt'
   ];
 
   let repoKnowledgeLoading = null;
@@ -178,14 +185,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const getBackendReply = async (question) => {
+  const getBackendReply = async (question, context = '') => {
     const targetUrl = buildApiUrl('/api/chat');
     const response = await fetch(targetUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ message: question })
+      body: JSON.stringify({ message: question, context })
     });
 
     if (!response.ok) {
@@ -198,7 +205,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const getBotReply = async (question) => {
     try {
-      const backendReply = await getBackendReply(question);
+      let context = '';
+      const loadedKnowledge = await loadRepoKnowledge().catch(() => []);
+
+      if (loadedKnowledge && loadedKnowledge.length > 0) {
+        const normalizedQuestion = normalizeText(question);
+        const scored = loadedKnowledge
+          .map((entry) => {
+            const normalizedText = normalizeText(entry.text);
+            const matches = normalizedQuestion
+              .split(' ')
+              .filter(Boolean)
+              .filter((term) => normalizedText.includes(term)).length;
+
+            return {
+              entry,
+              matches
+            };
+          })
+          .filter((item) => item.matches > 0)
+          .sort((a, b) => b.matches - a.matches);
+
+        if (scored.length > 0) {
+          context = scored
+            .slice(0, 4)
+            .map((item) => `[Archivo: ${item.entry.path}]\n${item.entry.text}`)
+            .join('\n\n');
+        }
+      }
+
+      const backendReply = await getBackendReply(question, context);
       if (backendReply) {
         return backendReply;
       }
