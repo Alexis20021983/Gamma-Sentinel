@@ -1,5 +1,0 @@
-mcs.metadata:
-  componentName: Archivo_SharePoint_GAMMA.xlsx
-  description: "Origen: enlace de SharePoint. Descargar el archivo original desde la URL y colocarlo en esta misma carpeta (knowledge/files) con el mismo nombre para actualizar el conocimiento."
-  sourceUrl: "https://tecnoaccionsa.sharepoint.com/:x:/s/GAMMA.2024/IQCEo6MiTWdrQYSRrNV9s7o_Ac9scWmEqSTLZY1lZwVUIg4?e=HjHreM"
-  updateInstructions: "Para actualizar: descargar la nueva versión desde SharePoint y reemplazar el archivo binario en knowledge/files. Mantener el mismo nombre de archivo; luego confirmar que el repositorio se sincronice o ejecutar el proceso de ingesta si aplica."

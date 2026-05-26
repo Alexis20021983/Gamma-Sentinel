@@ -1,0 +1,238 @@
+--- PÁGINA 1 ---
+MANUAL DE
+USUARIO
+Ver 1.2
+--- PÁGINA 2 ---
+INDICE
+Introducción
+Ingreso al sistema
+Funcionalidades
+Productos
+Remitos
+Procesamiento de Archivos
+Stock de Cupones3
+4
+5
+6
+7
+8
+14
+Reportes
+Juegos
+16
+17
+Pago de Cupones 15
+Proveedores 18
+--- PÁGINA 3 ---
+No-Automatizados  es un sistema diseñado para juegos y productos no
+automatizados de lotería. Este conjunto de módulos permite controlar de forma
+precisa y estructurada tareas esenciales como la carga y administración de
+productos, remitos de stock, procesamiento de archivos, pago de cupones,
+seguimiento de stock y cupones ganadores. El sistema incluye funcionalidades
+para consultar y generar reportes detallados, gestionar el stock de cupones,
+visualizar y registrar información relacionada con los juegos disponibles, así como
+también controlar todo el flujo de cupones distribuidos, premiados, y pagados. En
+conjunto, No -Automatizados brinda a la Lotería una herramienta integral para
+llevar adelante tareas administrativas, operativas y de seguimiento en los
+procesos del manejo de juegos preimpresos e instantáneos , asegurando
+trazabilidad y orden en cada instancia del circuito.
+NO-
+AUTOMATIZADOS
+--- PÁGINA 4 ---
+PANTALLA DE
+INGRESO
+• Ingresar usuario
+• Ingresar contraseña
+• Dar clic en el botón ingresar
+--- PÁGINA 5 ---
+• Productos
+• Remitos
+• Procesamiento de Archivos
+• Stock de cupones
+• Pago de cupones
+• Reportes
+• Juegos
+• Proveedores
+FUNCIONALIDADES
+--- PÁGINA 6 ---
+PRODUCTOS
+Volver al Programa
+Este módulo funciona como ABM de productos, permitiendo
+visualizar, cargar y editar la información  completa de cada
+producto. En la grilla principal se muestra un historial detallado
+como número, estado, juego, serie, precio de venta, fecha de sorteo,
+apertura, fecha de creación y fecha de caducidad. Además, permite
+cargar productos tanto instantáneos  como preimpresos, ingresando
+datos específicos como:
+• Juego.
+• Número de sorteo.
+• Precio.
+• importe de retenciones.
+• Retención.
+• Estímulo.
+• Imponible.
+• Distintas fechas asociadas (sorteo, apertura, límite de venta y
+caducidad).
+También se incluye herramientas  de filtrado por juego, facilitando  la
+gestión y seguimiento  de los mismos
+--- PÁGINA 7 ---
+REMITOS
+Volver al Programa
+Este módulo funciona como ABM que p ermite gestionar todos los
+remitos de entrada y salida . En su vista principal se visualizan
+detalles como:
+• Tipo.
+• Estado.
+• Número.
+• Fecha de alta.
+• Remitente.
+• Destino.
+• Observaciones.
+También permite registrar ingresos y egresos de stock, con sus
+respectivos datos asociados. Incluye un historial de movimientos y
+herramientas de filtrado por número de remito, tipo, estado, fecha de
+alta, proveedor y orden de pedido - Facilitando el control y
+seguimiento de la documentación relacionada con la logística de
+productos.
+--- PÁGINA 8 ---
+PROCESAMIENTO DE
+ARCHIVOS
+Volver al Programa
+Este módulo sirve  para la carga de archivos y se reparte
+en los siguientes procesos:
+1. Pre-distribución de Cupones - Telekino.
+2. Ventas de Telekino .
+3. Premiados por Agencia - Telekino.
+4. Cupones Distribuidos - Telekino.
+5. Premios Tarasca.
+6. Cupones Ganadores - Telekino.
+--- PÁGINA 9 ---
+Pre-distribución de
+Cupones - Telekino
+Permite la carga de pre -distribución
+de cupones. Se muestra organizada
+por:
+• Número de sorteo .
+• Fecha de proceso.
+• Cantidad de cupones .
+• Cantidad de registros .
+• Estado.
+Además, incluye funciones para
+visualizar, confirmar o eliminar cada
+distribución.
+1
+Procesamiento de Archivos
+--- PÁGINA 10 ---
+Ventas de
+Telekino
+Diseñado para la descarga de
+archivos correspondientes a las ventas de
+Telekino por sorteo.
+2
+Premiados por
+Agencia - Telekino3
+Permite la carga de archivos con el detalle de los cupones
+premiados por agencia.
+Procesamiento de Archivos
+--- PÁGINA 11 ---
+Cupones Distribuidos -
+Telekino
+Facilita la carga de archivos con la cantidad de cupones distribuidos y devueltos por cada agencia.
+4
+Procesamiento de Archivos
+--- PÁGINA 12 ---
+Premios
+Tarasca
+Habilita la carga de archivos con el detalle de premios de productos instantaneos, visualizando información como
+estado, archivo, serie y fecha de proceso. También incluye funciones para eliminar registros
+5
+Procesamiento de Archivos
+--- PÁGINA 13 ---
+Cupones Ganadores -
+Telekino
+Permite la carga de cupones ganadores con sus respectivos datos y muestra un historial de cargas realizadas (archivo,
+número de sorteo, fecha de proceso).
+6
+Procesamiento de Archivos
+--- PÁGINA 14 ---
+STOCK DE
+CUPONES
+Este modulo de control de
+stock, es donde vemos el stock general de todos los
+productos por columnas:
+• Estado.
+• Juego.
+• Producto.
+• Fecha de sorteo.
+• Precio.
+• Stock.
+Dentro de cada linea se puede consultar la procedencia
+de este stock y también se puede filtrar por estado:
+Todos, Activo y Comprometido.
+--- PÁGINA 15 ---
+PAGO DE CUPONES
+Este módulo funciona para el registro de pagos , el mismo
+presenta un historial de registros con sus respectivos datos.
+La información se encuentra organizada en columnas como:
+• Juego.
+• Agencia.
+• Cupón.
+• Fecha.
+• Producto.
+Además, incorpora opciones de filtro por número de cupón,
+rango de fechas (desde/hasta), juego y agencia, lo que
+facilita la búsqueda y el seguimiento de operaciones
+específicas.
+Los pagos registrados en este modulo dependen de los
+archivos de premios previamente cargados , permitiendo
+así un control y consulta eficaz de los cupones premiados.
+--- PÁGINA 16 ---
+REPORTES
+Volver al Programa
+Este módulo  permite la generación y consulta de distintos reportes relevantes para el control de la
+operación. Está dividido en las siguientes secciones:
+•  Consulta de Comprobantes: Permite consultar comprobantes filtrando por tipo de juego, agencia
+(desde/hasta) y tipo de fecha. La información puede ser exportada.
+•  Consulta de Premios Pagados: Facilita la consulta de premios pagados. Se pueden aplicar filtros
+por tipo de juego, tipo de agencia y rango de fechas, con opción de exportación.
+•  Consulta de Stock: Permite consultar el stock disponible, aplicando filtros por tipo de juego y fecha.
+También permite exportar la información.
+•  Matriz de Control de Entregas y Devoluciones: Genera un reporte detallado de los movimientos de
+stock entre un rango de fechas específico.
+Este módulo brinda herramientas útiles para el análisis y control de datos operativos, asegurando
+trazabilidad y claridad en la gestión.
+--- PÁGINA 17 ---
+JUEGOS
+Este módulo funciona como ABM de juegos, donde se
+pueden visualizar todos los juegos creados
+con sus respectivos datos :
+• Logo.
+• Nombre.
+• Modalidad.
+• Estado.
+• Fecha de alta.
+• Fecha de modificación .
+• Opción de edición .
+Además, permite agregar nuevos juegos, completando
+información como el nombre, la modalidad, seleccionar su
+estado (activo o inactivo) y subir un logo correspondiente.
+Este módulo facilita la gestión centralizada de los distintos
+juegos que forman parte del sistema.
+--- PÁGINA 18 ---
+PROVEEDORES
+Es un módulo que funciona como ABM para la
+gestión de proveedores. En su vista principal,
+muestra una grilla con los datos esenciales de
+cada proveedor:
+• CUIT.
+• Razón Social.
+• Teléfono.
+• Estado.
+Además, permite la carga de nuevos proveedores
+incorporando sus datos personales, y la
+posibilidad de asociarlos a uno o más juegos
+dentro del sistema.
+--- PÁGINA 19 ---
+MANUAL DE
+USUARIO
+Ver 1.2

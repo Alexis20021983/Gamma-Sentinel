@@ -1,0 +1,139 @@
+--- PÁGINA 1 ---
+MANUAL DE
+USUARIO
+Ver 1.2
+--- PÁGINA 2 ---
+I N D I C E
+• Introducción                   3
+• Ingreso al Sistema        4
+• Funcionalidades            5
+• Punto de Venta              6
+• Cuenta Corriente           7
+• Premios                            8
+• Control de Caja             9
+• On Line                             10
+• Medios Digitales            11
+• Ranking                            12
+--- PÁGINA 3 ---
+Introducción
+LoteMóvil Panel  es un sistema que permite que el agenciero pueda
+controlar y verificar el estado de la agencia y sus subagencias.
+Diseñado para facilitar y optimizar la gestión diaria, reúne distintos
+módulos que permiten consultar información clave como la cuenta
+corriente, el detalle de premios, movimientos de caja, operaciones
+en línea, cobros a través de medios digitales y rankings de
+desempeño. De esta forma, LoteMóvil centraliza toda la información
+operativa en un entorno ágil, claro y accesible, brindando a cada
+agenciero un control más preciso de su actividad comercial.
+--- PÁGINA 4 ---
+Pantalla de
+INGRESO
+• Ingresar usuario
+• Ingresar contraseña
+• Dar clic en el botón ingresar
+--- PÁGINA 5 ---
+FUNCIONALIDADES
+• Punt o de Venta
+• Cuenta Corriente
+• Premios
+• Control de Caja
+• On Line
+• Medios Digitales
+• Ranking
+--- PÁGINA 6 ---
+Punto de Venta
+En esta sección se listan todos los
+puntos de venta asignados, ya sea
+por concentradora o por
+Subagencia. Además, se visualiza
+la recaudación total y el monto de
+premios pagados correspondiente
+a cada uno.
+--- PÁGINA 7 ---
+CUENTA CORRIENTE
+Este módulo muestra por defecto la
+información correspondiente a la última
+liquidación, incluyendo el resumen, la fecha
+de liquidación, la fecha de vencimiento, los
+totales (débito y crédito) y el saldo. Además,
+presenta un detalle discriminado por
+imputaciones y brinda la posibilidad de
+descargar la información en formato PDF.
+Cuenta con filtros por fecha, imputación y
+concepto, y permite seleccionar los datos
+por punto de venta (PDV) para facilitar la
+consulta específica.
+--- PÁGINA 8 ---
+PREMIOS
+Este módulo, al igual que el anterior, permite filtrar
+y visualizar el detalle por punto de venta  (PDV).
+Está compuesto por cinco pestañas: Resumen,
+Pagados, Pagados de/por otra agencia y Caducos.
+Cada juego muestra la cantidad de cupones
+asociados a cada PDV, permitiendo desplegar el
+detalle de cada uno. En este detalle se visualiza el
+estado de los cupones (por ejemplo, pagado o
+disponible), junto con datos específicos como:
+máquina, número de cupón, sorteos, caducidad en
+el PDV y monto del premio. Además, se incluyen dos
+funciones clave: "Más información" y "Detalle de la
+jugada", que permiten ampliar la información sobre
+cada cupón y su contexto.
+--- PÁGINA 9 ---
+CONTROL DE CAJA
+Este módul o permite visualizar en tiempo
+real la información relacionada con el
+registro y pago de cupones . La información
+se organiza por punto de venta (PDV),
+máquina, juego, concepto, cantidad e
+importe.
+Cuenta con opciones para imprimir o
+descargar los datos en formato Excel o PDF,
+facilitando el análisis o respaldo de la
+información.
+Además, incluye filtros por fecha y PDV, lo
+que permite una búsqueda más específica
+y detallada.
+--- PÁGINA 10 ---
+ON-LINE
+Este módulo permite visualizar los
+movimient os de recaudación realizados a
+través de dispositivos móviles ,
+organizados por punto de venta (PDV) .
+La información se presenta en una lista
+categorizada con los siguientes campos:
+• Sub Agencia
+• Cliente
+• Fecha
+• Imputación
+• Descripción del Cargo
+• Cantidad de Cupones
+• Total
+Este registro facilita el seguimiento y
+control de la recaudación móvil de forma
+precisa y detallada.
+--- PÁGINA 11 ---
+MEDIOS DIGITALES
+Este módul o permite visualizar los pagos realizados a través de medios digitales, como Modo, Mercado
+Pago, entre otros . La información se presenta organizada en distintas categorías: fecha, cobros,
+devoluciones, neto y punto de venta (PDV), lo que permite obtener un desglose claro de las operaciones
+registradas. Además, cuenta con filtros por fecha y por PDV para facilitar la búsqueda y el análisis de los
+movimientos.
+--- PÁGINA 12 ---
+Ranking
+Este módulo permite visualizar
+un ranking comparativo entre
+los puntos de venta (PDV)
+según distintos porcentajes:
+cupones emitidos, apuestas
+realizadas, recaudación y
+premios obtenidos. Además,
+ofrece la posibilidad de aplicar
+filtros por fecha y por juego, lo
+que facilita el análisis de
+rendimiento en períodos o
+juegos específicos
+--- PÁGINA 13 ---
+MANUAL DE
+USUARIO
+Ver 1.2
