@@ -1,0 +1,10 @@
+mcs.metadata:
+  componentName: Reset Conversation (es-ES)
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnSystemRedirect
+  id: main
+  actions:
+    - kind: SendActivity
+      id: sendMessage_OPsT1O
+      activity: What can I help you with?

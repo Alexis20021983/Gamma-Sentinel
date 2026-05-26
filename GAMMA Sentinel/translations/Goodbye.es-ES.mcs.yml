@@ -1,0 +1,29 @@
+mcs.metadata:
+  componentName: Goodbye (es-ES)
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Goodbye
+    triggerQueries:
+      - Bye
+      - Bye for now
+      - Bye now
+      - Good bye
+      - No thank you. Goodbye.
+      - See you later
+
+  actions:
+    - kind: Question
+      id: question_zf2HhP
+      prompt: Would you like to end our conversation?
+
+    - kind: ConditionGroup
+      id: condition_DGc1Wy
+      conditions:
+        - id: condition_DGc1Wy-item-1
+          actions:
+            - kind: SendActivity
+              id: sendMessage_LdLhmf
+              activity: Go ahead. I'm listening.

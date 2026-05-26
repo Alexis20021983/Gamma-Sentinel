@@ -1,0 +1,49 @@
+mcs.metadata:
+  componentName: End of Conversation (es-ES)
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnSystemRedirect
+  id: main
+  actions:
+    - kind: Question
+      id: 41d42054-d4cb-4e90-b922-2b16b37fe379
+      prompt: Did that answer your question?
+
+    - kind: ConditionGroup
+      id: condition-0
+      conditions:
+        - id: condition-0-item-0
+          actions:
+            - kind: SendActivity
+              id: sendMessage_8r29O0
+              activity: Thanks for your feedback.
+
+            - kind: Question
+              id: question_1
+              prompt: Can I help with anything else?
+
+            - kind: ConditionGroup
+              id: condition-1
+              conditions:
+                - id: condition-1-item-0
+                  actions:
+                    - kind: SendActivity
+                      id: sendMessage_4eOE6h
+                      activity: Go ahead. I'm listening.
+
+              elseActions:
+                - kind: SendActivity
+                  id: yHBz55
+                  activity: Ok, goodbye.
+
+      elseActions:
+        - kind: Question
+          id: PM68ot
+          prompt: Sorry I wasn't able to help better. Would you like to try again?
+
+        - kind: ConditionGroup
+          id: KNxYBf
+          elseActions:
+            - kind: SendActivity
+              id: GrVHEW
+              activity: Go ahead. I'm listening.

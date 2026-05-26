@@ -1,0 +1,23 @@
+mcs.metadata:
+  componentName: Greeting (es-ES)
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Greeting
+    triggerQueries:
+      - Good afternoon
+      - Good morning
+      - Hello
+      - Hey
+      - Hi
+
+  actions:
+    - kind: SendActivity
+      id: sendMessage_abmysR
+      activity:
+        text:
+          - Hello, how can I help you today?
+        speak:
+          - Hello, <break strength="medium" /> how can I help?

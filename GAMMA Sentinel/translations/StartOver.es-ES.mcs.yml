@@ -1,0 +1,25 @@
+mcs.metadata:
+  componentName: Start Over (es-ES)
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Start Over
+    triggerQueries:
+      - let's begin again
+      - start over
+      - start again
+      - restart
+
+  actions:
+    - kind: Question
+      id: question_zguoVV
+      prompt: Are you sure you want to restart the conversation?
+
+    - kind: ConditionGroup
+      id: conditionGroup_lvx2zV
+      elseActions:
+        - kind: SendActivity
+          id: sendMessage_lk2CyQ
+          activity: Ok. Let's carry on.

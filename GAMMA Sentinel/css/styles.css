@@ -1,0 +1,256 @@
+:root {
+  --bg: #0d1b2a;
+  --bg-soft: #111f33;
+  --panel: #f8fbff;
+  --panel-strong: #e9f1fb;
+  --border: #cbd8e8;
+  --text: #10233b;
+  --text-soft: #516174;
+  --accent: #1f6feb;
+  --accent-dark: #0f4fb8;
+  --shadow: 0 18px 45px rgba(15, 39, 71, 0.12);
+  --radius: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, #f3f7fc 0%, #eef2f7 100%);
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+}
+
+.hero {
+  background: linear-gradient(135deg, #0f1f33 0%, #163a66 45%, #365f8d 100%);
+  color: #fff;
+  padding: 1rem 5vw 4.5rem;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.brand {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.topbar-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.topbar-links a {
+  color: #eef4ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.hero-content {
+  max-width: 1120px;
+  margin: 3.5rem auto 0;
+}
+
+.eyebrow,
+.section-tag {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #b8d1ff;
+  margin-bottom: 0.75rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 4vw, 2.8rem);
+  margin: 0;
+}
+
+.subtitle {
+  max-width: 720px;
+  font-size: 1.08rem;
+  color: #dfeaff;
+  margin: 1rem 0 2rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.9rem 1.4rem;
+  font-weight: 800;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: #fff;
+  color: var(--bg);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+main {
+  padding: 0 5vw 4rem;
+}
+
+.section {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 3.5rem 0;
+}
+
+.intro-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.section-header {
+  margin-bottom: 1.5rem;
+}
+
+.section h2 {
+  margin: 0;
+  font-size: clamp(1.7rem, 2.3vw, 2.1rem);
+}
+
+.section-copy p,
+.feature-card p,
+.module-card p,
+.step-card p {
+  color: var(--text-soft);
+}
+
+.info-card,
+.feature-card,
+.module-card,
+.step-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.info-card {
+  padding: 1.5rem;
+}
+
+.info-card ul {
+  padding-left: 1.2rem;
+  color: var(--text-soft);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.feature-card,
+.module-card,
+.step-card {
+  padding: 1.3rem;
+}
+
+.feature-card h3,
+.module-card h3,
+.step-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.workflow-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.step-card span {
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--panel-strong);
+  color: var(--accent-dark);
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+}
+
+.site-footer {
+  background: var(--bg-soft);
+  color: #eef4ff;
+  text-align: center;
+  padding: 1.8rem 1rem;
+}
+
+.site-footer p {
+  margin: 0.35rem 0;
+}
+
+@media (max-width: 900px) {
+  .intro-section,
+  .card-grid,
+  .workflow-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .topbar,
+  .intro-section,
+  .card-grid,
+  .workflow-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    display: grid;
+    justify-items: start;
+  }
+
+  .hero {
+    padding-bottom: 3.2rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+}
