@@ -30,12 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return queryBackendUrl;
     }
 
-    if (window.__GAMMA_BACKEND_URL__) {
-      return window.__GAMMA_BACKEND_URL__;
-    }
-
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
       return 'http://localhost:3000';
+    }
+
+    if (window.__GAMMA_BACKEND_URL__) {
+      return window.__GAMMA_BACKEND_URL__;
     }
 
     return '';
