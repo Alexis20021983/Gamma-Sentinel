@@ -78,6 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let repoKnowledgeLoading = null;
 
+  const stopWords = new Set([
+    'de', 'la', 'que', 'el', 'en', 'y', 'a', 'los', 'del', 'se', 'las', 'por', 'un', 'para', 'con', 'no', 'una', 'su', 'al', 'lo', 'como', 'más', 'pero', 'sus', 'este', 'o', 'este', 'ese', 'eso', 'aquello', 'estos', 'estas', 'es', 'son', 'un', 'una', 'unos', 'unas', 'mi', 'mis', 'tu', 'tus', 'yo', 'me', 'te', 'le', 'nos', 'os', 'les', 'qué', 'como', 'donde', 'cuando', 'quien', 'quienes', 'cual', 'cuales', 'un', 'una', 'este', 'esta', 'estos', 'estas', 'del', 'al', 'lo', 'los', 'las', 'sus'
+  ]);
+
   const cleanText = (value) =>
     value
       .replace(/\r/g, '')
@@ -105,7 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
     repoKnowledgeLoading = (async () => {
       const results = await Promise.allSettled(
         knowledgeSources.map(async (path) => {
-          const url = `https://raw.githubusercontent.com/${repoConfig.owner}/${repoConfig.repo}/${repoConfig.branch}/${path}`;
+          let url = `./${path}`;
+          if (window.location.protocol === 'file:') {
+            url = `https://raw.githubusercontent.com/${repoConfig.owner}/${repoConfig.repo}/${repoConfig.branch}/${path}`;
+          }
+
           const response = await fetch(url);
           if (!response.ok) {
             throw new Error(`No se pudo leer ${path}`);
@@ -119,8 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const sections = clean
             .split(/\n\s*\n+/)
             .map((section) => section.trim())
-            .filter(Boolean)
-            .slice(0, 6);
+            .filter(Boolean);
 
           return {
             path,
@@ -157,13 +164,19 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const normalizedQuestion = normalizeText(question);
+      const terms = normalizedQuestion
+        .split(' ')
+        .filter(Boolean)
+        .filter((term) => term.length > 1 && !stopWords.has(term));
+
+      if (terms.length === 0) {
+        return 'Te puedo ayudar con temas específicos de GAMMA (Tesorería, Liquidación, Caja, Contabilidad, PDV o el Backlog). Escríbeme tu duda detalladamente.';
+      }
+
       const scored = loadedKnowledge
         .map((entry) => {
           const normalizedText = normalizeText(entry.text);
-          const matches = normalizedQuestion
-            .split(' ')
-            .filter(Boolean)
-            .filter((term) => normalizedText.includes(term)).length;
+          const matches = terms.filter((term) => normalizedText.includes(term)).length;
 
           return {
             entry,
@@ -209,28 +222,45 @@ document.addEventListener('DOMContentLoaded', () => {
       const loadedKnowledge = await loadRepoKnowledge().catch(() => []);
 
       if (loadedKnowledge && loadedKnowledge.length > 0) {
+        let baseContext = '';
+        const generalFiles = loadedKnowledge.filter(e => e.path === 'agent.mcs.yml' || e.path === 'README.md');
+        if (generalFiles.length > 0) {
+          baseContext = generalFiles.slice(0, 3).map(e => `[Archivo: ${e.path}]\n${e.text}`).join('\n\n');
+        }
+
         const normalizedQuestion = normalizeText(question);
-        const scored = loadedKnowledge
-          .map((entry) => {
-            const normalizedText = normalizeText(entry.text);
-            const matches = normalizedQuestion
-              .split(' ')
-              .filter(Boolean)
-              .filter((term) => normalizedText.includes(term)).length;
+        const terms = normalizedQuestion
+          .split(' ')
+          .filter(Boolean)
+          .filter((term) => term.length > 1 && !stopWords.has(term));
 
-            return {
-              entry,
-              matches
-            };
-          })
-          .filter((item) => item.matches > 0)
-          .sort((a, b) => b.matches - a.matches);
+        let matchedContext = '';
+        if (terms.length > 0) {
+          const scored = loadedKnowledge
+            .map((entry) => {
+              const normalizedText = normalizeText(entry.text);
+              const matches = terms.filter((term) => normalizedText.includes(term)).length;
 
-        if (scored.length > 0) {
-          context = scored
-            .slice(0, 4)
-            .map((item) => `[Archivo: ${item.entry.path}]\n${item.entry.text}`)
-            .join('\n\n');
+              return {
+                entry,
+                matches
+              };
+            })
+            .filter((item) => item.matches > 0)
+            .sort((a, b) => b.matches - a.matches);
+
+          if (scored.length > 0) {
+            matchedContext = scored
+              .slice(0, 4)
+              .map((item) => `[Archivo: ${item.entry.path}]\n${item.entry.text}`)
+              .join('\n\n');
+          }
+        }
+
+        if (matchedContext) {
+          context = `CONTEXTO GENERAL DEL AGENTE:\n${baseContext}\n\nCONTEXTO ESPECÍFICO DE LA CONSULTA:\n${matchedContext}`;
+        } else {
+          context = `CONTEXTO GENERAL DEL AGENTE:\n${baseContext}`;
         }
       }
 
