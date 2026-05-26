@@ -1,0 +1,14 @@
+mcs.metadata:
+  componentName: Multiple Topics Matched (es-ES)
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnSelectIntent
+  id: main
+  actions:
+    - kind: SetTextVariable
+      id: setTextVariable_0
+      value: None of these
+
+    - kind: Question
+      id: question_zf2HhP
+      prompt: "To clarify, did you mean:"
