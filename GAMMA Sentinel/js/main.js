@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'knowledge/files/BacklogGammaMantenimiento.txt',
     'knowledge/files/GAMMA-ManualdeUsuariov1.0.txt',
     'knowledge/files/LoteMovil-ManualdeUsuariov1.2.txt',
+    'knowledge/files/LoteMovil-ManualdeAdministradorv1.2.txt',
     'knowledge/files/Manual_RT_GAMMA_Integrado.txt',
     'knowledge/files/NOA-ManualdeUsuariov1.2.txt'
   ];
