@@ -80,8 +80,17 @@ document.addEventListener('DOMContentLoaded', () => {
   let repoKnowledgeLoading = null;
 
   const stopWords = new Set([
-    'de', 'la', 'que', 'el', 'en', 'y', 'a', 'los', 'del', 'se', 'las', 'por', 'un', 'para', 'con', 'no', 'una', 'su', 'al', 'lo', 'como', 'más', 'pero', 'sus', 'este', 'o', 'este', 'ese', 'eso', 'aquello', 'estos', 'estas', 'es', 'son', 'un', 'una', 'unos', 'unas', 'mi', 'mis', 'tu', 'tus', 'yo', 'me', 'te', 'le', 'nos', 'os', 'les', 'qué', 'como', 'donde', 'cuando', 'quien', 'quienes', 'cual', 'cuales', 'un', 'una', 'este', 'esta', 'estos', 'estas', 'del', 'al', 'lo', 'los', 'las', 'sus'
+    'de', 'la', 'que', 'el', 'en', 'y', 'a', 'los', 'del', 'se', 'las', 'por', 'un', 'para', 'con', 'no', 'una', 'su', 'al', 'lo', 'como', 'más', 'pero', 'sus', 'este', 'o', 'ese', 'eso', 'aquello', 'estos', 'estas', 'es', 'son', 'unos', 'unas', 'mi', 'mis', 'tu', 'tus', 'yo', 'me', 'te', 'le', 'nos', 'os', 'les', 'qué', 'dónde', 'donde', 'cómo', 'como', 'cuándo', 'cuando', 'quién', 'quiénes', 'quien', 'quienes', 'cuál', 'cuáles', 'cual', 'cuales', 'hace', 'hacer', 'explicame', 'ayudame', 'dame', 'mostrame', 'genera', 'generá', 'pasame', 'saber', 'sobre'
   ]);
+
+  const removeAccents = (str) => {
+    return str
+      .replace(/[áàäâ]/g, 'a')
+      .replace(/[éèëê]/g, 'e')
+      .replace(/[íìïî]/g, 'i')
+      .replace(/[óòöô]/g, 'o')
+      .replace(/[úùüû]/g, 'u');
+  };
 
   const cleanText = (value) =>
     value
@@ -91,11 +100,13 @@ document.addEventListener('DOMContentLoaded', () => {
       .trim();
 
   const normalizeText = (value) =>
-    cleanText(value)
-      .toLowerCase()
-      .replace(/[^a-z0-9áéíóúüñ\s]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
+    removeAccents(
+      cleanText(value)
+        .toLowerCase()
+        .replace(/[^a-z0-9áéíóúüñ\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+    );
 
   const summarizeText = (value) => {
     const compact = cleanText(value).replace(/\n+/g, ' ');
@@ -126,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
 
           const sections = clean
-            .split(/\n\s*\n+/)
+            .split(/\n\s*\n+|(?=--- PÁGINA \d+ ---)|(?==== HOJA:)/i)
             .map((section) => section.trim())
             .filter(Boolean);
 
@@ -175,6 +186,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const scored = loadedKnowledge
+        .filter((entry) => {
+          const pathLower = entry.path.toLowerCase();
+          return !pathLower.endsWith('.yml') && !pathLower.endsWith('.yaml') && !pathLower.includes('readme.md');
+        })
         .map((entry) => {
           const normalizedText = normalizeText(entry.text);
           const matches = terms.filter((term) => normalizedText.includes(term)).length;
@@ -185,7 +200,16 @@ document.addEventListener('DOMContentLoaded', () => {
           };
         })
         .filter((item) => item.matches > 0)
-        .sort((a, b) => b.matches - a.matches);
+        .sort((a, b) => {
+          if (b.matches !== a.matches) {
+            return b.matches - a.matches;
+          }
+          const aIsManual = a.entry.path.toLowerCase().includes('manual') || a.entry.path.toLowerCase().includes('base_conocimiento');
+          const bIsManual = b.entry.path.toLowerCase().includes('manual') || b.entry.path.toLowerCase().includes('base_conocimiento');
+          if (aIsManual && !bIsManual) return -1;
+          if (!aIsManual && bIsManual) return 1;
+          return 0;
+        });
 
       if (scored.length === 0) {
         return 'No encontré una coincidencia directa en el repositorio. Te puedo ayudar con temas como módulos, diagnóstico, backlog o información del proyecto si me escribís algo más específico.';
@@ -238,6 +262,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let matchedContext = '';
         if (terms.length > 0) {
           const scored = loadedKnowledge
+            .filter((entry) => {
+              const pathLower = entry.path.toLowerCase();
+              return !pathLower.endsWith('.yml') && !pathLower.endsWith('.yaml') && !pathLower.includes('readme.md');
+            })
             .map((entry) => {
               const normalizedText = normalizeText(entry.text);
               const matches = terms.filter((term) => normalizedText.includes(term)).length;
@@ -248,7 +276,16 @@ document.addEventListener('DOMContentLoaded', () => {
               };
             })
             .filter((item) => item.matches > 0)
-            .sort((a, b) => b.matches - a.matches);
+            .sort((a, b) => {
+              if (b.matches !== a.matches) {
+                return b.matches - a.matches;
+              }
+              const aIsManual = a.entry.path.toLowerCase().includes('manual') || a.entry.path.toLowerCase().includes('base_conocimiento');
+              const bIsManual = b.entry.path.toLowerCase().includes('manual') || b.entry.path.toLowerCase().includes('base_conocimiento');
+              if (aIsManual && !bIsManual) return -1;
+              if (!aIsManual && bIsManual) return 1;
+              return 0;
+            });
 
           if (scored.length > 0) {
             matchedContext = scored
