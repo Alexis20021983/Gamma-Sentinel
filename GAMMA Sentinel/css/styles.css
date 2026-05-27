@@ -53,6 +53,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   gap: 1rem;
 
   max-width: 1120px;
@@ -189,7 +190,7 @@ main {
 .feature-card,
 .module-card,
 .step-card {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.96);
 
   border: 1px solid var(--border);
 
@@ -274,6 +275,8 @@ main {
   box-shadow: var(--shadow);
 
   padding: 1.25rem;
+
+  overflow: hidden;
 }
 
 .chat-header {
@@ -318,18 +321,27 @@ main {
 .chat-messages {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
 
-  margin-bottom: 1rem;
+  gap: 1rem;
 
-  height: 70vh;
+  height: 500px;
 
-  overflow-y: auto;
+  overflow-y: scroll;
 
-  padding-right: 6px;
+  overflow-x: hidden;
+
+  padding: 10px;
+
+  border-radius: 18px;
+
+  background: #f8fbff;
 
   scroll-behavior: smooth;
 }
+
+/* ======================================================
+   SCROLLBAR
+====================================================== */
 
 .chat-messages::-webkit-scrollbar {
   width: 8px;
@@ -349,17 +361,21 @@ main {
 ====================================================== */
 
 .message {
+  padding: 1rem;
+
   border-radius: 18px;
 
-  padding: 0.95rem 1rem;
+  width: fit-content;
 
-  max-width: 85%;
+  max-width: 100%;
 
   line-height: 1.6;
 
   white-space: pre-wrap;
 
   word-break: break-word;
+
+  overflow-wrap: break-word;
 
   animation: fadeIn 0.2s ease;
 }
@@ -435,6 +451,8 @@ main {
   display: flex;
   gap: 0.75rem;
   align-items: center;
+
+  margin-top: 1rem;
 }
 
 .chat-form input {
