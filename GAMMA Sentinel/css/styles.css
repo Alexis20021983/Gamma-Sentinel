@@ -364,12 +364,13 @@ main {
   padding: 14px 16px;
   border-radius: 16px;
 
-  max-width: 80%;
+  max-width: 100%; /* 🔥 clave */
 
   line-height: 1.6;
 
   white-space: pre-wrap;
   word-break: break-word;
+  overflow-wrap: anywhere; /* 🔥 CRÍTICO */
 
   animation: fadeIn 0.25s ease;
 }
