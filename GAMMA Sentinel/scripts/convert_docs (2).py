@@ -85,7 +85,7 @@ def extract_xlsx(file_path):
         sheet = wb[sheet_name]
         text_content.append(f"=== HOJA: {sheet_name} ===")
         for row in sheet.iter_rows(values_only=True):
-            row_data = [str(cell).strip() for cell in row if cell is not None]
+            row_data = [str(cell).replace('\r', ' ').replace('\n', ' ').strip() for cell in row if cell is not None]
             if row_data:
                 text_content.append(" | ".join(row_data))
     return "\n\n".join(text_content)

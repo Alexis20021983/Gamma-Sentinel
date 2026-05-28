@@ -60,20 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
     'README.md',
     'agent.mcs.yml',
     'settings.mcs.yml',
-    'knowledge/files/Archivo_SharePoint_GAMMA.mcs.yml',
-    'knowledge/files/BacklogGammaMantenimiento.jmg.xlsx_Xl0.mcs.yml',
-    'knowledge/files/Base_Conocimiento_GAMMA.txt_EFg.mcs.yml',
-    'knowledge/files/GAMMA-ManualdeUsuariov1.0.pdf_Etf.mcs.yml',
-    'knowledge/files/LoteMovil-ManualdeUsuariov1.2.pdf_6JE.mcs.yml',
-    'knowledge/files/Manual_RT_GAMMA_Integrado.docx_IgK.mcs.yml',
-    'knowledge/files/NOA-ManualdeUsuariov1.2.pdf_gaK.mcs.yml',
-    'knowledge/files/Base_Conocimiento_GAMMA.txt',
-    'knowledge/files/Archivo_SharePoint_GAMMA.txt',
     'knowledge/files/BacklogGammaMantenimiento.txt',
     'knowledge/files/GAMMA-ManualdeUsuariov1.0.txt',
     'knowledge/files/LoteMovil-ManualdeUsuariov1.2.txt',
     'knowledge/files/LoteMovil-ManualdeAdministradorv1.2.txt',
-    'knowledge/files/Manual_RT_GAMMA_Integrado.txt',
     'knowledge/files/NOA-ManualdeUsuariov1.2.txt'
   ];
 
@@ -136,10 +126,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return null;
           }
 
-          const sections = clean
-            .split(/\n\s*\n+|(?=--- PÁGINA \d+ ---)|(?==== HOJA:)/i)
-            .map((section) => section.trim())
-            .filter(Boolean);
+          let sections;
+          if (path.toLowerCase().includes('backlog')) {
+            sections = clean
+              .split(/\r?\n/)
+              .map((line) => line.trim())
+              .filter((line) => line && !line.startsWith('=== HOJA:'));
+          } else {
+            sections = clean
+              .split(/\n\s*\n+|(?=--- PÁGINA \d+ ---)|(?==== HOJA:)/i)
+              .map((section) => section.trim())
+              .filter(Boolean);
+          }
 
           return {
             path,
@@ -216,7 +214,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const best = scored[0].entry;
-      return `Basado en ${best.path}: ${summarizeText(best.text)}`;
+      let replyText = cleanText(best.text);
+      replyText = replyText.replace(/^--- PÁGINA \d+ ---\s*/i, '');
+      replyText = replyText.replace(/^=== HOJA:.*===\s*/i, '');
+      return replyText;
     } catch (error) {
       console.error(error);
       return 'No pude consultar el repositorio en este momento. Si querés, te doy una respuesta general del sitio mientras verifico el acceso.';
