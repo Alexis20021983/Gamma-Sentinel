@@ -760,7 +760,7 @@ VALOR DE CARTONES SEMANAL: $50.000
 VALOR DE QUINIELA SEMANAL: $1.800.000
 Cualquier consulta lo vemos, saludos!
 === HOJA: Hoja1 ===
-Suma de Desarrollo | Estado
+Suma de Estimación Desarrollo | Estado
 Evaluación real del caso | A estimar | A planificar | A priorizar | Para implementar | Validar estado | En desarrollo | Planificado | QA | Total general
 Consulta | 0 | 0
 Mantenimiento correctivo | 287 | 476 | 32 | 304 | 0 | 1099
@@ -894,8 +894,8 @@ GAMMA no acepta este tipo de archivos y no aplica calculos desde d&b. | Santiago
 16609 | Mantenimiento evolutivo | Alta | 2026-04-30 00:00:00 | Republicacion de deuda | Al momento de aplicarse el nuevo sistema bancario (2026) la Loteria iniciara a realizar la republicacion de deuda.
 Hoy en dia en SIGA se encuentra esta opcion disponible generandose un nuevo archivos con dos opciones de habilitarlo:
 1) Dia de emision de cta.cte: genera archivo con todas las agencias que no cancelaron el resumen colocandole nueva fecha de vencimiento.
-2) Por agencia: Permite seleccionar los resumenes pendientes que se deciden abonar, genera un archivo con la informacion preseleccionada y se le coloca la nueva fecha de vencimiento. | Santiago del Estero | Gamma | Mantenimiento | 6 | A planificar | Autorizado por la direccción | SDE - GAMMA - Republicación de deuda - 1.0.docx | 160 | Por hacer | Sin fecha comprometida | #REF!
-GAMMA - 000739 16403 | Mantenimiento evolutivo | Alta | 2026-04-24 00:00:00 | ID717 - Ampliar funcional de roles y perfiles | En GAMMA actualmente se puede realizar BP desde el modulo "Loteria" y desde el modulo de "Caja" por cualquier usuario con un rol que permita el ingreso a esos modulos. La Loteria solicita que la accion del BP no pueda ser realizada por cualquier usuario, sino por alguien autorizado (rol personalizado) | Santiago del Estero | Gamma | Mantenimiento | 3 | A planificar | Autorizado por la direccción | ID717 - Gamma - Cambios en los roles actuales - 2.0.docx | 400 | Por hacer | Sin fecha comprometida | #REF!
+2) Por agencia: Permite seleccionar los resumenes pendientes que se deciden abonar, genera un archivo con la informacion preseleccionada y se le coloca la nueva fecha de vencimiento. | Santiago del Estero | Gamma | Mantenimiento | 6 | En desarrollo | Autorizado por la direccción | Ale | SDE - GAMMA - Republicación de deuda - 1.0.docx | 160 | En curso | Sin fecha comprometida | #REF!
+GAMMA - 000739 16403 | Mantenimiento evolutivo | Alta | 2026-04-24 00:00:00 | ID717 - Ampliar funcional de roles y perfiles | En GAMMA actualmente se puede realizar BP desde el modulo "Loteria" y desde el modulo de "Caja" por cualquier usuario con un rol que permita el ingreso a esos modulos. La Loteria solicita que la accion del BP no pueda ser realizada por cualquier usuario, sino por alguien autorizado (rol personalizado) | Santiago del Estero | Gamma | Mantenimiento | 3 | En desarrollo | Autorizado por la direccción | Paolo | ID717 - Gamma - Cambios en los roles actuales - 2.0.docx | 400 | En curso | Sin fecha comprometida | #REF!
 GAMMA - 000738
 16404 | Mantenimiento evolutivo | Alta | 2026-04-24 00:00:00 | Resumen para pago en banco con código de barras | hoy en dia SIGA genera un reporte/listado con los resumenes bancarios a pagar colocandole un talon de pago con codigo de barra, GAMMA genera el reporte SIN el talon de pago. | Santiago del Estero | Gamma | Mantenimiento | 8 | En desarrollo | 2026-05-05 00:00:00 | Autorizado por la direccción | Alejandro Falta pruebas unitarias | SDE - Gamma - Código de barras para el resumen de agentes - 1.1.pdf | 32 | 8 | En curso | Sin fecha comprometida | #REF!
 16453 | Mantenimiento evolutivo | Alta | 2026-04-24 00:00:00 | Adaptar GAMMA para poder liquidar día abierto | GAMMA no está permitiendo liquidar con la config a día abierto >>> DC Probar lunes 15 x la noche (2340hs / 00.05hs) >> Martes evaluar resultados | Santiago del Estero | Gamma | Mantenimiento | 9 | En desarrollo | 2026-05-08 00:00:00 | Autorizado por la direccción | Desarrollado - Tejerina | SDE - GAMMA - Adaptar GAMMA para poder liquidar día abierto - v1.2.pdf | 400 | En curso | Sin fecha comprometida | #REF!
@@ -934,7 +934,7 @@ MAN-698 16245 | Mantenimiento correctivo | 2026-04-20 00:00:00 | Gamma - Error e
 Previamente, la Lotería debe crear el código contable correspondiente. No imputan movimientos en la cuenta corriente generando diferencias | Todas las provincias | Gamma | SAC | A priorizar | HB: 12/02 Similar a 00008136 | mismo req que el man8121 | 60 | Por hacer | Sin fecha comprometida | #REF!
 00008138 | Mantenimiento evolutivo | 15/9/2025 | Gamma-T.L.P- Actualizacion de PDV | No permite modificar datos como por ej localidad | Todas las provincias | Gamma | SAC | Validar estado | Esto está en producción. Debe validar SAC. | Implementación | Sin fecha comprometida | #REF!
 Mantenimiento preventivo | 2025-07-11 00:00:00 | Plan controlado de despliegues integrales - integrar devops | Acordar con DevOps como se organizan despliegues. | Todas las provincias | Gamma | SAC | A priorizar | Leo armó un docuemento que debe consensuarse con Infra | 8 | Por hacer | Sin fecha comprometida | #REF! | Validar si está solucionado
-690 | Mantenimiento preventivo | 2025-07-15 00:00:00 | Revisión completa del uso de Kafka | En UAT anda mal (resto ambientes ok)  con problemas en UAT y potencial para PRD.Analisis en Desarrollo. Luego ver con DevOps | Todas las provincias | Gamma | SAC | A priorizar | Es de Infra el tema. Desarrollo que se entere por Infra y listo. | 0 | Por hacer | Sin fecha comprometida | #REF!
+Mantenimiento preventivo | 2025-07-15 00:00:00 | Revisión completa del uso de Kafka | En UAT anda mal (resto ambientes ok)  con problemas en UAT y potencial para PRD.Analisis en Desarrollo. Luego ver con DevOps | Todas las provincias | Gamma | SAC | A priorizar | Es de Infra el tema. Desarrollo que se entere por Infra y listo. | 0 | Por hacer | Sin fecha comprometida | #REF!
 708 | Mantenimiento preventivo | 2025-07-23 00:00:00 | Revisión de políticas de respaldo en general para info sensible o auditable x entes | Backup de archivos de presentaciones en general, y estructura de almacenamiento. Hablar con Luis. | Todas las provincias | Gamma | SAC | A priorizar | 0 | Por hacer | Sin fecha comprometida | #REF!
 871 | Mantenimiento preventivo | 2025-10-09 00:00:00 | Versión de Keycloak deprecada | Ver con Infra | Todas las provincias | Gamma | SAC | A priorizar | Es de Infra el tema. Que expliquen a desarrollo que van a hacer | 0 | Por hacer | Sin fecha comprometida | #REF!
 902 | Mantenimiento preventivo | 2025-10-09 00:00:00 | Kafka - revisar versión | Ver con Infra | Todas las provincias | Gamma | SAC | A priorizar | Es de Infra el tema. Que expliquen a desarrollo que van a hacer | 0 | Por hacer | Sin fecha comprometida | #REF!
@@ -1031,7 +1031,7 @@ MAN-668 SF15881 | Mantenimiento correctivo | 2026-04-10 00:00:00 | SC - Gamma Re
 MAN-620 | Mantenimiento evolutivo | Media | 2025-07-18 00:00:00 | SLA- Solicitud API sincronizar SAA-GAMMA | Se solicita habilitación Api para sincronizar SAA-Gamma, sobre todo tema relacionado con las agencias activas y su identificación comercial. Cuit-cuil/cambios de domicilios etc | Salta | Gamma | SAC | 999 | A priorizar | Hay que ver si esto es de Gamma o Mundo SAA y satelites. Sabrina indicó en el correo del 14/11/2025 que este sigue abierto. Que es un REQUERIMIENTO de Media y el responsable interno es Franco ¿Esto debería hacer sincroagencias?Preguntar a Marino. | 40 | Por hacer | Sin fecha comprometida | #REF!
 00008137 | Mantenimiento evolutivo | Media | 15/9/2025 | Gamma-T.L.P.- Permitir borrar Códigos Contables | En caso de errores de creación de códigos contables por parte de la Lotería (especialmente en el tipo de código contable), las correcciones solo pueden realizarse desde las tablas | Todas las provincias | Gamma | SAC | 999 | A priorizar | Se puede borrar si nunca se uso. Y si se uso no se puede editar el tipo de código contable. Baja prioridad. | Borrar/modificar | 40 | Paolo | Por hacer | Sin fecha comprometida | #REF!
 MAN-665 SF15922 | Mantenimiento correctivo | 2026-04-08 00:00:00 | SLA - GAMMA - Duplicidad de Cancelación de Débitos | Para los casos en que SDE y SLA tengan un mismo número de resumen para una misma agencia, el cobro realizado en SDE también impacta en la de SLA.
-Ej. la Agencia 6 de SDE con el resumen 33488 que corresponde a la liquidación del día 15/02/2026. La de SLA que tiene el mismo número de resumen y agencia corresponde al día 02/06/2024. | Salta | Gamma | SAC | 5 | A priorizar
+Ej. la Agencia 6 de SDE con el resumen 33488 que corresponde a la liquidación del día 15/02/2026. La de SLA que tiene el mismo número de resumen y agencia corresponde al día 02/06/2024. | Salta | Gamma | SAC | 5 | UAT
 MAN-00012734   MAN-00013568 ver correo 13568 | Mantenimiento correctivo | Media | 2025-12-19 00:00:00 | LR-NOA Problemas para cargar remito proveedor de Telekino | error al cargar los remitos de los sorteos de Telekino. Se requiere intervención de sistema para desbloquear la carga.
 Hay que ejecutar este scripts en BD-ta_business :
 ta_business:
@@ -1070,7 +1070,7 @@ Para GAMMA se debe calcular manualmente, cobrando a las agencias afiliadas $107 
 Los reportes de gamma no proveen ese detalle y la info se busca en SAA para elaborar los descuentos. | Jujuy | Gamma | SAC | A priorizar | MARZO | 24 | Por hacer | #VALUE! | #REF!
 MAN-542                     GAMMA - 000507 | Mantenimiento evolutivo | Media | 2025-06-12 00:00:00 | JUY-GAMMA desarrollar sistema que evite preliquidar en simultaneo. | JUY-GAMMA Se necesita que el sistema no permita realizar liquidaciones en simultaneo | Jujuy | Gamma | SAC | A priorizar | ya está resuelto. confirmar con SAC | 0 | Por hacer | Sin fecha comprometida | #REF!
 MAN-546        MAN - 000510 | Consulta | Media | 2025-06-17 00:00:00 | JUY-GAMMA - análisis de archivo bancario para interfaz | JUY-GAMMA - análisis de archivo bancario para interfaz | Jujuy | Gamma | SAC | A priorizar | ya está resuelto. confirmar con SAC | 0 | Por hacer | Sin fecha comprometida | #REF!
-MAN-562 | Mantenimiento evolutivo | Alta | 2025-06-27 00:00:00 | LR-GAMMA Solicitud de modificacion del reporte 103 | LR-GAMMA Reporte 103: Si bien permite la exportación del mismo, es necesario agregar en los filtros la posibilidad de filtrar por "fecha de proceso" (de pago) ya que este reporte es el que utiliza la gente de caja/tesorería para exportar únicamente los pagos realizados en el dia. | La Rioja | GAMMA | SAC | A priorizar | 2025-11-14 00:00:00 | Está en QA porque no pone la fecha de pago de los resumenes con obligaciones de pago. Lo tiene desarrollo y ya lo está trabajando. | 4 | 8 | Marcos | Por hacer | 193 | #REF!
+MAN-562 | Mantenimiento evolutivo | Alta | 2025-06-27 00:00:00 | LR-GAMMA Solicitud de modificacion del reporte 103 | LR-GAMMA Reporte 103: Si bien permite la exportación del mismo, es necesario agregar en los filtros la posibilidad de filtrar por "fecha de proceso" (de pago) ya que este reporte es el que utiliza la gente de caja/tesorería para exportar únicamente los pagos realizados en el dia. | La Rioja | GAMMA | SAC | A priorizar | 2025-11-14 00:00:00 | Está en QA porque no pone la fecha de pago de los resumenes con obligaciones de pago. Lo tiene desarrollo y ya lo está trabajando. | 4 | 8 | Marcos | Por hacer | 195 | #REF!
 MAN-573 | Mantenimiento evolutivo | Alta | 2025-07-01 00:00:00 | SLA-GAMMA Solicitud de menú para autogestion de los reportes de cierre contable.
 Caso 6657. | SLA-GAMMA Solicitan tener en el menu los siguientes reportes:                                            *Liquidaciones GAMMA: listado de movimientos liquidados en el rango de fechas solicitados.
 Columnas: agencia, imputación, código, descripción, partida (debito/crédito), total del rango de fechas, fecha/s.
@@ -1111,7 +1111,7 @@ Caso SF 00010303 | Al querer crear un juego común a varias provincias, como el 
 00010318                      MAN - 000074 | Mantenimiento preventivo | 2025-10-24 00:00:00 | Se presentan de forma semanal (2 a 4 veces, aproximadamente), por lo general GAME, GAMMABFF, CHECKINGACCOUNT eventualmente, USERS, AGENCYS. | Jujuy | Gamma | SAC | A priorizar | Resuelto | 0 | Por hacer | Sin fecha comprometida | #REF!
 00009894 | Mantenimiento evolutivo | 2025-10-16 00:00:00 | SC-Gamma- LU Loteria Unificada con retencion de impuesto al premio | La loteria se hace cargo de la retención  de impuesto al juego al premio que sea del mismo valor al cupon. Para que el apostador no cobre menos que el cupon apostado. Esto lo viene haciendo bien el SIGA, pero en el GAMMA no lo hace. | Santa Cruz | Gamma | SAC | A priorizar | MARZO | JM pasó esto a Mantenimiento de Gamma | 32 | Jimena | Por hacer | #VALUE! | #REF!
 00009950 | Mantenimiento correctivo | 2025-10-17 00:00:00 | SC GAMMA - Balanceo cta cte archivo resumen vencido.
-Mismo caso que en COR 00010257 | Cuando se incorpora un archivo bancario cancelando un resumen vencido el sistema no refleja correctamente el balanceo en cta cte. Si cambia correctamente  el estado del mismo. | Santa Cruz | Gamma | SAC | A priorizar | 2025-11-14 00:00:00 | 16 | Jimena | Por hacer | 193 | #REF!
+Mismo caso que en COR 00010257 | Cuando se incorpora un archivo bancario cancelando un resumen vencido el sistema no refleja correctamente el balanceo en cta cte. Si cambia correctamente  el estado del mismo. | Santa Cruz | Gamma | SAC | A priorizar | 2025-11-14 00:00:00 | 16 | Jimena | Por hacer | 195 | #REF!
 764 | Mantenimiento preventivo | 2025-08-28 00:00:00 | liquidaciones a 11:30 aproximadamente, tienen mucha demora y generan doble calculo hasta las 13hs aproximadamente | LR: está asociado a la cantidad de datos en PRD y hay que evaluar depuraciones. Planificar actividad para octubre | Todas las provincias | Gamma | SAC | A priorizar | Resuelto | 0 | Por hacer | Sin fecha comprometida | #REF!
 00011038 | Mantenimiento correctivo | 2025-11-10 00:00:00 | Abaco - Error en módulo de Medios Digitales | Lista de resultados con demora: Al listar los movimientos de “Modo”, el endpoint que busca los detalles de los movimientos no filtra por fecha, devolviendo todos los registros disponibles para el PDV seleccionado. | Corrientes | Abaco | SAC | A priorizar | hecho | 0 | Por hacer | Sin fecha comprometida | #REF!
 00011039 | Mantenimiento evolutivo | 2025-11-10 00:00:00 | Abaco - Módulo Medios Digitales | En el menú “Medios Digitales”, la vista de FE no pagina los resultados de las búsquedas realizadas, generando una lista interminable cuando existen muchos movimientos. | Corrientes | Abaco | SAC | A priorizar | 8 | Por hacer | Sin fecha comprometida | #REF!
@@ -1139,13 +1139,13 @@ MAN-00012627 | Mantenimiento evolutivo | 2025-12-17 00:00:00 | Panel Agentes- Bu
 13227 | Mantenimiento evolutivo | Alta | 2026-01-06 00:00:00 | CORR GAMA Boleta de deposito Mejoras | Importe y vencimiento:
 Agregar la fecha de vencimiento al lado del importe a pagar.
 Código 586 – Cancelación Débito del Unificado:Actualmente se coloca el importe del resumen procesado, que suma al código 10 del unificado (Saldo del sorteo anterior), generando un efecto neutro.
-Eliminar este mecanismo y que el código 10 del unificado quede solo compuesto por el saldo del resumen anterior. | Corrientes | Gamma | mantenimiento | 1 | Cerrado | 2026-02-13 00:00:00 | Analizar como impacta en otras provincias. | Caso 13227 - Resumen de Ag – Correc vencimy saldo cta cte - 1.0.docx | 68 | ? | Cerrado | 102 | #REF!
+Eliminar este mecanismo y que el código 10 del unificado quede solo compuesto por el saldo del resumen anterior. | Corrientes | Gamma | mantenimiento | 1 | Cerrado | 2026-02-13 00:00:00 | Analizar como impacta en otras provincias. | Caso 13227 - Resumen de Ag – Correc vencimy saldo cta cte - 1.0.docx | 68 | ? | Cerrado | 104 | #REF!
 10541 | Mantenimiento correctivo | 2025-10-30 00:00:00 | No se genera Reporte 103 | No se puede generar reporte 103, provocado por el proceso de cambio de titularidad de agentes. Así mismo genera error en el módulo Alerta (no visualiza las mismas). | Corrientes | Gamma | Cerrado | Replicar en UAT | ? | Cerrado | Sin fecha comprometida | #REF!
 MAN-00014096 | Mantenimiento correctivo | 2026-02-02 00:00:00 | Gamma COR- Error en liquidacion | Inician la preliquidación da error de cálculo. Se realizo BP y volvió a dar el mismo error. (error de memoria) | Corrientes | Gamma | Cerrado | Cerrado | Sin fecha comprometida | #REF!
 MAN-00014170 | Mantenimiento correctivo | 2026-02-03 00:00:00 | Gamma- User - Caída del servicio | A primeras horas del día (00:05) se verificó un reinicio automático por parte del servicio USER, misma situación durante la mañana. Jujuy y Corrientes comunicaron no poder acceder. El servicio USER tenia un uso casi del total de la capacidad | Todas las provincias | Gamma | Cerrado | Cerrado | Sin fecha comprometida | #REF!
-MAN-658 SF15876 | Mantenimiento correctivo | 2026-04-07 00:00:00 | TLP - GAMMA - Reporte de resumen de obligaciones SIN CBU | Luego de la implementación de GAMMA, el reporte de resumen de obligaciones sale sin CBU, se relaciona con las modificaciones de los MAN 893 MAN 894 | Salta | Gamma | Cerrado | 2026-04-10 00:00:00 | Si bien es a todas las provincias, está afectando particularmente a Salta, el reporte de resumen de obligaciones sale sin CBU y se agrega que los importes no están en formato numero.
-MAN-662 SF15902 | Mantenimiento correctivo | 2026-04-08 00:00:00 | SLA - GAMMA - Error al generar archivo txt pago banco en la Liquidación | Después de la implementación en GAMMA del día 6/4/26, el archivo txt pago banco que se genera durante la liquidación lo hace por el lote completo incluido los pdv que no poseen cbu. | Salta | Gamma | Cerrado | 2026-04-10 00:00:00
-MAN-666 SF15955 | Mantenimiento correctivo | 2026-04-08 00:00:00 | SLA - Gamma - Errores en el proceso de liquidación | Cuando a un PDV se le genera un crédito, Lotería transfiere el saldo resultante entre débitos y créditos con el objetivo de que el punto de venta pueda afrontar el pago de premios. Una vez realizada la transferencia de fondos, procedemos a marcar dicha operación como "pagada", permitiendo así que el sistema la cancele correctamente. | Salta | Gamma | Cerrado | 2026-04-10 00:00:00
+MAN-658 SF15876 | Mantenimiento correctivo | 2026-04-07 00:00:00 | TLP - GAMMA - Reporte de resumen de obligaciones SIN CBU | Luego de la implementación de GAMMA, el reporte de resumen de obligaciones sale sin CBU, se relaciona con las modificaciones de los MAN 893 MAN 894 | Salta | Gamma | UAT | 2026-04-10 00:00:00 | Si bien es a todas las provincias, está afectando particularmente a Salta, el reporte de resumen de obligaciones sale sin CBU y se agrega que los importes no están en formato numero.
+MAN-662 SF15902 | Mantenimiento correctivo | 2026-04-08 00:00:00 | SLA - GAMMA - Error al generar archivo txt pago banco en la Liquidación | Después de la implementación en GAMMA del día 6/4/26, el archivo txt pago banco que se genera durante la liquidación lo hace por el lote completo incluido los pdv que no poseen cbu. | Salta | Gamma | UAT | 2026-04-10 00:00:00
+MAN-666 SF15955 | Mantenimiento correctivo | 2026-04-08 00:00:00 | SLA - Gamma - Errores en el proceso de liquidación | Cuando a un PDV se le genera un crédito, Lotería transfiere el saldo resultante entre débitos y créditos con el objetivo de que el punto de venta pueda afrontar el pago de premios. Una vez realizada la transferencia de fondos, procedemos a marcar dicha operación como "pagada", permitiendo así que el sistema la cancele correctamente. | Salta | Gamma | UAT | 2026-04-10 00:00:00
 00008131 | Mantenimiento correctivo | Alta | 15/9/2025 | Gamma-T.L.P-Cambios de intervalos de liquidación de lotes Discount | Ante la solicitud de la Lotería para establecer fechas específicas de liquidación de lotes, se requiere manipular manualmente las fechas en la tabla Header de BD-Discount. | Todas las provincias | Gamma | Mantenimiento | Cerrado | 2026-01-31 00:00:00 | MARZO | Lo piden una vez por mes en Salta. La idea es que exista la opción de fecha "inicio" a fecha "hasta". | TOD – GAM – Cambios de intervalos de liquidación de lotes Discount - 1.0.docx | 55 | Jimena + Alejandro | Cerrado | #VALUE! | #REF!
 MAN-592 | Mantenimiento correctivo | Alta | 2025-07-10 00:00:00 | SLA-ABACO Mostrar cuando la contraseña esta vencida y ofrecer cambiarla.
 Caso 6659. | SLA-ABACO Al momento de caducar la contraseña no lo indica, solo muestra error " credenciales invalidas". Debería ofrecer cambiarla para evitar confusión e indicar los caracteres aceptados. | Salta | Abaco | Mantenimiento | Cerrado | MARZO | Sabrina indicó en el correo del 14/11/2025 que este sigue abierto. Que es un REQUERIMIENTO de Alta y el responsable interno es Napoleon | SAL - LOTEMOVIL - MAN-592 Contraseña vencida - CASO-10453 Mail de recuperacion - ver 1.1.docx | 41 | Jimena + Alejandro | Cerrado | #VALUE! | #REF!
@@ -1164,7 +1164,7 @@ se emita el reporte por sucursal, permitiendo con esto reducir la cantidad de PD
 Para los reportes emitidos diariamente, no sería necesario ningún filtro ya que el reporte no es extenso. | 1 | 1 | 1 | Cerrado | 6 | #REF!
 00010425 | Mantenimiento correctivo | Alta | 2025-10-28 00:00:00 | COR-Abaco No se visualizan premios de Quini6, Loto ni Telekino MAN-814 | Se observa que el nuevo lotemovil en el modulo premios para cualquier fecha no esta figurando los premios de Quini6, Telekino, Loto Plus | Corrientes | Abaco | Mantenimiento | Cerrado | 2025-11-07 00:00:00 | 2025-11-20 00:00:00 | 2025-11-20 00:00:00 | Se pasó a UAT. Pendiente de Pruebas de testing y luego, si todo ok se pasa a Fabian Figueroa Hay novedades? Fabian Figueroa. 13/11/2025: Probando con FF, LR,GD,CB | Cerrado | 0 | #REF!
 MAN-00011111 | Mantenimiento evolutivo | Alta | 2025-11-11 00:00:00 | Lotemovil- Visualizacion de PDV | Lotería solicita eliminar del panel de Agentes los puntos de ventas que NO Se encuentran activos. En pantalla principal se visualizan activos e inactivos.
-Se adjunta dos imágenes descriptivas. | Corrientes | Abaco | SAC | Cerrado | 2025-11-14 00:00:00 | jm: esto fue implementado en diciembre durante el soporte a ctes. validar con FF / RA | 4 | Paolo | Cerrado | 193 | #REF!
+Se adjunta dos imágenes descriptivas. | Corrientes | Abaco | SAC | Cerrado | 2025-11-14 00:00:00 | jm: esto fue implementado en diciembre durante el soporte a ctes. validar con FF / RA | 4 | Paolo | Cerrado | 195 | #REF!
 9544 | Mantenimiento correctivo | Media | 2024-07-16 00:00:00 | Bk process bancario (pagos) - cancela a medias.
 Caso 6642. | Bk process bancario (pagos) - cancela a medias | Salta | Gamma | SAC | Cerrado | 2025-10-26 00:00:00 | Funcionó bien según FR en el último Back process | Cerrado | Sin fecha comprometida | #REF!
 10212 | Mantenimiento correctivo | Media | 2024-12-06 00:00:00 | Preliquidación los tiempos de respuesta cada vez se incrementan.
@@ -1272,16 +1272,16 @@ Si está todo bien, tienen que subir los cambios al repo correspondiente desde e
 MAN-000072 | Mantenimiento correctivo | 2025-10-27 00:00:00 | Modificación de Vencimientos en resúmenes.
 Caso abierto por lo mismo 10196(se esta correigiendo con envios de listados manuales).
 Caso SF 10399 | Se solicita que se modifique los vencimientos de los resúmenes que figuran en el archivo adjunto Excel, esto se debe a que el modulo en donde se configura el vencimiento especial GAMMA no esta tomando tal configuración (Caso 10196, abierto hasta el momento). Mientras dicho requerimiento no se resuelva se pedirá nuevamente próximos días nuevas moficiaciones de vencimientos | Corrientes | Gamma | SAC | Cerrado | 2025-11-05 00:00:00 | Cerrado | Sin fecha comprometida | #REF!
-00010312         MAN-065 | Mantenimiento evolutivo | Alta | 2025-10-24 00:00:00 | COR-Lotemovil-Depositos y retiros | Se solicita que en Lotemovil (https://panelcorrientes.lotemovil.com.ar/) el modulo Online se despliegue un submenu con la opción “Depositos y Retiros” y que en esta opción se visualice toda la información referente a los depósitos y retiros diarios, tal cual lo trae en el Lotemovil anterior ([https://cnq.lotemovil.com.ar](https://cnq.lotemovil.com.ar/)) se adjunta imagen de ejemplo de la agencia 499 en el cual tiene un deposito para el subagente 12 el monto de $5.000 en el dia 18/10 . | Corrientes | Abaco | mantenimiento | Cerrado | 2026-02-13 00:00:00 | CASO 10312 - Lotline - consulta de depósitos y retiros diarios - 1.0.docx | 34 | Paolo | 15% diseño - 25% soporte - 15% QA - 10%UAT 5% PROD | ? | Cerrado | 102 | #REF!
+00010312         MAN-065 | Mantenimiento evolutivo | Alta | 2025-10-24 00:00:00 | COR-Lotemovil-Depositos y retiros | Se solicita que en Lotemovil (https://panelcorrientes.lotemovil.com.ar/) el modulo Online se despliegue un submenu con la opción “Depositos y Retiros” y que en esta opción se visualice toda la información referente a los depósitos y retiros diarios, tal cual lo trae en el Lotemovil anterior ([https://cnq.lotemovil.com.ar](https://cnq.lotemovil.com.ar/)) se adjunta imagen de ejemplo de la agencia 499 en el cual tiene un deposito para el subagente 12 el monto de $5.000 en el dia 18/10 . | Corrientes | Abaco | mantenimiento | Cerrado | 2026-02-13 00:00:00 | CASO 10312 - Lotline - consulta de depósitos y retiros diarios - 1.0.docx | 34 | Paolo | 15% diseño - 25% soporte - 15% QA - 10%UAT 5% PROD | ? | Cerrado | 104 | #REF!
 MAN-00011271 | Mantenimiento evolutivo | Alta | 2025-11-17 00:00:00 | COR-Gamma- Modificacion listado 103 | Se solicita incorporar un nuevo tipo de estado dentro de las opciones de filtrado del
 Reporte 103, denominado: “Cobrado Fuera de Término”
 El objetivo es permitir que el reporte identifique y liste todos los resúmenes cuyo
 pago/cobro se produjo después de la fecha de vencimiento, dentro del rango “desde” y
 “hasta” seleccionado por el usuario.
-Se adjunta pdf con informacion completa del caso. | Corrientes | Gamma | mantenimiento | Cerrado | 2026-02-13 00:00:00 | https://tecnoaccionsa.sharepoint.com/:w:/s/GAMMA.2024/IQAJ_y_lBO7mSqcbWTvZPjBRAe5ZiQZiUAM7gLQf4kP6nZk?e=52UqbY | 27 | Alejandro | ? | Cerrado | 102 | #REF!
+Se adjunta pdf con informacion completa del caso. | Corrientes | Gamma | mantenimiento | Cerrado | 2026-02-13 00:00:00 | https://tecnoaccionsa.sharepoint.com/:w:/s/GAMMA.2024/IQAJ_y_lBO7mSqcbWTvZPjBRAe5ZiQZiUAM7gLQf4kP6nZk?e=52UqbY | 27 | Alejandro | ? | Cerrado | 104 | #REF!
 MAN-00012346 | Mantenimiento correctivo | Media | 2025-12-17 00:00:00 | Panel Agentes- No se visualiza monto en forma correcta | Lotería solicita corrección en resumen de cuenta para el agenciero, No aparecen números enteros..
-Se adjunta imagen descripriva | Corrientes | Panel Agentes-Abaco | Cerrado | 2026-02-13 00:00:00 | MAN-12346 - GAMMA - Resumen de cuenta agen correc de numeros enter - 1.0.docx | 7 | Marcos | ? | Cerrado | 102 | #REF!
-MAN-00011426 | Mantenimiento evolutivo | Media | 2025-11-18 00:00:00 | JUJ- Gamma - Listado 103 - Modificacion | El Reporte 103, carece de total general al pie del reporte. | Jujuy | Gamma | Mantenimiento | Cerrado | 2026-02-13 00:00:00 | Reporte 103 – Cambios funcionales y operativos - 1.1.docx | 7 | Marcos | ? | Cerrado | 102 | #REF!
+Se adjunta imagen descripriva | Corrientes | Panel Agentes-Abaco | Cerrado | 2026-02-13 00:00:00 | MAN-12346 - GAMMA - Resumen de cuenta agen correc de numeros enter - 1.0.docx | 7 | Marcos | ? | Cerrado | 104 | #REF!
+MAN-00011426 | Mantenimiento evolutivo | Media | 2025-11-18 00:00:00 | JUJ- Gamma - Listado 103 - Modificacion | El Reporte 103, carece de total general al pie del reporte. | Jujuy | Gamma | Mantenimiento | Cerrado | 2026-02-13 00:00:00 | Reporte 103 – Cambios funcionales y operativos - 1.1.docx | 7 | Marcos | ? | Cerrado | 104 | #REF!
 Man-0011126 | Mantenimiento evolutivo | 2026-01-05 00:00:00 | COR-Gamma- Modificacion listado 103- Filtro para procesos. Reporte de Cobros | Se solicita un reporte en excel a ser enviado por mail a partir de mañana con los siguientes campos:
 F. Creacion
 F. Emisión
@@ -1297,8 +1297,8 @@ En asunto colocar "Resumen de Cobros procesados dia XXXXXXXX y enviarse a las si
 tesoreria@loteriacorrentina.gov.ar
 celeste.barreiro@loteriacorrentina.gov.ar
 andres.escalante@loteriacorrentina.gov.ar
-cesar.gimenez@loteriacorrentina.gov.ar | Corrientes | Gamma | Cerrado | 2026-02-13 00:00:00 | Reporte 103 – Cambios funcionales y operativos - 1.1.docx | 102 | ? | Cerrado | 102 | #REF!
-9066 | Mantenimiento evolutivo | 2026-09-29 00:00:00 | Listado de Numeros de Resumenes - 103 acumulado por rango de fechas | Loteria, solicita un listado en Excel a todos los numeros de resumenes de todas las agencias desde el 1/09 al 29/09. Que contenga Fecha de Emision, Resumen, Punto de Venta, Saldo, Concepto (debito/credito), loteria solicita este informe diariamente a las 11hs. | Corrientes | Gamma | Cerrado | 2026-02-13 00:00:00 | Reporte 103 – Cambios funcionales y operativos - 1.0.docx | 54 | ? | Cerrado | 102 | #REF!
+cesar.gimenez@loteriacorrentina.gov.ar | Corrientes | Gamma | Cerrado | 2026-02-13 00:00:00 | Reporte 103 – Cambios funcionales y operativos - 1.1.docx | 102 | ? | Cerrado | 104 | #REF!
+9066 | Mantenimiento evolutivo | 2026-09-29 00:00:00 | Listado de Numeros de Resumenes - 103 acumulado por rango de fechas | Loteria, solicita un listado en Excel a todos los numeros de resumenes de todas las agencias desde el 1/09 al 29/09. Que contenga Fecha de Emision, Resumen, Punto de Venta, Saldo, Concepto (debito/credito), loteria solicita este informe diariamente a las 11hs. | Corrientes | Gamma | Cerrado | 2026-02-13 00:00:00 | Reporte 103 – Cambios funcionales y operativos - 1.0.docx | 54 | ? | Cerrado | 104 | #REF!
 11229 | Mantenimiento evolutivo | 2025-11-13 00:00:00 | COR-GAMMA - Reporte 103 Resumenes Actualizados con fecha de cobro | Se solicita un reporte en excel a ser enviado por mail con los siguientes campos:
 PDV (ag)
 Resumen
@@ -1312,11 +1312,11 @@ Enviarse a las siguientes cuentas, asunto del mail Reporte 103 - Actualizado:
 tesoreria@loteriacorrentina.gov.ar
 celeste.barreiro@loteriacorrentina.gov.ar
 andres.escalante@loteriacorrentina.gov.ar
-cesar.gimenez@loteriacorrentina.gov.ar | Corrientes | Gamma | Cerrado | 2026-02-13 00:00:00 | Reporte 103 – Cambios funcionales y operativos - 1.1.docx | 80 | ? | Cerrado | 102 | #REF!
-MAN-13069 | Mantenimiento evolutivo | Alta | 2025-12-30 00:00:00 | JUJ-Gamma No esta el filtro por cajero en reporte 103 | Luego del despliegue de Gamma para Corrientes del 29/12 desaparecio la opcion de filtrar por cajero en el reporte 103 | Jujuy | Gamma | Cerrado | 2026-02-13 00:00:00 | Lo verá José candia con el cliente Jujuy. Podría ser desestimado si les conforma otra solución. | HAbria que armar un nuevo listado para arqueo de caja | Reporte 103 – Cambios funcionales y operativos - 1.1.docx | 68 | Jimena | ? | Cerrado | 102 | #REF!
+cesar.gimenez@loteriacorrentina.gov.ar | Corrientes | Gamma | Cerrado | 2026-02-13 00:00:00 | Reporte 103 – Cambios funcionales y operativos - 1.1.docx | 80 | ? | Cerrado | 104 | #REF!
+MAN-13069 | Mantenimiento evolutivo | Alta | 2025-12-30 00:00:00 | JUJ-Gamma No esta el filtro por cajero en reporte 103 | Luego del despliegue de Gamma para Corrientes del 29/12 desaparecio la opcion de filtrar por cajero en el reporte 103 | Jujuy | Gamma | Cerrado | 2026-02-13 00:00:00 | Lo verá José candia con el cliente Jujuy. Podría ser desestimado si les conforma otra solución. | HAbria que armar un nuevo listado para arqueo de caja | Reporte 103 – Cambios funcionales y operativos - 1.1.docx | 68 | Jimena | ? | Cerrado | 104 | #REF!
 MAN-00013192 | Mantenimiento correctivo | Media | 2026-01-05 00:00:00 | Cor- Gamma - Preliquidación - Servicios caidos, no volvio atras la preliquidacion (Caso original 13181-Cerrado) | Hoy estaban realizando la pre liquidación del día sábado cuan do visualizo que estaban caídos dos servicios del panel de gama. ( LOGSERVER y GAMMA BFF).
-se reinician los servicios y continúan con la preliquidacion. Pero gamma no vuelve atrás y duplica las recaudaciones de LOTO PLUS , LOTO 5 y QUINIELA. | Corrientes | Gamma | Cerrado | 2026-02-13 00:00:00 | 136 | ? | Cerrado | 102 | #REF!
-MAN-00011876 | Mantenimiento evolutivo | Media | 2025-12-01 00:00:00 | Caso 00011876 COR- Panel Agentes | Lotería Solicita ampliar los tiempos de renovación de usuario y contraseña en el panel de agentes, , o bien que aparezca la leyenda Olvide Mi Contraseña. Para poder restáuralas | Corrientes | Lotemovil | Mantenimiento | Cerrado | 2026-02-13 00:00:00 | 27 | ? | Cerrado | 102 | #REF!
+se reinician los servicios y continúan con la preliquidacion. Pero gamma no vuelve atrás y duplica las recaudaciones de LOTO PLUS , LOTO 5 y QUINIELA. | Corrientes | Gamma | Cerrado | 2026-02-13 00:00:00 | 136 | ? | Cerrado | 104 | #REF!
+MAN-00011876 | Mantenimiento evolutivo | Media | 2025-12-01 00:00:00 | Caso 00011876 COR- Panel Agentes | Lotería Solicita ampliar los tiempos de renovación de usuario y contraseña en el panel de agentes, , o bien que aparezca la leyenda Olvide Mi Contraseña. Para poder restáuralas | Corrientes | Lotemovil | Mantenimiento | Cerrado | 2026-02-13 00:00:00 | 27 | ? | Cerrado | 104 | #REF!
 MAN-00011427 | Mantenimiento evolutivo | 2025-11-18 00:00:00 | Juj-Gamma - Listado 104 | Reporte 104 no permite seleccionar agencias por tramos. Ej: (01–214) ni seleccionar todas para desmarcar algunas y además limita a 10 agencias simultáneas la selección particular. | Jujuy | Gamma | mantenimiento | Cerrado | Requiere reingeniería | 600 | Cerrado | Sin fecha comprometida | #REF!
 MAN-72 | Mantenimiento correctivo | Media | 2025-01-03 00:00:00 | SLA GAMMA MAN-9561 Comisiones Betwarrior.
 Caso 6638. | Calculaba comisión pero no calculaba el impuesto. Debe probarlos FFigueroa con Ralbitre. | Salta | Gamma | Mantenimiento | 9 | Validar estado | 2025-11-12 00:00:00 | MARZO | En proceso de prueba UAT. SAC tendrá que cargar las reglas en prod. Probará Fabián Figueroa. Cuando carguen la configuración comenzaría a Calcular. Esto debe ser hecho antes del 30/11/2025. Compromiso de probarlo antes del 12/11/2025. JM no lo está siguiendo. No esté en el proyecto. En el correo del 14/11/2025 Sabrina lo puso como pendiente de Prioridad media y el responsable interno es Franco. | 2 | 8 | Jimena | Implementación | #VALUE! | #REF!
@@ -1338,23 +1338,23 @@ ammiranda@ipra.gov.ar Marcelo | Tierra del Fuego | NOA | A planificar | Esto es 
 ñ+ | Otro | Sin fecha comprometida | #REF!
 === HOJA: Indicadores Control ===
 Casos de Mantenimiento de Gamma
-Correctivos totales | 95 | Correctivos cerrados | 48 | Correctivos abiertos | 47 | Correctivos por hacer | 39 | Errores En curso | 8
-Evolutivos totales | 100 | Evolutivos cerrados | 14 | Evolutivos abiertos | 86 | Evolutivos por hacer | 71 | Requerimientos En curso | 15
+Correctivos totales | 95 | Correctivos cerrados | 45 | Correctivos abiertos | 50 | Correctivos por hacer | 38 | Errores En curso | 12
+Evolutivos totales | 100 | Evolutivos cerrados | 14 | Evolutivos abiertos | 86 | Evolutivos por hacer | 69 | Requerimientos En curso | 17
 Preventivos totales | 27 | Preventivos cerrados | 0 | Preventivos abiertos | 27 | Preventivos por hacer | 24 | Mantenimiento En curso | 3
 Consultas }totales | 1 | Consultas cerradas | 0 | Consultas abiertos | 1 | Consultas por hacer | 1 | Mantenimiento En curso | 0
-Casos totales | 222 | Casos cerrados totales | 62 | Casos abiertos totales | 160 | Totales Por hacer | 134 | Totales En curso | 25
+Casos totales | 222 | Casos cerrados totales | 59 | Casos abiertos totales | 163 | Totales Por hacer | 131 | Totales En curso | 31
 Estado de situación de los casos de Mantenimiento de Gamma por hacer
-Correctivos a Estimar | 0 | Correctivos a priorizar | 19 | Correctivos a planificar | 16 | Correctivos planificados | 4
-Evolutivos a Estimar | 1 | Evolutivos a priorizar | 54 | Evolutivos a planificar | 16 | Evolutivos planificados | 0
+Correctivos a Estimar | 0 | Correctivos a priorizar | 18 | Correctivos a planificar | 16 | Correctivos planificados | 4
+Evolutivos a Estimar | 1 | Evolutivos a priorizar | 54 | Evolutivos a planificar | 14 | Evolutivos planificados | 0
 Preventivos s Estimar | 0 | Preventivos a priorizar | 10 | Preventivos a planificar | 14 | Preventivos planificados | 0
 Consultas a Estimar | 0 | Consultas a priorizar | 1 | Consultas a planificar | 0 | Consultas planificados | 0
-Totales a Estimar | 1 | Totales a priorizar | 84 | Totales a planificar | 46 | Totales planificados | 4
+Totales a Estimar | 1 | Totales a priorizar | 83 | Totales a planificar | 44 | Totales planificados | 4
 Estado de situación de los casos de Mantenimiento de Gamma en Curso
-Correctivos por hacer | 39 | Correctivos a priorizar | 19 | Correctivos a planificar | 16 | Correctivos planificados | 4
-Evolutivos por hacer | 71 | Evolutivos a priorizar | 54 | Evolutivos a planificar | 16 | Evolutivos planificados | 0
+Correctivos por hacer | 38 | Correctivos a priorizar | 18 | Correctivos a planificar | 16 | Correctivos planificados | 4
+Evolutivos por hacer | 69 | Evolutivos a priorizar | 54 | Evolutivos a planificar | 14 | Evolutivos planificados | 0
 Preventivos por hacer | 24 | Preventivos a priorizar | 10 | Preventivos a planificar | 14 | Preventivos planificados | 0
 Consultas por hacer | 1 | Consultas a priorizar | 1 | Consultas a planificar | 0 | Consultas planificados | 0
-Totales Por hacer | 134 | Totales a priorizar | 84 | Totales a planificar | 46 | Totales planificados | 4
+Totales Por hacer | 131 | Totales a priorizar | 83 | Totales a planificar | 44 | Totales planificados | 4
 Errores en análisis Técnico | #REF! | Errores en análisis func. | #REF! | Errores en desarrollo | #REF! | Errores en Testing | #REF!
 Req. en análisis Técnico | #REF! | Req. en análisis func. | #REF! | Req. en desarrollo | #REF! | Req.  en Testing | #REF!
 Req. script en análisis Téc. | #REF! | Req. script en análisis func. | #REF! | Req. script en desarrollo | #REF! | Req. script en Testing | #REF!
@@ -1369,21 +1369,21 @@ DevOps a validar | #REF! | DevOps en UAT | #REF! | DevOps P/ Implementar | #REF!
 Totales a validar | #REF! | Totales en UAT | #REF! | Totales P/ Implementar | #REF! | Totales implementados | #REF!
 === HOJA: Horas estimadas ===
 Cantidad de casos abiertos | Estimación de horas | Capacity mensual | Tiempos estimados en meses
-Casos correctivos | 47 | Horas correctivos | 1099 | Marcos | 160 | Casos correctivos | 4.579166666666667
+Casos correctivos | 50 | Horas correctivos | 1099 | Marcos | 160 | Casos correctivos | 4.579166666666667
 Casos evolutivos | 86 | Horas evolutivos | 4487 | Tejerina | 80 | Casos evolutivos | 18.695833333333333
 Casos preventivos | 27 | Horas preventivos | 64 | Otro | 0 | Casos preventivos | 0.26666666666666666
 Casos Consultas | 1 | Horas Consultas | 0 | 0 | Casos Consultas | 0
-Casos abiertos totales | 159 | Horas abiertos totales | 5650 | Horas abiertos totales | 240 | Casos abiertos totales | 23.541666666666664
+Casos abiertos totales | 162 | Horas abiertos totales | 5650 | Horas abiertos totales | 240 | Casos abiertos totales | 23.541666666666664
 === HOJA: Indicadores ===
 Indicadores de Mantenimiento Gamma
 Casos totales | 223
-Casos cerrados | 62
-Casos abiertos | 161
+Casos cerrados | 59
+Casos abiertos | 164
 En plazo | 0
 Fuera de plazo | 0
 % Cumplimiento SLA | 0
-Por hacer | 125
-En curso | 10
+Por hacer | 123
+En curso | 12
 Implementación | 9
 Cerrado | 57
 Total | 201
@@ -1441,8 +1441,8 @@ SF16366 | #REF! | Santiago del Estero | Gamma | Mantenimiento | 1 | En desarroll
 #REF! | GAMMA - 000722
 SF16367 | #REF! | Santiago del Estero | Gamma | Mantenimiento | 2 | En desarrollo | 2026-04-30 00:00:00 | 160 | 0
 #REF! | 16608 | #REF! | Santiago del Estero | Gamma | Mantenimiento | 5 | En desarrollo | 46147 | 136 | 0
-#REF! | 16609 | #REF! | Santiago del Estero | Gamma | Mantenimiento | 6 | A planificar | 160 | 0
-#REF! | GAMMA - 000739 16403 | #REF! | Santiago del Estero | Gamma | Mantenimiento | 3 | A planificar | 400 | 0
+#REF! | 16609 | #REF! | Santiago del Estero | Gamma | Mantenimiento | 6 | En desarrollo | 160 | 0
+#REF! | GAMMA - 000739 16403 | #REF! | Santiago del Estero | Gamma | Mantenimiento | 3 | En desarrollo | 400 | 0
 #REF! | GAMMA - 000738
 16404 | #REF! | Santiago del Estero | Gamma | Mantenimiento | 8 | En desarrollo | 46147 | 32 | 0
 #REF! | 16453 | #REF! | Santiago del Estero | Gamma | Mantenimiento | 9 | En desarrollo | 2026-05-08 00:00:00 | 400 | 0
@@ -1480,7 +1480,7 @@ SF16367 | #REF! | Santiago del Estero | Gamma | Mantenimiento | 2 | En desarroll
 #REF! | 00008133 | #REF! | Todas las provincias | Gamma | SAC | 0 | A priorizar | 0 | 60 | 0
 #REF! | 00008138 | #REF! | Todas las provincias | Gamma | SAC | 0 | Validar estado | 0 | 0 | 0
 #REF! | 0 | #REF! | Todas las provincias | Gamma | SAC | 0 | A priorizar | 8 | 0
-#REF! | 690 | #REF! | Todas las provincias | Gamma | SAC | 0 | A priorizar | 0 | 0
+#REF! | 0 | #REF! | Todas las provincias | Gamma | SAC | 0 | A priorizar | 0 | 0
 #REF! | 708 | #REF! | Todas las provincias | Gamma | SAC | 0 | A priorizar | 0 | 0
 #REF! | 871 | #REF! | Todas las provincias | Gamma | SAC | 0 | A priorizar | 0 | 0
 #REF! | 902 | #REF! | Todas las provincias | Gamma | SAC | 0 | A priorizar | 0 | 0
@@ -1535,7 +1535,7 @@ SF 14508 | #REF! | Todas las provincias | Gamma | Mantenimiento | 7 | A planific
 #REF! | MAN-668 SF15881 | #REF! | Santa Cruz | Gamma | SAC | 3 | A priorizar | 0 | 0
 #REF! | MAN-620 | #REF! | Salta | Gamma | 999 | A priorizar | 40 | 0
 #REF! | 00008137 | #REF! | Todas las provincias | Gamma | SAC | 999 | A priorizar | 40 | Paolo
-#REF! | MAN-665 SF15922 | #REF! | Salta | Gamma | SAC | 5 | A priorizar | 0 | 0
+#REF! | MAN-665 SF15922 | #REF! | Salta | Gamma | SAC | 5 | UAT | 0 | 0
 #REF! | MAN-00012734   MAN-00013568 ver correo 13568 | #REF! | La Rioja | NOA | SAC | 999 | A priorizar | 8 | Marcos
 #REF! | MAN-669 SF15900 | #REF! | Salta | Gamma | SAC | 0 | A priorizar | 0 | 0
 #REF! | MAN-670 SF15939 | #REF! | Corrientes | Gamma | SAC | 0 | A priorizar | 0 | 0
@@ -1589,9 +1589,9 @@ ID719 | #REF! | Corrientes | Gamma | SAC | 0 | A priorizar | 16 | Marcos
 #REF! | 10541 | #REF! | Corrientes | Gamma | 0 | 0 | Cerrado
 #REF! | MAN-00014096 | #REF! | Corrientes | Gamma | 0 | 0 | Cerrado
 #REF! | MAN-00014170 | #REF! | Todas las provincias | Gamma | 0 | 0 | Cerrado
-#REF! | MAN-658 SF15876 | #REF! | Salta | Gamma | 0 | 0 | Cerrado
-#REF! | MAN-662 SF15902 | #REF! | Salta | Gamma | 0 | 0 | Cerrado
-#REF! | MAN-666 SF15955 | #REF! | Salta | Gamma | 0 | 0 | Cerrado
+#REF! | MAN-658 SF15876 | #REF! | Salta | Gamma | 0 | 0 | UAT
+#REF! | MAN-662 SF15902 | #REF! | Salta | Gamma | 0 | 0 | UAT
+#REF! | MAN-666 SF15955 | #REF! | Salta | Gamma | 0 | 0 | UAT
 #REF! | 00008131 | #REF! | Todas las provincias | Gamma | Mantenimiento | 0 | Cerrado | 2026-01-31 00:00:00 | MARZO
 #REF! | MAN-592 | #REF! | Salta | Abaco | Mantenimiento | 0 | Cerrado | MARZO
 #REF! | MAN-69 | #REF! | Salta | Gamma | SAC | 0 | Cerrado
