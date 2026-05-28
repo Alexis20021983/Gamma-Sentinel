@@ -1,9 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   const chatForm = document.getElementById('chatForm');
-  const input = document.getElementById('chatInput');
-  const chat = document.getElementById('chatMessages');
+  const chatInput = document.getElementById('chatInput');
+  const chatMessages = document.getElementById('chatMessages');
   const sendBtn = document.getElementById('sendBtn');
+
+  /* ======================================================
+   CONFIG BACKEND
+  ====================================================== */
+  const getBackendUrl = () => {
+    // Producción (GitHub Pages)
+    if (window.__GAMMA_BACKEND_URL__) {
+      return window.__GAMMA_BACKEND_URL__;
+    }
+
+    // Local (Node)
+    return 'http://localhost:3000';
+  };
 
   /* ======================================================
    AGREGAR MENSAJE
@@ -13,48 +26,59 @@ document.addEventListener('DOMContentLoaded', () => {
     message.className = `message ${type}`;
     message.innerHTML = `<p>${text}</p>`;
 
-    chat.appendChild(message);
+    chatMessages.appendChild(message);
 
-    // ✅ SCROLL AUTOMÁTICO
-    chat.scrollTop = chat.scrollHeight;
+    // ✅ SIEMPRE SCROLL ABAJO
+    chatMessages.scrollTop = chatMessages.scrollHeight;
   };
 
   /* ======================================================
-   ENVIAR MENSAJE
+   ENVÍO DE MENSAJE
   ====================================================== */
   const sendMessage = async () => {
 
-    const question = input.value.trim();
-
+    const question = chatInput.value.trim();
     if (!question) return;
 
     addMessage('user', question);
-    input.value = '';
+    chatInput.value = '';
 
     // mensaje temporal
     addMessage('bot', 'Consultando...');
 
     try {
-      const res = await fetch('/api/chat', {
+      const backend = getBackendUrl();
+
+      console.log('Conectando a:', backend);
+
+      const response = await fetch(`${backend}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          message: question
-        })
+        body: JSON.stringify({ message: question })
       });
 
-      const data = await res.json();
+      if (!response.ok) {
+        throw new Error(`Error backend: ${response.status}`);
+      }
+
+      const data = await response.json();
 
       // eliminar "Consultando..."
-      chat.lastElementChild.remove();
+      chatMessages.lastElementChild.remove();
 
       addMessage('bot', data.reply || 'Sin respuesta');
 
     } catch (error) {
-      chat.lastElementChild.remove();
-      addMessage('bot', 'Error conectando con el servidor');
+      console.error('Error:', error);
+
+      chatMessages.lastElementChild.remove();
+
+      addMessage(
+        'bot',
+        'No se pudo conectar con el backend. Verificá que Railway esté activo o probá en local.'
+      );
     }
   };
 
@@ -63,17 +87,25 @@ document.addEventListener('DOMContentLoaded', () => {
   ====================================================== */
 
   // ✅ BOTÓN
-  sendBtn.addEventListener('click', () => {
-    sendMessage();
-  });
+  if (sendBtn) {
+    sendBtn.addEventListener('click', sendMessage);
+  }
 
-  // ✅ ENTER en el input (IMPORTANTE)
-  input.addEventListener('keydown', (e) => {
+  // ✅ ENTER EN INPUT
+  chatInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // 🔥 evita salto arriba
+      e.preventDefault();
       e.stopPropagation();
       sendMessage();
     }
   });
+
+  // ✅ EVITAR SUBMIT HTML (extra seguridad)
+  if (chatForm) {
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+  }
 
 });

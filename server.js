@@ -35,6 +35,11 @@ let backlogStats = {
  LOAD KNOWLEDGE
 ====================================================== */
 function loadKnowledge() {
+  if (!fs.existsSync(KNOWLEDGE_DIR)) {
+    console.log('❌ No existe carpeta knowledge');
+    return;
+  }
+
   const files = fs.readdirSync(KNOWLEDGE_DIR);
 
   files.forEach(file => {
@@ -63,6 +68,11 @@ function loadBacklogExcel() {
       'Backlog Gamma Mantenimiento.xlsx'
     );
 
+    if (!fs.existsSync(file)) {
+      console.log('⚠️ No existe backlog XLS');
+      return;
+    }
+
     const workbook = XLSX.readFile(file);
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     backlogData = XLSX.utils.sheet_to_json(sheet);
@@ -70,7 +80,7 @@ function loadBacklogExcel() {
     backlogStats.total = backlogData.length;
 
     backlogData.forEach(r => {
-      const estado = String(r['Estado'] || '').toLowerCase();
+      const estado = String(r['Estado'] || r['Estado actual'] || '').toLowerCase();
 
       if (estado.includes('abierto')) backlogStats.abiertos++;
       if (estado.includes('cerrado')) backlogStats.cerrados++;
@@ -78,7 +88,7 @@ function loadBacklogExcel() {
 
     console.log('✅ Backlog cargado');
   } catch (e) {
-    console.log('⚠️ No se pudo cargar backlog');
+    console.log('❌ Error cargando backlog:', e.message);
   }
 }
 
@@ -88,7 +98,7 @@ function loadBacklogExcel() {
 function detectManual(q) {
   q = q.toLowerCase();
 
-  if (q.includes('lote') || q.includes('movil')) {
+  if (q.includes('lote') || q.includes('movil') || q.includes('lotemovil')) {
     return knowledgeBase.find(d =>
       d.file.toLowerCase().includes('lotemovil')
     );
@@ -123,7 +133,7 @@ function extractManualIndex(text) {
       return;
     }
 
-    if (capture && index.length < 15) {
+    if (capture && index.length < 20) {
       if (!l.trim()) return;
       index.push(l.trim());
     }
@@ -150,10 +160,36 @@ function findCase(question) {
 }
 
 /* ======================================================
+ API
+====================================================== */
+
+/* ✅ ROOT (nuevo) */
+app.get('/', (req, res) => {
+  res.json({
+    app: 'GAMMA Sentinel PRO',
+    status: 'online'
+  });
+});
+
+/* ✅ HEALTH (FIX CRÍTICO) */
+app.get('/health', (req, res) => {
+  res.json({
+    ok: true,
+    backlog: backlogStats.total,
+    docs: knowledgeBase.length
+  });
+});
+
+/* ======================================================
  CHAT
 ====================================================== */
 app.post('/api/chat', (req, res) => {
+
   const { message } = req.body;
+
+  if (!message) {
+    return res.status(400).json({ reply: 'Mensaje vacío' });
+  }
 
   const q = message.toLowerCase();
 
@@ -189,9 +225,9 @@ ${c['Descripción'] || 'Sin descripción'}
 
     let name = 'Manual';
 
-    if (manual.file.includes('Lote')) name = 'LoteMovil';
-    if (manual.file.includes('GAMMA')) name = 'GAMMA';
-    if (manual.file.includes('NOA')) name = 'NOA';
+    if (manual.file.toLowerCase().includes('lote')) name = 'LoteMovil';
+    if (manual.file.toLowerCase().includes('gamma')) name = 'GAMMA';
+    if (manual.file.toLowerCase().includes('noa')) name = 'NOA';
 
     return res.json({
       reply: `Índice del manual de ${name}:\n\n${idx.join('\n')}`
