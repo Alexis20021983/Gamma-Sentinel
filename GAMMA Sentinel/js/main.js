@@ -254,6 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let replyText = cleanText(best.text);
       replyText = replyText.replace(/^--- PÁGINA \d+ ---\s*/i, '');
       replyText = replyText.replace(/^=== HOJA:.*===\s*/i, '');
+<<<<<<< HEAD
 
       // Formatear filas del backlog de forma amigable para mostrar en el chat
       if (best.path.toLowerCase().includes('backlog') && replyText.includes('|')) {
@@ -295,6 +296,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return `Aquí tienes el índice del manual de <strong>${manualName}</strong>. ¿Qué sección te interesaría consultar? (Escríbeme cualquiera de estos temas en el chat para ver el detalle):<br><br>${formattedIndex}`;
       }
 
+=======
+>>>>>>> 6164518421cb83d656b73648b0f037841c4b804d
       return replyText;
     } catch (error) {
       console.error(error);
