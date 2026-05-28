@@ -60,20 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
     'README.md',
     'agent.mcs.yml',
     'settings.mcs.yml',
-    'knowledge/files/Archivo_SharePoint_GAMMA.mcs.yml',
-    'knowledge/files/BacklogGammaMantenimiento.jmg.xlsx_Xl0.mcs.yml',
-    'knowledge/files/Base_Conocimiento_GAMMA.txt_EFg.mcs.yml',
-    'knowledge/files/GAMMA-ManualdeUsuariov1.0.pdf_Etf.mcs.yml',
-    'knowledge/files/LoteMovil-ManualdeUsuariov1.2.pdf_6JE.mcs.yml',
-    'knowledge/files/Manual_RT_GAMMA_Integrado.docx_IgK.mcs.yml',
-    'knowledge/files/NOA-ManualdeUsuariov1.2.pdf_gaK.mcs.yml',
-    'knowledge/files/Base_Conocimiento_GAMMA.txt',
-    'knowledge/files/Archivo_SharePoint_GAMMA.txt',
     'knowledge/files/BacklogGammaMantenimiento.txt',
     'knowledge/files/GAMMA-ManualdeUsuariov1.0.txt',
     'knowledge/files/LoteMovil-ManualdeUsuariov1.2.txt',
     'knowledge/files/LoteMovil-ManualdeAdministradorv1.2.txt',
-    'knowledge/files/Manual_RT_GAMMA_Integrado.txt',
     'knowledge/files/NOA-ManualdeUsuariov1.2.txt'
   ];
 
