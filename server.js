@@ -298,13 +298,16 @@ function searchContext(question, topK = 6) {
       }
 
       if (score > 0) {
+        const isManual = doc.file.toLowerCase().includes('manual') || doc.file.toLowerCase().includes('base_conocimiento') || doc.file.toLowerCase().includes('readme');
+        if (isManual) {
+          score += 5;
+        }
 
         results.push({
           file: doc.file,
           chunk,
           score
         });
-
       }
 
     });
