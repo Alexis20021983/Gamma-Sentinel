@@ -185,43 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .filter((item) => item.matches > 0)
         .sort((a, b) => b.matches - a.matches);
 
-      // Priorizar el índice si el usuario hace una consulta general del manual o de un producto
-      const queryLower = normalizedQuestion;
-      const isProductOrManual = queryLower === 'noa' || 
-                                 queryLower === 'gamma' || 
-                                 queryLower === 'lotemovil' || 
-                                 queryLower === 'lote movil' ||
-                                 queryLower.includes('manual') || 
-                                 queryLower.includes('indice') || 
-                                 queryLower.includes('índice');
-      
-      if (isProductOrManual) {
-        let targetDoc = '';
-        if (queryLower.includes('gamma')) targetDoc = 'gamma';
-        else if (queryLower.includes('noa')) targetDoc = 'noa';
-        else if (queryLower.includes('lotemovil') || queryLower.includes('lote movil')) {
-          targetDoc = queryLower.includes('administrador') ? 'administrador' : 'lote';
-        }
-        
-        if (targetDoc) {
-          const indexEntry = loadedKnowledge.find(entry => {
-            const pathLower = entry.path.toLowerCase();
-            const textLower = entry.text.toLowerCase();
-            return pathLower.includes(targetDoc) && 
-                   (textLower.includes('indice') || textLower.includes('índice') || textLower.includes('i n d i c e'));
-          });
-          
-          if (indexEntry) {
-            // Quitar duplicados si ya estaba en scored y ponerlo primero
-            const indexInScored = scored.findIndex(item => item.entry.path === indexEntry.path && item.entry.text === indexEntry.text);
-            if (indexInScored !== -1) {
-              scored.splice(indexInScored, 1);
-            }
-            scored.unshift({ entry: indexEntry, matches: 100 });
-          }
-        }
-      }
-
       if (scored.length === 0) {
         return 'No encontré una coincidencia directa en el repositorio. Te puedo ayudar con temas como módulos, diagnóstico, backlog o información del proyecto si me escribís algo más específico.';
       }
@@ -230,47 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
       let replyText = cleanText(best.text);
       replyText = replyText.replace(/^--- PÁGINA \d+ ---\s*/i, '');
       replyText = replyText.replace(/^=== HOJA:.*===\s*/i, '');
-
-      // Formatear filas del backlog de forma amigable para mostrar en el chat
-      if (best.path.toLowerCase().includes('backlog') && replyText.includes('|')) {
-        const parts = replyText.split('|').map(p => p.trim());
-        if (parts.length >= 10) {
-          const isJiraSheet = parts[1] && parts[1].toUpperCase().includes('MAN-');
-          let clave = '';
-          let titulo = '';
-          let estado = '';
-          let descripcion = '';
-
-          if (isJiraSheet) {
-            clave = parts[1];
-            titulo = parts[5] || parts[4] || 'Sin título';
-            estado = parts[12] || parts[11] || 'Sin estado';
-            descripcion = parts[16] || parts[15] || parts[14] || 'Sin descripción';
-          } else {
-            clave = parts[0];
-            titulo = parts[4] || parts[3] || 'Sin título';
-            estado = parts[10] || parts[9] || 'Sin estado';
-            descripcion = parts[5] || 'Sin descripción';
-          }
-
-          return `<strong>Clave del caso:</strong> ${clave}<br><strong>Título:</strong> ${titulo}<br><strong>Estado:</strong> ${estado}<br><strong>Descripción:</strong> ${descripcion}`;
-        }
-      }
-
-      // Si es una página de índice, le damos un formato amigable de guía de secciones
-      const textLower = replyText.toLowerCase();
-      if (best.path.toLowerCase().includes('manual') && (textLower.includes('indice') || textLower.includes('índice') || textLower.includes('i n d i c e'))) {
-        let manualName = 'Usuario';
-        if (best.path.toUpperCase().includes('GAMMA')) manualName = 'GAMMA';
-        else if (best.path.toUpperCase().includes('NOA')) manualName = 'NOA';
-        else if (best.path.toUpperCase().includes('LOTEMOVIL')) {
-          manualName = best.path.toLowerCase().includes('administrador') ? 'LoteMóvil (Administrador)' : 'LoteMóvil (Usuario)';
-        }
-
-        const formattedIndex = replyText.replace(/\n/g, '<br>');
-        return `Aquí tienes el índice del manual de <strong>${manualName}</strong>. ¿Qué sección te interesaría consultar? (Escríbeme cualquiera de estos temas en el chat para ver el detalle):<br><br>${formattedIndex}`;
-      }
-
       return replyText;
     } catch (error) {
       console.error(error);
