@@ -3,40 +3,76 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatForm = document.getElementById('chatForm');
   const input = document.getElementById('chatInput');
   const chat = document.getElementById('chatMessages');
+  const sendBtn = document.getElementById('sendBtn');
 
-  const add = (type, txt) => {
-    const el = document.createElement('div');
-    el.className = type;
-    el.innerText = txt;
-    chat.appendChild(el);
+  /* ======================================================
+   AGREGAR MENSAJE
+  ====================================================== */
+  const addMessage = (type, text) => {
+    const message = document.createElement('article');
+    message.className = `message ${type}`;
+    message.innerHTML = `<p>${text}</p>`;
+
+    chat.appendChild(message);
+
+    // ✅ SCROLL AUTOMÁTICO
+    chat.scrollTop = chat.scrollHeight;
   };
 
-  chatForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  /* ======================================================
+   ENVIAR MENSAJE
+  ====================================================== */
+  const sendMessage = async () => {
 
-    const q = input.value;
-    if (!q) return;
+    const question = input.value.trim();
 
-    add('user', q);
+    if (!question) return;
+
+    addMessage('user', question);
     input.value = '';
 
-    add('bot', 'Pensando...');
+    // mensaje temporal
+    addMessage('bot', 'Consultando...');
 
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: q })
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: question
+        })
       });
 
       const data = await res.json();
 
-      chat.lastChild.remove();
-      add('bot', data.reply);
+      // eliminar "Consultando..."
+      chat.lastElementChild.remove();
 
-    } catch {
-      chat.lastChild.remove();
-      add('bot', 'Error consultando backend');
+      addMessage('bot', data.reply || 'Sin respuesta');
+
+    } catch (error) {
+      chat.lastElementChild.remove();
+      addMessage('bot', 'Error conectando con el servidor');
+    }
+  };
+
+  /* ======================================================
+   EVENTOS
+  ====================================================== */
+
+  // ✅ BOTÓN
+  sendBtn.addEventListener('click', () => {
+    sendMessage();
+  });
+
+  // ✅ ENTER en el input (IMPORTANTE)
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // 🔥 evita salto arriba
+      e.stopPropagation();
+      sendMessage();
     }
   });
 
