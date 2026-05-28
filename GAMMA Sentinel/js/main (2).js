@@ -60,20 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
     'README.md',
     'agent.mcs.yml',
     'settings.mcs.yml',
-    'knowledge/files/Archivo_SharePoint_GAMMA.mcs.yml',
-    'knowledge/files/BacklogGammaMantenimiento.jmg.xlsx_Xl0.mcs.yml',
-    'knowledge/files/Base_Conocimiento_GAMMA.txt_EFg.mcs.yml',
-    'knowledge/files/GAMMA-ManualdeUsuariov1.0.pdf_Etf.mcs.yml',
-    'knowledge/files/LoteMovil-ManualdeUsuariov1.2.pdf_6JE.mcs.yml',
-    'knowledge/files/Manual_RT_GAMMA_Integrado.docx_IgK.mcs.yml',
-    'knowledge/files/NOA-ManualdeUsuariov1.2.pdf_gaK.mcs.yml',
-    'knowledge/files/Base_Conocimiento_GAMMA.txt',
-    'knowledge/files/Archivo_SharePoint_GAMMA.txt',
     'knowledge/files/BacklogGammaMantenimiento.txt',
     'knowledge/files/GAMMA-ManualdeUsuariov1.0.txt',
     'knowledge/files/LoteMovil-ManualdeUsuariov1.2.txt',
     'knowledge/files/LoteMovil-ManualdeAdministradorv1.2.txt',
-    'knowledge/files/Manual_RT_GAMMA_Integrado.txt',
     'knowledge/files/NOA-ManualdeUsuariov1.2.txt'
   ];
 
@@ -125,10 +115,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return null;
           }
 
-          const sections = clean
-            .split(/\n\s*\n+/)
-            .map((section) => section.trim())
-            .filter(Boolean);
+          let sections;
+          if (path.toLowerCase().includes('backlog')) {
+            sections = clean
+              .split(/\r?\n/)
+              .map((line) => line.trim())
+              .filter((line) => line && !line.startsWith('=== HOJA:'));
+          } else {
+            sections = clean
+              .split(/\n\s*\n+/)
+              .map((section) => section.trim())
+              .filter(Boolean);
+          }
 
           return {
             path,
@@ -187,12 +185,93 @@ document.addEventListener('DOMContentLoaded', () => {
         .filter((item) => item.matches > 0)
         .sort((a, b) => b.matches - a.matches);
 
+      // Priorizar el índice si el usuario hace una consulta general del manual o de un producto
+      const queryLower = normalizedQuestion;
+      const isProductOrManual = queryLower === 'noa' || 
+                                 queryLower === 'gamma' || 
+                                 queryLower === 'lotemovil' || 
+                                 queryLower === 'lote movil' ||
+                                 queryLower.includes('manual') || 
+                                 queryLower.includes('indice') || 
+                                 queryLower.includes('índice');
+      
+      if (isProductOrManual) {
+        let targetDoc = '';
+        if (queryLower.includes('gamma')) targetDoc = 'gamma';
+        else if (queryLower.includes('noa')) targetDoc = 'noa';
+        else if (queryLower.includes('lotemovil') || queryLower.includes('lote movil')) {
+          targetDoc = queryLower.includes('administrador') ? 'administrador' : 'lote';
+        }
+        
+        if (targetDoc) {
+          const indexEntry = loadedKnowledge.find(entry => {
+            const pathLower = entry.path.toLowerCase();
+            const textLower = entry.text.toLowerCase();
+            return pathLower.includes(targetDoc) && 
+                   (textLower.includes('indice') || textLower.includes('índice') || textLower.includes('i n d i c e'));
+          });
+          
+          if (indexEntry) {
+            // Quitar duplicados si ya estaba en scored y ponerlo primero
+            const indexInScored = scored.findIndex(item => item.entry.path === indexEntry.path && item.entry.text === indexEntry.text);
+            if (indexInScored !== -1) {
+              scored.splice(indexInScored, 1);
+            }
+            scored.unshift({ entry: indexEntry, matches: 100 });
+          }
+        }
+      }
+
       if (scored.length === 0) {
         return 'No encontré una coincidencia directa en el repositorio. Te puedo ayudar con temas como módulos, diagnóstico, backlog o información del proyecto si me escribís algo más específico.';
       }
 
       const best = scored[0].entry;
-      return `Basado en ${best.path}: ${summarizeText(best.text)}`;
+      let replyText = cleanText(best.text);
+      replyText = replyText.replace(/^--- PÁGINA \d+ ---\s*/i, '');
+      replyText = replyText.replace(/^=== HOJA:.*===\s*/i, '');
+
+      // Formatear filas del backlog de forma amigable para mostrar en el chat
+      if (best.path.toLowerCase().includes('backlog') && replyText.includes('|')) {
+        const parts = replyText.split('|').map(p => p.trim());
+        if (parts.length >= 10) {
+          const isJiraSheet = parts[1] && parts[1].toUpperCase().includes('MAN-');
+          let clave = '';
+          let titulo = '';
+          let estado = '';
+          let descripcion = '';
+
+          if (isJiraSheet) {
+            clave = parts[1];
+            titulo = parts[5] || parts[4] || 'Sin título';
+            estado = parts[12] || parts[11] || 'Sin estado';
+            descripcion = parts[16] || parts[15] || parts[14] || 'Sin descripción';
+          } else {
+            clave = parts[0];
+            titulo = parts[4] || parts[3] || 'Sin título';
+            estado = parts[10] || parts[9] || 'Sin estado';
+            descripcion = parts[5] || 'Sin descripción';
+          }
+
+          return `<strong>Clave del caso:</strong> ${clave}<br><strong>Título:</strong> ${titulo}<br><strong>Estado:</strong> ${estado}<br><strong>Descripción:</strong> ${descripcion}`;
+        }
+      }
+
+      // Si es una página de índice, le damos un formato amigable de guía de secciones
+      const textLower = replyText.toLowerCase();
+      if (best.path.toLowerCase().includes('manual') && (textLower.includes('indice') || textLower.includes('índice') || textLower.includes('i n d i c e'))) {
+        let manualName = 'Usuario';
+        if (best.path.toUpperCase().includes('GAMMA')) manualName = 'GAMMA';
+        else if (best.path.toUpperCase().includes('NOA')) manualName = 'NOA';
+        else if (best.path.toUpperCase().includes('LOTEMOVIL')) {
+          manualName = best.path.toLowerCase().includes('administrador') ? 'LoteMóvil (Administrador)' : 'LoteMóvil (Usuario)';
+        }
+
+        const formattedIndex = replyText.replace(/\n/g, '<br>');
+        return `Aquí tienes el índice del manual de <strong>${manualName}</strong>. ¿Qué sección te interesaría consultar? (Escríbeme cualquiera de estos temas en el chat para ver el detalle):<br><br>${formattedIndex}`;
+      }
+
+      return replyText;
     } catch (error) {
       console.error(error);
       return 'No pude consultar el repositorio en este momento. Si querés, te doy una respuesta general del sitio mientras verifico el acceso.';
