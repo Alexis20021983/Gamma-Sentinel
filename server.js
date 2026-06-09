@@ -255,6 +255,21 @@ function normalizeSearch(text) {
     .replace(/[\u0300-\u036f]/g, '');
 }
 
+function parseSectionPageRequest(text) {
+  const match = String(text || '').match(/(.+?)\s*:\s*p[áa]gina\s*(\d+)/i);
+  if (!match) return null;
+  return {
+    sectionName: normalizeSearch(match[1].trim()),
+    page: parseInt(match[2], 10)
+  };
+}
+
+function getManualPageExcerpt(section, length = 1000) {
+  if (!section.content) return null;
+  const excerpt = section.content.trim().slice(0, length);
+  return `Página ${section.page} del manual GAMMA:\n\n${excerpt}${section.content.length > length ? '...' : ''}\n\nAbre el archivo: ${section.path}`;
+}
+
 function parseManualIndexWithPages(text) {
   const lines = text.split('\n').map(line => line.trim()).filter(Boolean);
   const start = lines.findIndex(line => normalizeSearch(line).includes('indice'));
@@ -650,6 +665,18 @@ ${c['Descripción'] || 'Sin descripción'}
 
   /* ===== MANUALES ===== */
   const specificManual = findSpecificManual(message);
+  const sectionRequest = parseSectionPageRequest(message);
+
+  if (sectionRequest) {
+    const requestedSection = manualSectionMap.gamma[sectionRequest.sectionName];
+    if (requestedSection && requestedSection.page === sectionRequest.page) {
+      const excerpt = getManualPageExcerpt(requestedSection, 1000);
+      if (excerpt) {
+        return res.json({ reply: excerpt });
+      }
+    }
+  }
+
   const manualSection = findManualSection(message);
 
   if (manualSection && specificManual && specificManual.file.toLowerCase().includes('gamma')) {
