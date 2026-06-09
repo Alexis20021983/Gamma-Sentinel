@@ -17,8 +17,7 @@ app.use(express.json());
 const KNOWLEDGE_DIR = path.join(
   __dirname,
   'GAMMA Sentinel',
-  'knowledge',
-  'files'
+  'knowledge'
 );
 
 /* ======================================================
@@ -32,25 +31,108 @@ let backlogStats = {
 };
 
 /* ======================================================
+ COMMON HELPERS
+====================================================== */
+function normalizeCell(value) {
+  if (value === undefined || value === null) return '';
+  return String(value)
+    .replace(/\r/g, ' ')
+    .replace(/\n/g, ' ')
+    .trim();
+}
+
+function normalizeText(text = '') {
+  return String(text)
+    .replace(/\r/g, ' ')
+    .replace(/\n+/g, '\n')
+    .trim();
+}
+
+function readExcelAsText(filePath, fileName) {
+  const workbook = XLSX.readFile(filePath, {
+    cellDates: true,
+    dateNF: 'yyyy-mm-dd'
+  });
+
+  workbook.SheetNames.forEach(sheetName => {
+    const rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {
+      header: 1,
+      defval: ''
+    });
+
+    const lines = rows
+      .map(row => row.map(normalizeCell).join(' | '))
+      .filter(line => line.trim().length > 0);
+
+    const content = [
+      `=== EXCEL: ${fileName}`,
+      `=== HOJA: ${sheetName}`,
+      ...lines
+    ].join('\n');
+
+    knowledgeBase.push({
+      file: fileName,
+      sheet: sheetName,
+      type: 'excel',
+      content
+    });
+  });
+}
+
+/* ======================================================
  LOAD KNOWLEDGE
 ====================================================== */
+function walkKnowledgeDir(directory) {
+  const filePaths = [];
+
+  if (!fs.existsSync(directory)) return filePaths;
+
+  const entries = fs.readdirSync(directory, { withFileTypes: true });
+
+  entries.forEach(entry => {
+    const fullPath = path.join(directory, entry.name);
+
+    if (entry.isDirectory()) {
+      filePaths.push(...walkKnowledgeDir(fullPath));
+      return;
+    }
+
+    const ext = path.extname(entry.name).toLowerCase();
+    if (['.txt', '.xlsx', '.xls'].includes(ext)) {
+      filePaths.push(fullPath);
+    }
+  });
+
+  return filePaths;
+}
+
 function loadKnowledge() {
   if (!fs.existsSync(KNOWLEDGE_DIR)) {
     console.log('❌ No existe carpeta knowledge');
     return;
   }
 
-  const files = fs.readdirSync(KNOWLEDGE_DIR);
+  const files = walkKnowledgeDir(KNOWLEDGE_DIR);
 
-  files.forEach(file => {
-    if (!file.endsWith('.txt')) return;
+  files.forEach(fullPath => {
+    const ext = path.extname(fullPath).toLowerCase();
+    const relativePath = path.relative(KNOWLEDGE_DIR, fullPath);
+    const file = relativePath.replace(/\\/g, '/');
 
-    const content = fs.readFileSync(
-      path.join(KNOWLEDGE_DIR, file),
-      'utf-8'
-    );
+    if (ext === '.txt') {
+      const content = fs.readFileSync(fullPath, 'utf-8');
+      knowledgeBase.push({ file, content, type: 'text' });
+      return;
+    }
 
-    knowledgeBase.push({ file, content });
+    if (ext === '.xlsx' || ext === '.xls') {
+      try {
+        readExcelAsText(fullPath, file);
+        return;
+      } catch (err) {
+        console.error(`❌ Error leyendo Excel ${file}:`, err.message);
+      }
+    }
   });
 
   console.log(`📚 Docs cargados: ${knowledgeBase.length}`);
@@ -61,14 +143,19 @@ function loadKnowledge() {
 ====================================================== */
 let backlogData = [];
 
+function findBacklogExcelFile() {
+  const allFiles = walkKnowledgeDir(KNOWLEDGE_DIR);
+  return allFiles.find(filePath =>
+    path.basename(filePath).toLowerCase().includes('backlog') &&
+    ['.xlsx', '.xls'].includes(path.extname(filePath).toLowerCase())
+  );
+}
+
 function loadBacklogExcel() {
   try {
-    const file = path.join(
-      KNOWLEDGE_DIR,
-      'Backlog Gamma Mantenimiento.xlsx'
-    );
+    const file = findBacklogExcelFile();
 
-    if (!fs.existsSync(file)) {
+    if (!file) {
       console.log('⚠️ No existe backlog XLS');
       return;
     }
@@ -86,7 +173,7 @@ function loadBacklogExcel() {
       if (estado.includes('cerrado')) backlogStats.cerrados++;
     });
 
-    console.log('✅ Backlog cargado');
+    console.log('✅ Backlog cargado:', path.relative(KNOWLEDGE_DIR, file));
   } catch (e) {
     console.log('❌ Error cargando backlog:', e.message);
   }
@@ -117,6 +204,43 @@ function detectManual(q) {
   }
 
   return null;
+}
+
+function searchKnowledge(query) {
+  const tokens = (query || '')
+    .toLowerCase()
+    .match(/\w+/g) || [];
+
+  if (!tokens.length) return null;
+
+  const results = knowledgeBase
+    .map(doc => {
+      const text = doc.content.toLowerCase();
+      const score = tokens.reduce((acc, token) => {
+        return acc + (text.includes(token) ? 1 : 0);
+      }, 0);
+
+      return { doc, score };
+    })
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  if (!results.length) return null;
+
+  const match = results[0];
+  const lowerQuery = query.toLowerCase();
+  const excerpt = match.doc.content
+    .split('\n')
+    .filter(line =>
+      tokens.some(token => line.toLowerCase().includes(token))
+    )
+    .slice(0, 10)
+    .join('\n');
+
+  return {
+    doc: match.doc,
+    excerpt: excerpt || match.doc.content.slice(0, 400)
+  };
 }
 
 function extractManualIndex(text) {
@@ -244,6 +368,21 @@ Total: ${backlogStats.total}
 Abiertos: ${backlogStats.abiertos}
 Cerrados: ${backlogStats.cerrados}
 `
+    });
+  }
+
+  /* ===== EXCEL / DOCUMENTOS ===== */
+  const knowledgeResult = searchKnowledge(message);
+
+  if (knowledgeResult) {
+    const label = knowledgeResult.doc.type === 'excel'
+      ? `Excel ${knowledgeResult.doc.file} - hoja ${knowledgeResult.doc.sheet}`
+      : knowledgeResult.doc.file;
+
+    return res.json({
+      reply: `Consulta basada en ${label}:
+
+${knowledgeResult.excerpt}`
     });
   }
 
