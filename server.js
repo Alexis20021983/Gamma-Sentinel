@@ -470,7 +470,22 @@ const manualSectionMap = {
       title: 'Juegos',
       description: 'Sección Juegos del manual GAMMA. Explica la administración y consulta de juegos en el sistema.',
       path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
-      page: 8
+      page: 8,
+      content: `Son aquellos cuya propiedad 
+pertenece a la Lotería.
+Son operados por la lotería,
+pero pertenecen a
+diferentes proveedores.
+
+JUEGOS PROPIOS
+JUEGOS DE
+TERCEROS JUEGOS
+
+Cada juego se muestra
+en una tarjeta e incluye:
+- Nombre de juego.
+- Próximo sorteo a cerrar.
+`
     },
     calendario: {
       title: 'Calendario',
@@ -544,7 +559,8 @@ function findManualSection(query) {
 
 function getManualSectionResponse(section) {
   const pageText = section.page ? `Página ${section.page}.\n\n` : '';
-  return `Te llevo a la sección *${section.title}* del manual de usuario GAMMA.\n\n${pageText}${section.description}\n\nAbre el archivo: ${section.path}`;
+  const contentText = section.content ? `Contenido de la página:\n\n${section.content}\n\n` : '';
+  return `Te llevo a la sección *${section.title}* del manual de usuario GAMMA.\n\n${pageText}${section.description}\n\n${contentText}Abre el archivo: ${section.path}`;
 }
 
 /* ======================================================
