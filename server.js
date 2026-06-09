@@ -345,6 +345,48 @@ function getManualIndex(doc) {
   return `No pude extraer el índice exacto del manual ${doc.file}, pero el archivo está disponible en ${doc.file}.`;
 }
 
+const manualSectionMap = {
+  gamma: {
+    alertas: {
+      title: 'Alertas',
+      description: 'Sección Alertas del manual GAMMA. Aquí se explica cómo visualizar y gestionar las alertas del sistema, las notificaciones de eventos y los estados de los PDV.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf'
+    },
+    introduccion: {
+      title: 'Introducción',
+      description: 'Sección Introducción del manual GAMMA. Contiene el alcance del sistema, requisitos y conceptos generales.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf'
+    },
+    'ingreso al sistema': {
+      title: 'Ingreso al sistema',
+      description: 'Sección Ingreso al sistema del manual GAMMA. Explica cómo iniciar sesión y los permisos asociados.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf'
+    },
+    funcionalidades: {
+      title: 'Funcionalidades',
+      description: 'Sección Funcionalidades del manual GAMMA. Describe los módulos principales y las opciones del menú.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf'
+    }
+  }
+};
+
+function findManualSection(query) {
+  const q = query.toLowerCase();
+  const gammaSections = manualSectionMap.gamma;
+
+  for (const key of Object.keys(gammaSections)) {
+    if (q.includes(key)) {
+      return gammaSections[key];
+    }
+  }
+
+  return null;
+}
+
+function getManualSectionResponse(section) {
+  return `Te llevo a la sección *${section.title}* del manual de usuario GAMMA.\n\n${section.description}\n\nAbre el archivo: ${section.path}`;
+}
+
 /* ======================================================
  CASOS (COPILOT)
 ====================================================== */
@@ -420,6 +462,14 @@ ${c['Descripción'] || 'Sin descripción'}
 
   /* ===== MANUALES ===== */
   const specificManual = findSpecificManual(message);
+  const manualSection = findManualSection(message);
+
+  if (manualSection && specificManual && specificManual.file.toLowerCase().includes('gamma')) {
+    return res.json({
+      reply: getManualSectionResponse(manualSection)
+    });
+  }
+
   if (q.includes('manual')) {
     if (q.includes('indice') || q.includes('índice')) {
       if (specificManual) {
