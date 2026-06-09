@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "compare-excel": "node \"GAMMA Sentinel/scripts/compare_excels.js\""
   },
   "dependencies": {
     "cors": "^2.8.5",

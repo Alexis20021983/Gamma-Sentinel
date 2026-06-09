@@ -1,0 +1,580 @@
+Ciclo;Caso;ID;Requerimiento;Caso de Uso;Caso de Prueba;Descripción;Pasos a realizar;Resultado esperado;Criticidad;Status Final;Status;Iteraciones;Link a evidencia;Observaciones;Formula01: ciclo+status
+01;001;C01.001;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación única vez y monto fijo, Org JuJ  PDV 12,13,14;Cargar un d&b con modalidad de cobro única vez, sin máximo diario y monto fijo;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;002;C01.002;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación única vez y porcentaje comisión Org JuJ  PDV 12,13,14;Cargar un d&b con modalidad de cobro única vez, sin máximo diario y porcentaje de comisión;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos;Baja;Error;;;;;1Error
+01;003;C01.003;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación única vez y porcentaje venta Org JuJ PDV 12,13,14;Cargar un d&b con modalidad de cobro única vez, sin máximo diario y porcentaje de venta;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;004;C01.004;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación Diaria y monto fijo, Org JuJ PDV 5,6,9;Cargar un d&b con modalidad de cobro diaria, sin máximo diario y monto fijo;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;005;C01.005;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación Diaria y porcentaje comisión Org JuJ PDV 5,6,9;Cargar un d&b con modalidad de cobro diaria, sin máximo diario y porcentaje de comisión;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos;Baja;Error;;;;;1Error
+01;006;C01.006;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación Diaria y porcentaje venta Org JuJ PDV 5,6,9;Cargar un d&b con modalidad de cobro diaria, sin máximo diario y porcentaje de venta;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;007;C01.007;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación Diaria y porcentaje venta Org JuJ PDV 5,6,9;Cargar un d&b con modalidad de cobro diaria, sin máximo diario y porcentaje de venta;Elegir juego, código contable de entrada y código contable de salida, cargar el d&B y luego bloquear primero y después eliminar el d&B y en cada acción liquidar para el día cargado;Registro correcto del d&b en el panel de auditoría, luego registro bloqueado en el panel de auditoría y luego, al haber sido eliminado no debe aparacer en el panel de auditoría. También verificar que en la liquidación no tenga impacto por el caso de bloqueo y de eliminación;Baja;Error;;;;;1Error
+01;008;C01.008;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación única vez y monto fijo, Org JuJ  PDV 12,13,14;Cargar un d&b con modalidad de cobro única vez, con máximo y monto fijo;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;009;C01.009;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación única vez y porcentaje comisión Org JuJ  PDV 12,13,14;Cargar un d&b con modalidad de cobro única vez, con máximo y porcentaje de comisión;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos;Baja;Error;;;;;1Error
+01;010;C01.010;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación única vez y porcentaje venta Org JuJ PDV 12,13,14;Cargar un d&b con modalidad de cobro única vez, con máximo y porcentaje de venta;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;011;C01.011;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación Diaria y monto fijo, Org JuJ PDV 5,6,9;Cargar un d&b con modalidad de cobro diaria, con máximo y monto fijo;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;012;C01.012;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación Diaria y porcentaje comisión Org JuJ PDV 5,6,9;Cargar un d&b con modalidad de cobro diaria, con máximo y porcentaje de comisión;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos;Baja;Error;;;;;1Error
+01;013;C01.013;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación Diaria y porcentaje venta Org JuJ PDV 5,6,9;Cargar un d&b con modalidad de cobro diaria, con máximo muy grande y porcentaje de venta para que se pueda cobrar en varias liquidaciones y en este caso tiene que cobrarse;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos;Baja;Pendiente;;;;;1Pendiente
+01;014;C01.014;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación Diaria y porcentaje venta Org JuJ PDV 5,6,9;Cargar un d&b con modalidad de cobro diaria, con máximo muy chico  y porcentaje de venta para que se pueda cobrar en una sola liquidación y en este caso tiene que cobrarse hasta el máximo definido;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación hasta el límite máximo parametrizado con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos;Baja;Pendiente;;;;;1Pendiente
+01;015;C01.015;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación Diaria y porcentaje venta Org JuJ PDV 5,6,9;Cargar un d&b con modalidad de cobro diaria, con máximo muy grande para PDV 5 y máximo médiano para PDV 6 y 9  y porcentaje de venta para que se pueda cobrar en varias liquidaciones y en este caso tiene que cobrarse;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos. En este caso el PDV 5 tiene que liquidarse en varias liquidaciones y los PDV 6 y 9 con una cantidad inferior a la del PDV 5;Baja;Pendiente;;;;;1Pendiente
+01;016;C01.016;792 - NQN.GAMMA.FE - Carga manual D&B;Cargar de un d&b manual por frontend;Liquidación Diaria y porcentaje venta Org JuJ PDV 5,6,9;Cargar un d&b con modalidad de cobro diaria, con máximo muy chico para PDV 5 y mediano para PDV 6 y 9 y porcentaje de venta para que se pueda cobrar en una sola liquidación y en este caso tiene que cobrarse hasta el máximo definido;Elegir juego, código contable de entrada y código contable de salida;Registro correcto del d&b en el panel de auditoría y su liquidación hasta el límite máximo parametrizado con sus cálculos correctos en función del d&b a aplicar  y backprocess correctos.  En este caso el PDV 5 tiene que liquidarse en una liquidación y los PDV 6 y 9 con varias liquidaciones;Baja;Pendiente;;;;;1Pendiente
+01;017;C01.017;774 - Resúmenes x mail;Evitar que salgan mails reales a agencieros / Configura gamma con el mail emisor de la notificación;Ejecutar script1 para la bd agency y script2 para la bd organization;El script agrega un * a todos los mail de la org a realizar la prueba para evitar que salgan mails a las agencias y se da a de alta un mail emisor para el envío de notificaciones;"Configurar los mails de contactos de agencias en la BD
+agregar por script a los mail de contactos un ""*"":
+update people p set mail = (mail || '*') where organization_id=5 and mail is not null
+
+configurar PDV xxx
+
+INSERT INTO public.mail_contexts (id, enabled, from_mail, host, ""name"", organization_id, ""password"", port, username) VALUES(1, true, 'contacto@lotline.com.ar', 'outlook.office365.com', 'LIQUIDACIONES', 5, 'j4JeWrWjs0bpuQwGA0O8', xxx, 'contacto@lotline.com.ar');";Front end de contactos de PDV con mail modificado;Alta;Ejecutado OK;;;;;1Ejecutado OK
+01;018;C01.018;774 - Resúmenes x mail;Enviar resúmenes por mail;Enviar mail a un pdv en particular;Enviar resúmen x mail a/los pdv seleccionado/s;menu lotería, opción liquidaciones, enviar mails;ver resumen en el mail;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;019;C01.019;774 - Resúmenes x mail;Enviar resúmenes por mail;Enviar mail a varios pdv de una organización;Enviar resúmen x mail a/los pdv seleccionado/s;menu lotería, opción liquidaciones, enviar mails;ver resumen en el mail;Baja;Pendiente;No existe la opcion de seleccionar varios puntos de ventas;;;No aplica la prueba, se puede enviar a un punto o todos. ;1Pendiente
+01;020;C01.020;774 - Resúmenes x mail;Enviar resúmenes por mail;Enviar mail a un pdv a toda una organización;Enviar resúmen x mail a/los pdv seleccionado/s;menu lotería, opción liquidaciones, enviar mails;ver resumen en el mail;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;021;C01.021;596 - modificar SAA services para agregar nuevo EP requerido por requerimiento de promociones 2x1;Desplegar saa service con el ep de 2x1 en uat para la org Jujuy;Desplegar y ejecutar ep x navegador;Solictar a desa el despliegue en uat del ep de saa service de 2x1;desplegar (desa) / ejecutar x navegador (SAC);Mostrar lista de valores para 2x1;Baja;Pendiente;;;;;1Pendiente
+01;022;C01.022;596 - modificar SAA services para agregar nuevo EP requerido por requerimiento de promociones 2x1;Configurar en gamma el ep de 2x1;agregar ep 2x1 al etl de gamma;solicitar a funcional (LR) actualización de ep agregando 2x1;;gamma configurado;Baja;Pendiente;;;;;1Pendiente
+01;023;C01.023;770 - NQN.GAMMA.Promoción 2x1 (FE);Cargar de regla 2x1 de una sola vez;Agregar regla 2x1 con vigencia de 1 día;Cargar regla 2x1 con fecha desde y hasta iguales y se corresponda con la fecha de liquidación del juego;Agregar juego, código de salida y código de entrada. Todo con opción PDV deshabilitada;Regla confirmada y listada x fe;Baja;Error;;;;;1Error
+01;024;C01.024;770 - NQN.GAMMA.Promoción 2x1;Ejecutar cálculo 2x1 de una sola vez;Cálcular anulación de venta para la regla de 2x1;Ejecutar regla 2x1;preliquidar el día en que se liquida el juego de la regla 2x1;Genera movimiento de anulación de ventas, comisiones e impuestos;Baja;Pendiente;;;;;1Pendiente
+01;025;C01.025;770 - NQN.GAMMA.Promoción 2x1 (FE);Cargar de regla 2x1 para un periodo;Agregar regla 2x1 con vigencia de 3 meses;Cargar regla 2x1 con fecha desde y hasta con rango de 3 meses;Agregar juego, código de salida y código de entrada. Todo con opción PDV deshabilitada;Regla confirmada y listada x fe;Baja;Pendiente;;;;;1Pendiente
+01;026;C01.026;770 - NQN.GAMMA.Promoción 2x1;Ejecutar cálculo 2x1 para un periodo;Cálcular anulación de venta para la regla de 2x1;Ejecutar regla 2x1;preliquidar el día en que se liquida el juego de la regla 2x1;Genera movimiento de anulación de ventas, comisiones e impuestos;Baja;Pendiente;;;;;1Pendiente
+01;027;C01.027;770 - NQN.GAMMA.Promoción 2x1 (FE);Cargar de regla 2x1 de una sola vez;Agregar regla 2x1 con vigencia de 1 día;Cargar regla 2x1 con fecha desde y hasta iguales y se corresponda con la fecha de liquidación del juego;Agregar juego, código de salida y código de entrada. Todo con opción PDV habilitada;Regla confirmada y listada x fe;Baja;Pendiente;;;;;1Pendiente
+01;028;C01.028;770 - NQN.GAMMA.Promoción 2x1;Ejecutar cálculo 2x1 de una sola vez;Cálcular anulación de venta para la regla de 2x1;Ejecutar regla 2x1;preliquidar el día en que se liquida el juego de la regla 2x1;Genera movimiento de anulación de ventas, comisiones e impuestos por PDV;Baja;Pendiente;;;;;1Pendiente
+01;029;C01.029;770 - NQN.GAMMA.Promoción 2x1 (FE);Cargar de regla 2x1 para un periodo;Agregar regla 2x1 con vigencia de 3 meses;Cargar regla 2x1 con fecha desde y hasta con rango de 3 meses;Agregar juego, código de salida y código de entrada. Todo con opción PDV habilitada;Regla confirmada y listada x fe;Baja;Pendiente;;;;;1Pendiente
+01;030;C01.030;770 - NQN.GAMMA.Promoción 2x1;Ejecutar cálculo 2x1 para un periodo;Cálcular anulación de venta para la regla de 2x1;Ejecutar regla 2x1;preliquidar el día en que se liquida el juego de la regla 2x1;Genera movimiento de anulación de ventas, comisiones e impuestos por PDV;Baja;Pendiente;;;;;1Pendiente
+01;031;C01.031;867 - SLA GAMMA MAN-9950 Al marcar una baja en PDV 000 no deja avanzar con liquidación;Liquidar con PDV 0 dado de baja;Dar de baja el pdv 0 de cualquier agencia;Dar de baja el pdv 0 de cualquier agencia;acceder al pdv 0 de una agencia y tildar la baja;La liquidación de la lotería se ejecute normálmente. Idem backprocess;Media;Ejecutado OK;en curso;;;;1Ejecutado OK
+01;032;C01.032;867 - SLA GAMMA MAN-9950 Al marcar una baja en PDV 000 no deja avanzar con liquidación;Liquidar con PDV 0 deshabilitado;Deshabilitar pdv0 de cualquier agencia;Deshabilitar pdv0 de cualquier agencia;acceder al pdv 0 de una agencia y tildar la deshabilitación;La liquidación de la lotería se ejecute normálmente. Idem backprocess;Media;Ejecutado OK;en curso;;;;1Ejecutado OK
+01;033;C01.033;795 - NQN.GAMMA.Liquidación a terceros;Configurar en gamma reporte para su posterior ejecución;Configurar reporte para el juego Quini6 para la Lotería de Salta;Ejecutar script para configurar el reporte de Loto para la lotería de Salta previa validación con el funcional y/o el cliente de los porcentajes a configurar;"Configuracion en la BD, se deben insertar los sgtes valores:
+ 
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(1, '27,39,44,214,1178,1179,1180,59,215,1188,1189,1190', 1, 5, 1, 1.0, 'Recaudación', '1', true);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(2, '134,181,1165,1170', 2, 5, 1, 1.0, 'Comisión Cobrada', '2', true);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(3, '90,104,158,171,1166,1167,1168,1169', 3, 5, 1, 1.0, 'Comisión Pagada', '3', true);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(4, NULL, 17, 5, 1, 0.1, 'Aporte Fondo', '7+8', true);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(5, NULL, 5, 5, 1, 1.0, 'Cálculo N', '1-4', false);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(6, '44,1178,215,1188', 6, 5, 1, 1.0, 'Recaudacion tradicional', '6', true);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(7, '39,214,1179,1189', 7, 5, 1, 1.0, 'Recaudacion revancha', '7', true);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(8, '27,1180,59,1190', 8, 5, 1, 1.0, 'Recaudacion sale o sale', '8', true);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(9, NULL, 9, 5, 1, 0.9, '90% recaudacion tradicional', '6', false);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(10, NULL, 10, 5, 1, 0.9, '90% recaudacion revancha', '7', false);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(11, NULL, 11, 5, 1, 0.9, '90% recaudacion sale o sale', '8', false);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(12, NULL, 12, 5, 1, 0.1, '10% recaudacion (Arancel)', '6+7+8', true);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(13, NULL, 13, 5, 1, 0.4, '40% comsion tradicional', '9', false);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(14, NULL, 14, 5, 1, 0.6, '60% comision revancha', '10', false);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(15, NULL, 15, 5, 1, 0.6, '60% comsion sale o sale', '11', false);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(16, NULL, 18, 5, 1, 1.0, 'A favor de Santa Fe', '13+14+15+16+17', false);
+INSERT INTO public.liquidacion_terceros (id, accounting_code_list, column_number, game_id, organization_id, ""percent"", title, calculation, visible) VALUES(17, NULL, 16, 5, 1, 0.04299, 'Aporte Gtos.Adm', '9+10+11', true);
+ ";Ejecución correcta del script;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;034;C01.034;795 - NQN.GAMMA.Liquidación a terceros;Ejecutar reporte de liquidación a terceros;Ejecutar reporte para el juego Loto para la Lotería de Salta;Ejecutar reporte para el juego Loto para la Lotería de Salta;Menu lotería, opción reportes;Emisión de reporte en formato PDF y Excel. Validación del cálculos en función de los porcentajes definidos y del origen de los datos procesados;Baja;Pendiente;en curso;;;Muestra información, hay que corroborar que esten correctos los datos;1Pendiente
+01;035;C01.035;793 - NQN.GAMMA.Buzón, circulares y documentos - GAMMA;Configurar en gamma los tipos de mensajes que emitirá el buzón;Configurar tabla mailbox_kinds para la BD agency;Ejecutar script para configurar los tipos de mensajes que emitirá el buzón en la tabla mailbox_kinds de la base de datos agency;"Configuracion en Buzon de Gamma y asociar una agencia para verlo en panel
+script de mailbox_kinds:
+INSERT INTO public.mailbox_kinds (id, ""name"") VALUES(1, 'Circulares');
+INSERT INTO public.mailbox_kinds (id, ""name"") VALUES(2, 'Documentación');
+INSERT INTO public.mailbox_kinds (id, ""name"") VALUES(3, 'Extractos');
+INSERT INTO public.mailbox_kinds (id, ""name"") VALUES(4, 'Liquidaciones');
+INSERT INTO public.mailbox_kinds (id, ""name"") VALUES(5, 'Solicitudes');
+INSERT INTO public.mailbox_kinds (id, ""name"") VALUES(0, 'Varios');";El fe del buzón en gamma deberá listar los tipos de mensajes configurados;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;036;C01.036;793 - NQN.GAMMA.Buzón, circulares y documentos - GAMMA;Redactar mensajes;Redactar mensaje en el cuerpo para un destinatario sin adjunto;Redatar un nuevo mensaje;Redatar un nuevo mensaje, seleccionando un pdv, con asunto y tipo, agregando un texto al cuerpo del mensaje, sin seleccionar adjunto;se pueda enviar el mensaje correctamente, se visualise en opcion enviados;Baja;Error;;;2026-06-04 793 Buzon, circulares y documentos;;1Error
+01;037;C01.037;793 - NQN.GAMMA.Buzón, circulares y documentos - GAMMA;Redactar mensajes;Redactar mensaje en el cuerpo para un destinatario con adjunto;Redatar un nuevo mensaje;Redatar un nuevo mensaje, seleccionando un pdv, con asunto y tipo, agregando un texto al cuerpo del mensaje, seleccionar un adjunto;se pueda enviar el mensaje correctamente, se visualise en opcion enviados;Baja;Error;;;2026-06-04 793 Buzon, circulares y documentos;ver con ff cual es el error en el tamaño de los envios;1Error
+01;038;C01.038;793 - NQN.GAMMA.Buzón, circulares y documentos - GAMMA;Redactar mensajes;"Redactar mensaje con el cuerpo vacío,  sin adjunto para
+* un destinatario
+* varios destinatarios
+* todos los destinatarios";Redatar un nuevo mensaje;Redatar un nuevo mensaje, seleccionando destinatario, con asunto y tipo, sin texto al cuerpo del mensaje, sin seleccionar adjunto;no permita enviar el mensaje ;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;039;C01.039;793 - NQN.GAMMA.Buzón, circulares y documentos - GAMMA;Redactar mensajes;"Redactar mensaje con el cuerpo vacío con adjunto para 
+* un destinatario
+* varios destinatarios
+* todos los destinatarios";Redatar un nuevo mensaje;Redatar un nuevo mensaje, seleccionando destinatario con asunto y tipo, sin texto al cuerpo del mensaje, seleccionar un adjunto;no permita enviar el mensaje ;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;040;C01.040;793 - NQN.GAMMA.Buzón, circulares y documentos - GAMMA;Redactar mensajes;Redactar mensaje en el cuerpo para varios destinatarios sin adjunto;Redatar un nuevo mensaje;Redatar un nuevo mensaje, seleccionando varios pdv, con asunto y tipo, agregando un texto al cuerpo del mensaje, sin seleccionar un adjunto;se pueda enviar el mensaje correctamente, se visualise en opcion enviados;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;041;C01.041;793 - NQN.GAMMA.Buzón, circulares y documentos - GAMMA;Redactar mensajes;Redactar mensaje en el cuerpo para varios destinatarios con adjunto;Redatar un nuevo mensaje;Redatar un nuevo mensaje, seleccionando varios pdv, con asunto y tipo, agregando un texto al cuerpo del mensaje, seleccionar un adjunto;se pueda enviar el mensaje correctamente, se visualise en opcion enviados;Baja;Error;;;error idem caso 37;;1Error
+01;042;C01.042;793 - NQN.GAMMA.Buzón, circulares y documentos - GAMMA;Redactar mensajes;Redactar mensaje en el cuerpo para todos los destinatarios sin adjunto;Redatar un nuevo mensaje;Redatar un nuevo mensaje, seleccionando todos los pdv, con asunto y tipo, agregando un texto al cuerpo del mensaje, sin seleccionar un adjunto;se pueda enviar el mensaje correctamente, se visualise en opcion enviados;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;043;C01.043;793 - NQN.GAMMA.Buzón, circulares y documentos - GAMMA;Redactar mensajes;Redactar mensaje en el cuerpo para todos los destinatarios con adjunto;Redatar un nuevo mensaje;Redatar un nuevo mensaje, seleccionando todos los pdv, con asunto y tipo, agregando un texto al cuerpo del mensaje, seleccionar un adjunto;se pueda enviar el mensaje correctamente, se visualise en opcion enviados;Baja;Error;;;error idem caso 37;;1Error
+01;044;C01.044;793 - NQN.GAMMA.Buzón, circulares y documentos - GAMMA;mensajes enviados;visualizar mensaje enviados ;visualizar mensaje enviados sin adjunto / con adjunto para uno / varios / todos los destinatarios;acceder a la opcion enviados del Buzon;se visualiza el mensaje seleccionado;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;045;C01.045;793 - NQN.GAMMA.Buzón, circulares y documentos - GAMMA;mensajes enviados;Eliminar mensaje enviados ;Eliminar mensaje enviados sin adjunto / con adjunto para uno / varios / todos los destinatarios;acceder a la opcion enviados del Buzon;se visualiza el mensaje seleccionado, y elimina correctamente;Baja;Pendiente;en curso;;;falta probar que al borrar de gamma ver que desaparezca de abaco;1Pendiente
+01;046;C01.046;793 - NQN.GAMMA.Buzón, circulares y documentos - GAMMA;mensajes recibidos;visualizar mensaje recibido;visualizar mensaje recibido enviado para la loteria por un pdv;seleccionar mejensaje recibido y visualizar el contenido;visualiza el cuerpo de mensaje, el remitente, el asunto, tipo de mensaje, y adjunto ;Baja;Error;verificar;08-jun;;ver si cambió luego del reset de bff;1Error
+01;047;C01.047;793 - NQN.GAMMA.Buzón, circulares y documentos - GAMMA;mensajes recibidos;borrar mensaje recibido;borrar mensaje recibido por loteria;seleccionar mejensaje recibido y borrar el mensaje;confirma el borrado, no visualiza en mensaje en lista de recibido;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;048;C01.048;796 - NQN.Panel de Agentes.Buzón, circulares y documentos - Panel;redactar mensajes;redactar mensaje con cuerpo y sin adjunto;Redatar un nuevo mensaje;Redatar un nuevo mensaje,  con asunto y tipo, agregando un texto al cuerpo del mensaje, sin seleccionar adjunto;se pueda enviar el mensaje correctamente;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;049;C01.049;796 - NQN.Panel de Agentes.Buzón, circulares y documentos - Panel;Redactar mensajes;redactar mensaje con cuerpo y con adjunto;Redatar un nuevo mensaje;Redatar un nuevo mensaje, con asunto y tipo, agregando un texto al cuerpo del mensaje, agregando adjunto;se pueda enviar el mensaje correctamente;Baja;Pendiente;verificar;;;;1Pendiente
+01;050;C01.050;796 - NQN.Panel de Agentes.Buzón, circulares y documentos - Panel;Redactar mensajes;"redactar mensaje sin cuerpo 
+* con adjunto
+* sin adjunto";Redatar un nuevo mensaje;Redatar un nuevo mensaje, con asunto y tipo, sin texto al cuerpo del mensaje, con y sin un adjunto;no permita enviar el mensaje ;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;051;C01.051;796 - NQN.Panel de Agentes.Buzón, circulares y documentos - Panel;mensajes recibidos;visualizar mensajes recibidos;visualiza mensajes recibidos en buzon;seleccionar mensajes recibidos y visualizar el contenido;visualiza el cuerpo de mensaje, el remitente, el asunto, tipo de mensaje, y adjunto ;Baja;Error;;;2026-06-04 793 Buzon, circulares y documentos;armar evidencia;1Error
+01;052;C01.052;794 - SAA SERVICES - NQN.Panel de Agentes.Solicitud actualización máximo diario por TJ;Desplegar saa service con el ep de actualización máximo diario por tj en uat para la org Jujuy;Desplegar y ejecutar ep x navegador;Solictar a desa el despliegue en uat del ep de saa service de 2x1;desplegar (desa) / ejecutar x navegador (SAC);Mostrar lista de valores de maximos por tj ;Baja;Ejecutado OK;;;;Mario Corvalan confirmo el despliegue en JUJUY UAT;1Ejecutado OK
+01;053;C01.053;794 - SAA SERVICES - NQN.Panel de Agentes.Solicitud actualización máximo diario por TJ;Configurar en lotemovil panel el ep de maximo diario por tj a uat organizacion jujuy ;agregar ep uat jujuy a aplication_abaco de lotemovil panel;solicitar a funcional (LR) actualización de ep ejecutar script;"UPDATE public.configuration_api SET value='https://uat-saaservicesgw.tecnoaccion.com.ar/juj' WHERE ""key""='SAA_SERVICE' and organization_id=2;";lotemovil panel configurado y visualizacion en FE de maximos por tj;Baja;Pendiente;en curso;;;Se solicito actualizar el SAA-Service de UAT Jujuy para hacer las pruebas;1Pendiente
+01;054;C01.054;794 - NQN.Panel de Agentes.Solicitud actualización máximo diario por TJ;visualizar maximos por tj ;ver maximos por tj para un pdv;ver maximos por tj para organizaciones jujuy de uat ;acceder al menu varios opcion maximo diario;se visualicen los maximos por tj del pdv activo en lotemovil panel;Baja;Pendiente;en curso;;;Se solicito actualizar el SAA-Service de UAT Jujuy para hacer las pruebas;1Pendiente
+01;055;C01.055;794 - NQN.Panel de Agentes.Solicitud actualización máximo diario por TJ;modificar maximos por tj;modificar maximo para una tj para un pdv;modificar maximos para una tj de un pdv para organizaciones jujuy de uat ;sleccionar una tj en opcion maximo diario y modificar su valor original;se confirme el cambio y se visualice el nuevo valor de maximo tj del pdv activo en lotemovil panel;Baja;Pendiente;en curso;;;Se solicito actualizar el SAA-Service de UAT Jujuy para hacer las pruebas;1Pendiente
+01;056;C01.056;856/857/883/884/898 - Mínimo de ventas;Crear regla de mínimo, calcular, realizar backprocess, visualizar reportes y panel;Regla de mínimo para un sorteo sin pdv sin juego2;"Dar de alta regla de mínimos con rango de fechas para un sorteo seleccionando número de sorteos con mínimos promedio para que a algunas agencias le cobre mínimos y a otras no. Parametrizar con fecha de cobro ""todos los días""";"Fecha desde y hasta con un sorteo, juego semanal, código de salida ""recaudación"" y no se define juego2";Lista de mínimos con la regla creada. Se liquide mínimo de ventas (recaudación) en la fecha de liquidación del sorteo definido en la regla. Se realicen los cálculos asociados (comisión e impuestos definidos para el pdv). Se emita el informe de mínimos en pre liquidación. Se emita reporte de mínimos finalizada la liquidación. Se visualice en panel el mínimo calculado para un pdv una vez finalizada la liquidación. Se realice backprocess, vuelvan atrás los cálculos de comisiones e impuestos, dejen de emitirse los reportes y no se refleje en panel los cálculos de mínimos.;Baja;Error;;;;;1Error
+01;057;C01.057;856/857/883/884/898 - Mínimo de ventas;Crear regla de mínimo, calcular, realizar backprocess, visualizar reportes y panel;Regla de mínimo sin sorteo sin pdv sin juego2;"Dar de alta regla de mínimos con rango de fechas para un sorteo sin definir número de sorteos con mínimos promedio para que a algunas agencias le cobre mínimos y a otras no. Parametrizar con fecha de cobro ""todos los días""";"Fecha desde y hasta con un sorteo, juego semanal, código de salida ""recaudación"" y no se define juego2";Lista de mínimos con la regla creada. Se liquide mínimo de ventas (recaudación) en la fecha de liquidación del sorteo definido en la regla. Se realicen los cálculos asociados (comisión e impuestos definidos para el pdv). Se emita el informe de mínimos en pre liquidación. Se emita reporte de mínimos finalizada la liquidación. Se visualice en panel el mínimo calculado para un pdv una vez finalizada la liquidación. Se realice backprocess, vuelvan atrás los cálculos de comisiones e impuestos, dejen de emitirse los reportes y no se refleje en panel los cálculos de mínimos.;Baja;Pendiente;;;;;1Pendiente
+01;058;C01.058;856/857/883/884/898 - Mínimo de ventas;Crear regla de mínimo, calcular, realizar backprocess, visualizar reportes y panel;Regla de mínimo para un sorteo con pdv (sin pdv 0) sin juego2;"Dar de alta regla de mínimos con rango de fechas para un sorteo seleccionando número de sorteos con mínimos promedio para que a algunas agencias le cobre mínimos y a otras no. Parametrizar con fecha de cobro ""todos los días"" habilitando cobro por pdv";"Fecha desde y hasta con un sorteo, juego semanal, código de salida ""recaudación"" y no se define juego2";Lista de mínimos con la regla creada. Se liquide mínimo de ventas (recaudación) en la fecha de liquidación del sorteo definido en la regla. Se realicen los cálculos asociados (comisión e impuestos definidos para el pdv). Se emita el informe de mínimos en pre liquidación. Se emita reporte de mínimos finalizada la liquidación. Se visualice en panel el mínimo calculado para un pdv una vez finalizada la liquidación. Se realice backprocess, vuelvan atrás los cálculos de comisiones e impuestos, dejen de emitirse los reportes y no se refleje en panel los cálculos de mínimos.;Baja;Pendiente;;;;;1Pendiente
+01;059;C01.059;856/857/883/884/898 - Mínimo de ventas;Crear regla de mínimo, calcular, realizar backprocess, visualizar reportes y panel;Regla de mínimo sin sorteo con pdv (sin pdv 0) sin juego2;"Dar de alta regla de mínimos con rango de fechas para un sorteo sin definir número de sorteos con mínimos promedio para que a algunas agencias le cobre mínimos y a otras no. Parametrizar con fecha de cobro ""todos los días"" habilitando cobro por pdv";"Fecha desde y hasta con un sorteo, juego semanal, código de salida ""recaudación"" y no se define juego2";Lista de mínimos con la regla creada. Se liquide mínimo de ventas (recaudación) en la fecha de liquidación del sorteo definido en la regla. Se realicen los cálculos asociados (comisión e impuestos definidos para el pdv). Se emita el informe de mínimos en pre liquidación. Se emita reporte de mínimos finalizada la liquidación. Se visualice en panel el mínimo calculado para un pdv una vez finalizada la liquidación. Se realice backprocess, vuelvan atrás los cálculos de comisiones e impuestos, dejen de emitirse los reportes y no se refleje en panel los cálculos de mínimos.;Baja;Pendiente;;;;;1Pendiente
+01;060;C01.060;856/857/883/884/898 - Mínimo de ventas;Crear regla de mínimo, calcular, realizar backprocess, visualizar reportes y panel;Regla de mínimo para un sorteo sin pdv con juego2;"Dar de alta regla de mínimos con rango de fechas para un sorteo seleccionando número de sorteos con mínimos promedio para que a algunas agencias le cobre mínimos y a otras no. Parametrizar con fecha de cobro ""todos los días"" habilitar juego2";"Fecha desde y hasta con un sorteo, juego semanal, código de salida ""recaudación"" y definiendo juego2";Lista de mínimos con la regla creada. Se liquide mínimo de ventas (recaudación) en la fecha de liquidación del sorteo definido en la regla. Se realicen los cálculos asociados (comisión e impuestos definidos para el pdv). Se emita el informe de mínimos en pre liquidación. Se emita reporte de mínimos finalizada la liquidación. Se visualice en panel el mínimo calculado para un pdv una vez finalizada la liquidación. Se realice backprocess, vuelvan atrás los cálculos de comisiones e impuestos, dejen de emitirse los reportes y no se refleje en panel los cálculos de mínimos.;Baja;Pendiente;;;;;1Pendiente
+01;061;C01.061;856/857/883/884/898 - Mínimo de ventas;Crear regla de mínimo, calcular, realizar backprocess, visualizar reportes y panel;Regla de mínimo sin sorteo sin pdv con juego2;"Dar de alta regla de mínimos con rango de fechas para un sorteo sin definir número de sorteos con mínimos promedio para que a algunas agencias le cobre mínimos y a otras no. Parametrizar con fecha de cobro ""todos los días"" habilitar juego2";"Fecha desde y hasta con un sorteo, juego semanal, código de salida ""recaudación"" y definiendo juego2";Lista de mínimos con la regla creada. Se liquide mínimo de ventas (recaudación) en la fecha de liquidación del sorteo definido en la regla. Se realicen los cálculos asociados (comisión e impuestos definidos para el pdv). Se emita el informe de mínimos en pre liquidación. Se emita reporte de mínimos finalizada la liquidación. Se visualice en panel el mínimo calculado para un pdv una vez finalizada la liquidación. Se realice backprocess, vuelvan atrás los cálculos de comisiones e impuestos, dejen de emitirse los reportes y no se refleje en panel los cálculos de mínimos.;Baja;Pendiente;;;;;1Pendiente
+01;062;C01.062;856/857/883/884/898 - Mínimo de ventas;Crear regla de mínimo, calcular, realizar backprocess, visualizar reportes y panel;Regla de mínimo para un sorteo con (sin pdv 0) pdv con juego2;"Dar de alta regla de mínimos con rango de fechas para un sorteo seleccionando número de sorteos con mínimos promedio para que a algunas agencias le cobre mínimos y a otras no. Parametrizar con fecha de cobro ""todos los días"" habilitando cobro por pdv habilitar juego2";"Fecha desde y hasta con un sorteo, juego semanal, código de salida ""recaudación"" y definiendo juego2";Lista de mínimos con la regla creada. Se liquide mínimo de ventas (recaudación) en la fecha de liquidación del sorteo definido en la regla. Se realicen los cálculos asociados (comisión e impuestos definidos para el pdv). Se emita el informe de mínimos en pre liquidación. Se emita reporte de mínimos finalizada la liquidación. Se visualice en panel el mínimo calculado para un pdv una vez finalizada la liquidación. Se realice backprocess, vuelvan atrás los cálculos de comisiones e impuestos, dejen de emitirse los reportes y no se refleje en panel los cálculos de mínimos.;Baja;Pendiente;;;;;1Pendiente
+01;063;C01.063;856/857/883/884/898 - Mínimo de ventas;Crear regla de mínimo, calcular, realizar backprocess, visualizar reportes y panel;Regla de mínimo sin sorteo con pdv (sin pdv 0) con juego2;"Dar de alta regla de mínimos con rango de fechas para un sorteo sin definir número de sorteos con mínimos promedio para que a algunas agencias le cobre mínimos y a otras no. Parametrizar con fecha de cobro ""todos los días"" habilitando cobro por pdv habilitar juego2";"Fecha desde y hasta con un sorteo, juego semanal, código de salida ""recaudación"" y definiendo juego2";Lista de mínimos con la regla creada. Se liquide mínimo de ventas (recaudación) en la fecha de liquidación del sorteo definido en la regla. Se realicen los cálculos asociados (comisión e impuestos definidos para el pdv). Se emita el informe de mínimos en pre liquidación. Se emita reporte de mínimos finalizada la liquidación. Se visualice en panel el mínimo calculado para un pdv una vez finalizada la liquidación. Se realice backprocess, vuelvan atrás los cálculos de comisiones e impuestos, dejen de emitirse los reportes y no se refleje en panel los cálculos de mínimos.;Baja;Pendiente;;;;;1Pendiente
+01;064;C01.064;856/857/883/884/898 - Mínimo de ventas;Crear regla de mínimo, calcular, realizar backprocess, visualizar reportes y panel;Regla de mínimo para un sorteo con pdv (con pdv 0) sin juego2;"Dar de alta regla de mínimos con rango de fechas para un sorteo seleccionando número de sorteos con mínimos promedio para que a algunas agencias le cobre mínimos y a otras no. Parametrizar con fecha de cobro ""todos los días"" habilitando cobro por pdv y habilitar cobro por pdv 0";"Fecha desde y hasta con un sorteo, juego semanal, código de salida ""recaudación"" y no se define juego2";Lista de mínimos con la regla creada. Se liquide mínimo de ventas (recaudación) en la fecha de liquidación del sorteo definido en la regla. Se realicen los cálculos asociados (comisión e impuestos definidos para el pdv). Se emita el informe de mínimos en pre liquidación. Se emita reporte de mínimos finalizada la liquidación. Se visualice en panel el mínimo calculado para un pdv una vez finalizada la liquidación. Se realice backprocess, vuelvan atrás los cálculos de comisiones e impuestos, dejen de emitirse los reportes y no se refleje en panel los cálculos de mínimos.;Baja;Pendiente;;;;;1Pendiente
+01;065;C01.065;856/857/883/884/898 - Mínimo de ventas;Crear regla de mínimo, calcular, realizar backprocess, visualizar reportes y panel;Regla de mínimo sin sorteo con pdv (con pdv 0) sin juego2;"Dar de alta regla de mínimos con rango de fechas para un sorteo sin definir número de sorteos con mínimos promedio para que a algunas agencias le cobre mínimos y a otras no. Parametrizar con fecha de cobro ""todos los días"" habilitando cobro por pdv y habilitar cobro por pdv 0";"Fecha desde y hasta con un sorteo, juego semanal, código de salida ""recaudación"" y no se define juego2";Lista de mínimos con la regla creada. Se liquide mínimo de ventas (recaudación) en la fecha de liquidación del sorteo definido en la regla. Se realicen los cálculos asociados (comisión e impuestos definidos para el pdv). Se emita el informe de mínimos en pre liquidación. Se emita reporte de mínimos finalizada la liquidación. Se visualice en panel el mínimo calculado para un pdv una vez finalizada la liquidación. Se realice backprocess, vuelvan atrás los cálculos de comisiones e impuestos, dejen de emitirse los reportes y no se refleje en panel los cálculos de mínimos.;Baja;Pendiente;;;;;1Pendiente
+01;066;C01.066;856/857/883/884/898 - Mínimo de ventas;Crear regla de mínimo, calcular, realizar backprocess, visualizar reportes y panel;Regla de mínimo para un sorteo con (con pdv 0) pdv con juego2;"Dar de alta regla de mínimos con rango de fechas para un sorteo seleccionando número de sorteos con mínimos promedio para que a algunas agencias le cobre mínimos y a otras no. Parametrizar con fecha de cobro ""todos los días"" habilitando cobro por pdv habilitar juego2 y habilitar cobro por pdv 0";"Fecha desde y hasta con un sorteo, juego semanal, código de salida ""recaudación"" y definiendo juego2";Lista de mínimos con la regla creada. Se liquide mínimo de ventas (recaudación) en la fecha de liquidación del sorteo definido en la regla. Se realicen los cálculos asociados (comisión e impuestos definidos para el pdv). Se emita el informe de mínimos en pre liquidación. Se emita reporte de mínimos finalizada la liquidación. Se visualice en panel el mínimo calculado para un pdv una vez finalizada la liquidación. Se realice backprocess, vuelvan atrás los cálculos de comisiones e impuestos, dejen de emitirse los reportes y no se refleje en panel los cálculos de mínimos.;Baja;Pendiente;;;;;1Pendiente
+01;067;C01.067;856/857/883/884/898 - Mínimo de ventas;Crear regla de mínimo, calcular, realizar backprocess, visualizar reportes y panel;Regla de mínimo sin sorteo con pdv (con pdv 0) con juego2;"Dar de alta regla de mínimos con rango de fechas para un sorteo sin definir número de sorteos con mínimos promedio para que a algunas agencias le cobre mínimos y a otras no. Parametrizar con fecha de cobro ""todos los días"" habilitando cobro por pdv habilitar juego2 y habilitar cobro por pdv 0";"Fecha desde y hasta con un sorteo, juego semanal, código de salida ""recaudación"" y definiendo juego2";Lista de mínimos con la regla creada. Se liquide mínimo de ventas (recaudación) en la fecha de liquidación del sorteo definido en la regla. Se realicen los cálculos asociados (comisión e impuestos definidos para el pdv). Se emita el informe de mínimos en pre liquidación. Se emita reporte de mínimos finalizada la liquidación. Se visualice en panel el mínimo calculado para un pdv una vez finalizada la liquidación. Se realice backprocess, vuelvan atrás los cálculos de comisiones e impuestos, dejen de emitirse los reportes y no se refleje en panel los cálculos de mínimos.;Baja;Pendiente;;;;;1Pendiente
+01;068;C01.068;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo diario;Liquidación general, sorteo cerrado y liquidación especial de un sorteo diario;"Crear regla liquidacon especial sorteo ""diaria"", para juego con liquidacion general a sorteo cerrado";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;069;C01.069;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo diario;Liquidación general, sorteo cerrado con premio y liquidación especial de un sorteo diario;"Crear regla liquidacon especial sorteo ""diaria"", para juego con liquidacion general a sorteo cerrado con premios";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;070;C01.070;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo diario;Liquidación general, día fijo y liquidación especial de un sorteo diario;"Crear regla liquidacon especial sorteo ""diaria"", para juego con liquidacion general ""dia fijo""";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;071;C01.071;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo diario;Liquidación general, diario y liquidación especial de un sorteo diario;"Crear regla liquidacon especial sorteo ""diaria"", para juego con liquidacion general ""diaria""";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;072;C01.072;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo cerrado con premios;Liquidación general, sorteo cerrado y liquidación especial de un sorteo cerrado con premio;"Crear regla liquidacon especial sorteo ""cerrado con premio"", para juego con liquidacion general a sorteo cerrado";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;073;C01.073;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo cerrado con premios;Liquidación general, sorteo cerrado con premio y liquidación especial de un sorteo cerrado con premio;"Crear regla liquidacon especial sorteo ""cerrado con premios"", para juego con liquidacion general a sorteo cerrado con premios";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;074;C01.074;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo cerrado con premios;Liquidación general, día fijo y liquidación especial de un sorteo cerrado con premio;"Crear regla liquidacon especial sorteo ""cerrado con premios"", para juego con liquidacion general ""dia fijo""";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;075;C01.075;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo cerrado con premios;Liquidación general, diario y liquidación especial de un sorteo cerrado con premio;"Crear regla liquidacon especial sorteo ""cerrado con premios"", para juego con liquidacion general ""diaria""";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;076;C01.076;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo cerrado;Liquidación general, sorteo cerrado y liquidación especial de un sorteo cerrado;"Crear regla liquidacon especial sorteo ""cerrado"", para juego con liquidacion general a sorteo cerrado";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;077;C01.077;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo cerrado;Liquidación general, sorteo cerrado con premio y liquidación especial de un sorteo cerrado;"Crear regla liquidacon especial sorteo ""cerrado "", para juego con liquidacion general a sorteo cerrado con premios";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;078;C01.078;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo cerrado;Liquidación general, día fijo y liquidación especial de un sorteo cerrado;"Crear regla liquidacon especial sorteo ""cerrado"", para juego con liquidacion general ""dia fijo""";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;079;C01.079;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo cerrado;Liquidación general, diario y liquidación especial de un sorteo cerrado;"Crear regla liquidacon especial sorteo ""cerrado "", para juego con liquidacion general ""diaria""";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;080;C01.080;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo día fijo;Liquidación general, sorteo cerrado y liquidación especial de un sorteo día fijo;"Crear regla liquidacon especial sorteo ""dia fijo"", para juego con liquidacion general a sorteo cerrado";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;081;C01.081;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo día fijo;Liquidación general, sorteo cerrado con premio y liquidación especial de un sorteo día fijo;"Crear regla liquidacon especial sorteo ""dia fijo "", para juego con liquidacion general a sorteo cerrado con premios";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;082;C01.082;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo día fijo;Liquidación general, día fijo y liquidación especial de un sorteo día fijo;"Crear regla liquidacon especial sorteo ""dia fijo"", para juego con liquidacion general ""dia fijo""";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;083;C01.083;880/957 - NQN.GAMMA.Liquidación especial por sorteo (BE/FE);Liquidación especial de un sorteo día fijo;Liquidación general, diario y liquidación especial de un sorteo día fijo;"Crear regla liquidacon especial sorteo ""dia fijo"", para juego con liquidacion general ""diaria""";seleccionar juego, crear regla de liquidacion especial para un sorteo disponible;se liquide (recaudacion, premios , comisiones, impuestos)  el sorteo seleccionado de la forma indicada en la configuracion especial y el resto de los sorteos de la forma general. el back procecess debe cancelar lo liquidado del sorteo configuracio especialmente.;Baja;Pendiente;;;;;1Pendiente
+01;084;C01.084;860 - NQN.Panel de Agentes.Formularios de solicitudes Pre-impresos e instantáneos;crear pedido;crear pedido preimpreso;realizar un pedido de cupones para un sorteo habilitado con stock de un juego preimpreso;hacer nuevo pedido, seleccionar juego y sorteo ingresar cantidad de cupones;se confirma el pedido y se lista en Fe como pedido realizado pendiente;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;085;C01.085;860 - NQN.Panel de Agentes.Formularios de solicitudes Pre-impresos e instantáneos;crear pedido;crear pedido instantaneo;realizar un pedido de cupones para una modalidad con stock para un juego instantaneo;hacer nuevo pedido, seleccionar juego, modalidad, ingrsar cantidad de cupones;se confirma el pedido y se lista en Fe como pedido realizado pendiente;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;086;C01.086;859 - NQN.NOA.Solicitud de remitos panel;pedidos;listar pedido;listar los pedido realizados desde panel por un pdv;acceder al stock de cupones y opcion pedido pendientes, confirmar un pedido pendiente sin cambios;lista de pedido ;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;087;C01.087;860 - 859 - NQN.NOA.Solicitud de remitos panel;pedidos;confirmar pedido;confirmar un pedido pendiente, realizado desde panel por un pdv;acceder al stock de cupones y opcion pedido pendientes, lista de pedido;lista de pedido con estado confirmado  , en Lotemovil panel del pdv que realizo el pedido se cambia el estado del pedido a confirmado;Baja;Faltan datos;;;https://tecnoaccionsa.sharepoint.com/:w:/s/GAMMA.2024/IQBhwERiEccASqoyfIjI56mMASvkawiA-ihq6nkChyrYKZM?e=QBhLaM;Trae bien el remito generado solo falta la opcion de imprimir ;1Faltan datos
+01;088;C01.088;860 - 859 - NQN.NOA.Solicitud de remitos panel;pedidos;rechazar pedido;rechazar un pedido pendiente, realizado desde panel por un pdv;acceder al stock de cupones y opcion pedido pendientes, lista de pedido;lista de pedido con estado rechazado  en Lotemovil panel del pdv que realizo el pedido se cambia el estado del pedido a rechazado;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;089;C01.089;860 - 859 - NQN.NOA.Solicitud de remitos panel;pedidos;modificar pedido y confirmar;modificar y confirmar un pedido pendientes, ralizado desde panel por un pdv;acceder al stock de cupones y opcion pedido pendientes, lista de pedido;lista de pedido confirmados, en Lotemovil panel del pdv que realizo el pedido se cambia el estado del pedido a confirmado con cantidad diferente al pedido original;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;090;C01.090;"893 - NQN.GAMMA.Listados Bancos - Créditos Autorizados por Sucursal/Agencias  diario
+";Reporte Creditos/Debitos autorizados;emitir reporte de Creditos autorizados  por sucursal;emitir reporte para una liquidacion que tenga resumenes con obligacion de pago;acceder a loteria - reportes y emitir el reporte 109-Creditos / Debitos para Creditos autorizados por sucursal;Emisión de reporte en formato PDF y Excel. Validación los datos;Baja;Error;Prueba 08/06;;;;1Error
+01;091;C01.091;"893 - NQN.GAMMA.Listados Bancos - Créditos Autorizados por Sucursal/Agencias  diario
+";Reporte Creditos/Debitos autorizados;emitir reporte de Creditos autorizados  por agencia;emitir reporte para una liquidacion que tenga resumenes con obligacion de pago;acceder a loteria - reportes y emitir el reporte 109-Creditos / Debitos para Creditos autorizados por agencia;Emisión de reporte en formato PDF y Excel. Validación los datos;Baja;Pendiente;;;;;1Pendiente
+01;092;C01.092;"893 - NQN.GAMMA.Listados Bancos - Créditos Autorizados por Sucursal/Agencias  diario
+";Reporte Creditos/Debitos autorizados;emitir reporte de Debitos autorizados  por sucursal;emitir reporte para una liquidacion que tenga resumenes con obligacion de Cobros;acceder a loteria - reportes y emitir el reporte 109-Creditos / Debitos para Debitos autorizados por sucursal;Emisión de reporte en formato PDF y Excel. Validación los datos;Baja;Pendiente;;;;;1Pendiente
+01;093;C01.093;894 - NQN.GAMMA.Listados Generales -Bancos -Débitos Autorizados por Agencia/Sucursal;Reporte Creditos/Debitos autorizados;emitir reporte de Debitos autorizados  por agencia;emitir reporte para una liquidacion que tenga resumenes con obligacion de cobro;acceder a loteria - reportes y emitir el reporte 109-Creditos / Debitos para Debitos autorizados por agencia;Emisión de reporte en formato PDF y Excel. Validación los datos;Baja;Pendiente;;;;;1Pendiente
+01;094;C01.094;858 - NQN.GAMMA.ABM COMISIONES - FE de comisiones;lista comisiones ;listas todas las comisiones Habilitadas / deshabilitadas;visualizar por FE la totalidad (habilitadas y deshabilitadas) de las reglas cargadas en una provincia dentro del paquete de comisiones;acceder al menu loteria, opcion configuraciones  en Comisiones , previo tener algun reporte emitido de BD de la totalidad reglas en paquete comisiones para la organizacion a evaluar;visualizar todas las reglas, nombre, juego y estados;Baja;Pendiente;;;;;1Pendiente
+01;095;C01.095;858 - NQN.GAMMA.ABM COMISIONES - FE de comisiones;lista comisiones ;listas todas las comisiones habilitadas;visualizar por FE la totalidad (habilitadas) de las reglas cargadas en una provincia dentro del paquete de comisiones;acceder al menu loteria, opcion configuraciones  en Comisiones , previo tener algun reporte emitido de BD de la totalidad reglas en paquete comisiones para la organizacion a evaluar;visualizar todas las reglas, nombre, juego y estados;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;096;C01.096;858 - NQN.GAMMA.ABM COMISIONES - FE de comisiones;lista comisiones ;listas todas las comisiones deshabilitadas;visualizar por FE la totalidad (deshabilitadas) de las reglas cargadas en una provincia dentro del paquete de comisiones;acceder al menu loteria, opcion configuraciones  en Comisiones , previo tener algun reporte emitido de BD de la totalidad reglas en paquete comisiones para la organizacion a evaluar;visualizar todas las reglas, nombre, juego y estados;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;097;C01.097;858 - NQN.GAMMA.ABM COMISIONES - FE de comisiones;visualizar reglas;visualizar los detalles de una regla;visualizar para una regla seleccionada la informacion general, codigos contables y detalle de comision;acceder al menu loteria, opcion configuraciones  en Comisiones , previo tener algun reporte emitido de BD de la totalidad reglas en paquete comisiones para la organizacion a evaluar, seleccionar regla a revisar;visualiza informacion general, codigos contables y detalle de comision;Baja;Pendiente;;;;;1Pendiente
+01;098;C01.098;858 - NQN.GAMMA.ABM COMISIONES - FE de comisiones;editar regla;Editar la informacion general de una regla;Editar para una regla seleccionada su informacion general, nombre , juego, estado y/o agrupacion por sorteo;acceder al menu loteria, opcion configuraciones  en Comisiones , previo tener algun reporte emitido de BD de la totalidad reglas en paquete comisiones para la organizacion a evaluar, seleccionar regla a editar, modificar datos en informacion general;"confirma la edicion, visualiza informacion general, con los cambios realizados
+liquidar y validar calculos para regla modificada, realizar back process para calculos ";Alta;Pendiente;;;;;1Pendiente
+01;099;C01.099;858 - NQN.GAMMA.ABM COMISIONES - FE de comisiones;editar regla;Editar los codigos contables de una regla ;Editar para una regla seleccionada sus codigos contables, codigos entrada y/o codigos salida;acceder al menu loteria, opcion configuraciones  en Comisiones , previo tener algun reporte emitido de BD de la totalidad reglas en paquete comisiones para la organizacion a evaluar, seleccionar regla a editar, modificar datos en codigos contables;"confirma la edicion, visualiza codigos contables, con los cambios realizados
+liquidar y validar impacto  para regla modificada, realizar back process para calculos ";Alta;Pendiente;;;;;1Pendiente
+01;100;C01.100;858 - NQN.GAMMA.ABM COMISIONES - FE de comisiones;editar regla;Editar los detalles de comisión de una regla;Editar para una regla seleccionada sus detalles de comisión, importe desde, fecha de validez, zona, % de comisiones y/o estado;acceder al menu loteria, opcion configuraciones  en Comisiones , previo tener algun reporte emitido de BD de la totalidad reglas en paquete comisiones para la organizacion a evaluar, seleccionar regla a editar, modificar datos en detalles comisión;"confirma la edicion, visualiza detalles de comisión , con los cambios realizados
+liquidar y validar impacto para regla modificada, realizar back process para calculos ";Alta;Pendiente;;;;;1Pendiente
+01;101;C01.101;858 - NQN.GAMMA.ABM COMISIONES - FE de comisiones;editar regla;Eliminar los detalles de comisión de una regla;Eliminar  para una regla seleccionada sus detalles de comisión;acceder al menu loteria, opcion configuraciones  en Comisiones , previo tener algun reporte emitido de BD de la totalidad reglas en paquete comisiones para la organizacion a evaluar, seleccionar regla a editar, Eliminar detalles comisión;"confirma la edicion, visualiza detalles de comisión , con los cambios realizados
+liquidar y validar impacto para regla modificada, realizar back process para calculos ";Alta;Pendiente;;;;;1Pendiente
+01;102;C01.102;858 - NQN.GAMMA.ABM COMISIONES - FE de comisiones;editar regla;Editar una regla que no realiza calculo de comision;Editar una regla nombre, configurar informacion general, codigos contables y detalles de comision para una regla que no realiza calculo de comisión;acceder al menu loteria, opcion configuraciones  en Comisiones , selecionar regla y editar;"
+no confirma la Edicion, lista regla, nombre, juego y estados sin cambios
+";Alta;Pendiente;;;;;1Pendiente
+01;103;C01.103;858 - NQN.GAMMA.ABM COMISIONES - FE de comisiones;Alta de regla;crear una regla;Crear una regla nombre, juego,  % de comisiones, codigos de salida y estado y configurar informacion general, codigos contables y detalles de comision para que participe en una liquidacion;acceder al menu loteria, opcion configuraciones  en Comisiones , seleccionar nueva regla;"
+confirma la creacion, lista nueva regla, nombre, juego y estados
+confirma edicion informacion general, codigos contables y detalle de comision
+liquidar y validar impacto para regla modificada, realizar back process para calculos ";Alta;Pendiente;;;;;1Pendiente
+01;104;C01.104;858 - NQN.GAMMA.ABM COMISIONES - FE de comisiones;Eliminar de regla;Eliminar una regla;Eliminar  para una regla seleccionada, la regla debe estar desahbilitada y sin detalles de comision.;acceder al menu loteria, opcion configuraciones  en Comisiones , seleccionar regla en condiciones de elimar;"
+confirma laEliminacion, lista no figura regla eliminada
+liquidar y validar impacto de la regla eliminada, realizar back process para calculos ";Alta;Pendiente;;;;;1Pendiente
+01;105;C01.105;879 - NQN.GAMMA.Liquidaciones parciales por sorteo;configurar liquidacion parcial;configurar sorteo para liquidacion parcial;solicitar cargar en bd por script para configurar liquidacion parcial de un sorteo sin cierrar, indicando dias y % a liquidar (ultimo dia 100%), crear codigos de recaudacion parcial y devolucion recaudacion parcial;"------codigos contables para imputacion:
+rrr:Recaudacion
+ppp: Recaudacion Parcial
+ddd: Dev Recaudacion Parcial
+------Sorteo para el juego seleccionado 
+sss: id_sorteo 
+------fechas liquidacion parcial
+ff1: fecha primer liquidacion
+fff: fecha liquidacion final
+------numero de imputacion para el juego seleccionado
+iii:numero de imputacion
+------porcentajes de liquidacion en cada parcial y final
+P1%= porcentaje puede estar ente 0,01 y 0,99
+Pf%: porcentaje final 1
+
+ejecutar script reemplazando datos en BD checkingaccount:
+INSERT INTO public.partial_settlement_detail
+(id, ac_dev, ac_in, ac_out, raffle_id, sale_channel_id)
+VALUES(1, ddd, rrr, ppp, sss, 1);
+
+INSERT INTO public.partial_settlement
+(id, imputation_date, imputation_id, percentage, raffle_id)
+VALUES(1,ff1, iii, p1%, sss);
+INSERT INTO public.partial_settlement
+(id, imputation_date, imputation_id, percentage, raffle_id)
+VALUES(1, ffff, iii, pf%, sss);
+";ejecucion correcta script;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;106;C01.106;879 - NQN.GAMMA.Liquidaciones parciales por sorteo;liquidacion parcial;ejecutar liquidacion parcial;liquidacion primer liquidacion parcial y liquidacion final;Se preliquida el dia para la primer liquidacion parcial y el dia de liquidacion final;que se liquide correctamente, validar el porcentaje de la primer  liquidacion parcial en movimiento recuadacion parcial y liquidacion final en movimiento devolucion recaudacion parcial, en liquidacion final todos lo movimientos y calculos correspondientes a la liquidacion de un sorteo;Baja;Pendiente;;;;;1Pendiente
+01;107;C01.107;881 - NQN.GAMMA.Cargo por cupón; regla csa;configurar regla general CSA;configurar una regla general de CSA vigente para todos los pdv;"menu lotería, cargo sistematización apuestas, agregar nueva regla, fórmula de cálculo ""cargo por cupón""";Confirmación de la creación de la regla por front end. Listar nueva regla por front end. Liquidar y validar impacto de cálculo de la nueva regla de csa. Cancelar preliquidación y validar vuelta atras de cálculo. Cancelar liquidación y validar vuelta atras de cálculo.;Baja;Error;;;Se configuro correctamente, pero falta el SAA Service;Se probo en Jujuy;1Error
+01;108;C01.108;881 - NQN.GAMMA.Cargo por cupón;regla csa;configurar regla particular CSA;configurar una regla particular de CSA vigente para un pdv habilitado;"menu punto de venta, configuración del punto de venta, cargo sistematización apuestas, agregar nueva regla, fórmula de cálculo ""cargo por cupón"". Configurar regla general para que no cobre CSA.";Confirmación de la creación de la regla por front end para un pdv. Listar nueva regla por front end para un pdv. Liquidar y validar impacto de cálculo de la nueva regla de csa en el pdv seleccionado. Cancelar preliquidación y validar vuelta atras de cálculo en el pdv seleccionado. Cancelar liquidación y validar vuelta atras de cálculo en el pdv seleccionado.;Baja;Pendiente;;;;;1Pendiente
+01;109;C01.109;882 - NQN.GAMMA.CSA - Cálculo combinado en función de las terminales y el valor de la apuesta mínima (BE/FE);regla csa;crear regla general de csa con rango;configurar una regla general de CSA vigente para todos los pdv;"menu lotería, cargo sistematización apuestas, agregar nueva regla, fórmula de cálculo ""cargo por tj según valor juego"", con rango de una máquina $10, 2 maq $20, 3 maq $30.";Confirmación de la creación de la regla por front end. Listar nueva regla por front end. Liquidar y validar impacto de cálculo de la nueva regla de csa. Cancelar preliquidación y validar vuelta atras de cálculo. Cancelar liquidación y validar vuelta atras de cálculo.;Baja;Pendiente;;;;;1Pendiente
+01;110;C01.110;882 - NQN.GAMMA.CSA - Cálculo combinado en función de las terminales y el valor de la apuesta mínima (BE/FE);regla csa;crear regla particular de csa con rango;configurar una regla particular de CSA vigente para un pdv habilitado;"menu punto de venta, configuración del punto de venta, cargo sistematización apuestas, agregar nueva regla, fórmula de cálculo ""cargo por tj segun valor juego"", con rango de una máquina $10, 2 maq $20, 3 maq $30. Configurar regla general para que no cobre CSA.";Confirmación de la creación de la regla por front end para un pdv. Listar nueva regla por front end para un pdv. Liquidar y validar impacto de cálculo de la nueva regla de csa en el pdv seleccionado. Cancelar preliquidación y validar vuelta atras de cálculo en el pdv seleccionado. Cancelar liquidación y validar vuelta atras de cálculo en el pdv seleccionado.;Baja;Pendiente;;;;;1Pendiente
+01;111;C01.111;891 - CTC.GAMMA.3 – Movimientos diarios para sub-agentes/agentes (filtro x agencia y subagencia);Generar reporte de movimientos diaros por sub-agentes;Emitir reporte;Emitir reporte para uno o varios días liquidados aplicando combinaciones de los filtros;"menu lotería, reportes, generar reporte ""movimientos de sug-agentes""";El reporte emitido (pdf y excel) con la configuración aplicada deberá coincidir con los datos liquidados.;Baja;Ejecutado OK;;;;;1Ejecutado OK
+01;112;C01.112;895 - CTC.GAMMA.Listados Generales - AFIP - Comisiones por Agencia;Generar reporte de comisiones por agencia;Emitir reporte;Emitir reporte para uno o varios días liquidados aplicando combinaciones de los filtros;"menu lotería, reportes, generar reporte ""comisiones por agencia""";El reporte emitido (pdf y excel) con la configuración aplicada deberá coincidir con los datos liquidados.;Baja;Error;;08-jun;;;1Error
+01;113;C01.113;896 - CTC GAMMA - Listados generales - Rentas - 16 Padrón Retenciones IB (Agentes).;Generar padrón de retención IIBB;Emitir reporte;Emitir reporte por presentación de IIBB;menu contabilidad, padrón de retenciones, seleccionar presentación;Emitir reporte en pdf y excel para la presentación seleccionada. El resultado del reporte deberá coincidir con las retenciones aplicadas a los pdv para el mes presentado;Baja;Ejecutado OK;;;;;1Ejecutado OK
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
+;;C00.000;;;;;;;;;;;;;
