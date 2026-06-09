@@ -317,6 +317,34 @@ function findManualReferences(query) {
   return related.length ? related : candidates;
 }
 
+function findSpecificManual(query) {
+  const q = query.toLowerCase();
+  const manuals = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
+
+  if (!manuals.length) return null;
+  if (q.includes('gamma')) return manuals.find(doc => doc.file.toLowerCase().includes('gamma')) || manuals[0];
+  if (q.includes('lote') || q.includes('lotemovil')) return manuals.find(doc => doc.file.toLowerCase().includes('lotemovil')) || manuals[0];
+  if (q.includes('noa')) return manuals.find(doc => doc.file.toLowerCase().includes('noa')) || manuals[0];
+  return manuals[0];
+}
+
+function getManualIndex(doc) {
+  const file = doc.file.toLowerCase();
+
+  if (file.includes('gamma')) {
+    return `Índice del manual de usuario GAMMA:\n\nIntroducción\nIngreso al sistema\nFuncionalidades\nAlertas\nPuntos de Ventas\nJuegos\nCalendario\nContabilidad\nLotería\nUsuarios\nLiquidación\nTesorería\nDescuentos y Bonificaciones\nCaja\nConfiguración`;
+  }
+
+  if (doc.type === 'text') {
+    const idx = extractManualIndex(doc.content);
+    if (idx.length) {
+      return `Índice del manual ${doc.file}:\n\n${idx.join('\n')}`;
+    }
+  }
+
+  return `No pude extraer el índice exacto del manual ${doc.file}, pero el archivo está disponible en ${doc.file}.`;
+}
+
 /* ======================================================
  CASOS (COPILOT)
 ====================================================== */
@@ -391,7 +419,16 @@ ${c['Descripción'] || 'Sin descripción'}
   }
 
   /* ===== MANUALES ===== */
+  const specificManual = findSpecificManual(message);
   if (q.includes('manual')) {
+    if (q.includes('indice') || q.includes('índice')) {
+      if (specificManual) {
+        return res.json({
+          reply: getManualIndex(specificManual)
+        });
+      }
+    }
+
     const refs = findManualReferences(message);
     const categoriesText = summarizeManualCategories(refs.length ? refs : knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual')));
 
