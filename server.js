@@ -264,10 +264,65 @@ function parseSectionPageRequest(text) {
   };
 }
 
-function getManualPageExcerpt(section, length = 1000) {
-  if (!section.content) return null;
-  const excerpt = section.content.trim().slice(0, length);
-  return `Página ${section.page} del manual GAMMA:\n\n${excerpt}${section.content.length > length ? '...' : ''}\n\nAbre el archivo: ${section.path}`;
+function parseManualPagesFromText(doc) {
+  if (doc.type !== 'text' || !doc.content) return;
+  const lines = doc.content.split('\n');
+  const pages = {};
+  let currentPage = null;
+  let buffer = [];
+
+  lines.forEach(line => {
+    const match = line.match(/^---\s*P[aá]gina\s+(\d+)\s*---/i);
+    if (match) {
+      if (currentPage !== null) {
+        pages[currentPage] = buffer.join('\n').trim();
+      }
+      currentPage = parseInt(match[1], 10);
+      buffer = [];
+      return;
+    }
+    if (currentPage !== null) {
+      buffer.push(line);
+    }
+  });
+
+  if (currentPage !== null) {
+    pages[currentPage] = buffer.join('\n').trim();
+  }
+
+  doc.manualPages = pages;
+}
+
+function getManualPageExcerptFromDoc(doc, page, length = 1000) {
+  if (!doc || !page || !doc.file) return null;
+
+  if (doc.type === 'text' && doc.manualPages && doc.manualPages[page]) {
+    const content = doc.manualPages[page].trim();
+    const excerpt = content.slice(0, length);
+    const fileLabel = doc.file.replace(/\\/g, '/');
+    return `Página ${page} de ${fileLabel}:\n\n${excerpt}${content.length > length ? '...' : ''}\n\nAbre el archivo: ${fileLabel}`;
+  }
+
+  return null;
+}
+
+function inferManualForSectionRequest(query, sectionRequest) {
+  const specificManual = findSpecificManual(query);
+  if (specificManual) return specificManual;
+
+  const sectionText = sectionRequest?.sectionName || '';
+  if (!sectionText) return null;
+
+  const manuals = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
+  const matches = manuals.filter(doc => {
+    if (!doc.manualIndex) return false;
+    return doc.manualIndex.some(item => {
+      const title = normalizeSearch(item.title);
+      return title.includes(sectionText) || sectionText.includes(title) || item.page === sectionRequest.page;
+    });
+  });
+
+  return matches.length ? matches[0] : manuals[0] || null;
 }
 
 function parseManualIndexWithPages(text) {
@@ -364,13 +419,14 @@ function buildManualIndexes() {
   knowledgeBase.forEach(doc => {
     if (!doc.file.toLowerCase().includes('manual')) return;
 
-    if (knownManualIndexes[doc.file]) {
-      doc.manualIndex = knownManualIndexes[doc.file];
+    if (doc.type === 'text') {
+      doc.manualIndex = parseManualIndexWithPages(doc.content);
+      parseManualPagesFromText(doc);
       return;
     }
 
-    if (doc.type === 'text') {
-      doc.manualIndex = parseManualIndexWithPages(doc.content);
+    if (knownManualIndexes[doc.file]) {
+      doc.manualIndex = knownManualIndexes[doc.file];
     }
   });
 }
@@ -426,10 +482,21 @@ function findSpecificManual(query) {
   const manuals = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
 
   if (!manuals.length) return null;
-  if (q.includes('gamma')) return manuals.find(doc => doc.file.toLowerCase().includes('gamma')) || manuals[0];
-  if (q.includes('lote') || q.includes('lotemovil')) return manuals.find(doc => doc.file.toLowerCase().includes('lotemovil')) || manuals[0];
-  if (q.includes('noa')) return manuals.find(doc => doc.file.toLowerCase().includes('noa')) || manuals[0];
-  return manuals[0];
+
+  const kind = q.includes('gamma')
+    ? 'gamma'
+    : q.includes('lote') || q.includes('lotemovil')
+      ? 'lotemovil'
+      : q.includes('noa')
+        ? 'noa'
+        : null;
+
+  const candidates = kind
+    ? manuals.filter(doc => doc.file.toLowerCase().includes(kind))
+    : manuals;
+
+  if (!candidates.length) return manuals[0];
+  return candidates.find(doc => doc.type === 'text') || candidates[0];
 }
 
 function getManualIndex(doc) {
@@ -684,11 +751,17 @@ ${c['Descripción'] || 'Sin descripción'}
   const sectionRequest = parseSectionPageRequest(message);
 
   if (sectionRequest) {
+    const manualForPage = inferManualForSectionRequest(message, sectionRequest);
+    const excerpt = getManualPageExcerptFromDoc(manualForPage, sectionRequest.page, 1000);
+    if (excerpt) {
+      return res.json({ reply: excerpt });
+    }
+
     const requestedSection = manualSectionMap.gamma[sectionRequest.sectionName];
     if (requestedSection && requestedSection.page === sectionRequest.page) {
-      const excerpt = getManualPageExcerpt(requestedSection, 1000);
-      if (excerpt) {
-        return res.json({ reply: excerpt });
+      const legacyExcerpt = getManualPageExcerpt(requestedSection, 1000);
+      if (legacyExcerpt) {
+        return res.json({ reply: legacyExcerpt });
       }
     }
   }
