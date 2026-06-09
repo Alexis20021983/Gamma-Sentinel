@@ -530,7 +530,23 @@ en una tarjeta e incluye:
       title: 'Liquidación',
       description: 'Sección Liquidación del manual GAMMA. Detalla el proceso de cierre y cálculo de liquidaciones.',
       path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
-      page: 24
+      page: 24,
+      content: `Este módulo permite generar las liquidaciones a los PDV (Puntos de Venta). El proceso se
+compone de seis etapas:
+1. En la etapa Datos, se visualizan los datos generales de liquidación, los mínimos
+vigentes de débito y crédito y muestra la última liquidación con su saldo, también
+permite cancelarla o exceptuar sorteos específicos.
+2. En Reporte por Imputación, se organizan los movimientos contables agrupados por
+tipo de operación, permitiendo verificar cómo impactan en las cuentas contables.
+3. En Movimientos por Agencia, se desglosa el detalle financiero de cada punto de
+venta.
+4. Luego, en el Resumen de Obligaciones, se presenta una vista consolidada de los
+montos que cada agencia debe abonar.
+5. En la etapa Pagos, es la que nos permite la generación del archivo bancario en donde
+seleccionamos las liquidaciones a incluir en dicho archivo.
+6. Finalmente, en Archivos, se generan y almacenan los documentos exportables que
+respaldan todo el proceso, integrables con otros sistemas contables o utilizados para
+auditorías.`
     },
     tesoreria: {
       title: 'Tesorería',
