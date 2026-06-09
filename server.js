@@ -281,8 +281,7 @@ function formatManualReference(doc) {
   return `${label} (${doc.type === 'pdf' ? 'PDF' : 'TXT'})`;
 }
 
-function getManualCategories() {
-  const manuals = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
+function summarizeManualCategories(manuals) {
   const categories = {
     GAMA: [],
     LoteMovil: [],
@@ -394,13 +393,7 @@ ${c['Descripción'] || 'Sin descripción'}
   /* ===== MANUALES ===== */
   if (q.includes('manual')) {
     const refs = findManualReferences(message);
-    const categoriesText = getManualCategories();
-
-    if (refs.length) {
-      return res.json({
-        reply: `Manuales de usuario disponibles:\n${categoriesText}\n\nTambién puedo buscar datos relacionados en el Excel GP.GAMMA.v2.NQN.CTC.LP.RN.xlsx.`
-      });
-    }
+    const categoriesText = summarizeManualCategories(refs.length ? refs : knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual')));
 
     return res.json({
       reply: `Manuales de usuario disponibles:\n${categoriesText}\n\nTambién puedo buscar datos relacionados en el Excel GP.GAMMA.v2.NQN.CTC.LP.RN.xlsx.`
