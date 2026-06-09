@@ -98,7 +98,7 @@ function walkKnowledgeDir(directory) {
     }
 
     const ext = path.extname(entry.name).toLowerCase();
-    if (['.txt', '.xlsx', '.xls'].includes(ext)) {
+    if (['.txt', '.xlsx', '.xls', '.pdf'].includes(ext)) {
       filePaths.push(fullPath);
     }
   });
@@ -122,6 +122,11 @@ function loadKnowledge() {
     if (ext === '.txt') {
       const content = fs.readFileSync(fullPath, 'utf-8');
       knowledgeBase.push({ file, content, type: 'text' });
+      return;
+    }
+
+    if (ext === '.pdf') {
+      knowledgeBase.push({ file, content: file, type: 'pdf' });
       return;
     }
 
@@ -266,19 +271,63 @@ function extractManualIndex(text) {
   return index;
 }
 
+function findCaseKey(text) {
+  const match = text.match(/\b(?:GAMMA|MAN|SF|[A-Z]{2,})-\d+\b/i);
+  return match ? match[0].toUpperCase() : null;
+}
+
+function formatManualReference(doc) {
+  const label = doc.file.replace(/\\/g, '/');
+  return `${label} (${doc.type === 'pdf' ? 'PDF' : 'TXT'})`;
+}
+
+function getManualCategories() {
+  const manuals = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
+  const categories = {
+    GAMA: [],
+    LoteMovil: [],
+    NOA: []
+  };
+
+  manuals.forEach(doc => {
+    const file = doc.file.toLowerCase();
+    if (file.includes('gamma')) categories.GAMA.push(formatManualReference(doc));
+    else if (file.includes('lotemovil')) categories.LoteMovil.push(formatManualReference(doc));
+    else if (file.includes('noa')) categories.NOA.push(formatManualReference(doc));
+  });
+
+  return Object.entries(categories)
+    .filter(([, list]) => list.length)
+    .map(([name, list]) => `${name}: ${list.join(', ')}`)
+    .join('\n');
+}
+
+function findManualReferences(query) {
+  const q = query.toLowerCase();
+  const candidates = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
+
+  if (!candidates.length) return [];
+
+  const related = candidates.filter(doc => {
+    const file = doc.file.toLowerCase();
+    return (q.includes('gamma') && file.includes('gamma')) ||
+      (q.includes('lote') && file.includes('lotemovil')) ||
+      (q.includes('noa') && file.includes('noa'));
+  });
+
+  return related.length ? related : candidates;
+}
+
 /* ======================================================
  CASOS (COPILOT)
 ====================================================== */
 function findCase(question) {
-  const match = question.match(/[a-z]*-?\d+/i);
-
-  if (!match) return null;
-
-  const key = match[0].toLowerCase();
+  const key = findCaseKey(question);
+  if (!key) return null;
 
   return backlogData.find(row =>
     String(row['Clave'] || row['ID'] || '')
-      .toLowerCase()
+      .toUpperCase()
       .includes(key)
   );
 }
@@ -318,13 +367,14 @@ app.post('/api/chat', (req, res) => {
   const q = message.toLowerCase();
 
   /* ===== CASOS ===== */
-  if (q.includes('caso') || q.match(/[a-z]*-?\d+/)) {
+  const caseKey = findCaseKey(message);
+  if (caseKey) {
 
     const c = findCase(message);
 
     if (!c) {
       return res.json({
-        reply: 'Por favor especificá la clave del caso (ej: GAMMA-123)'
+        reply: 'No encontré ese caso en el backlog. Por favor verificá la clave exacta (ej: GAMMA-123).'
       });
     }
 
@@ -342,6 +392,21 @@ ${c['Descripción'] || 'Sin descripción'}
   }
 
   /* ===== MANUALES ===== */
+  if (q.includes('manual')) {
+    const refs = findManualReferences(message);
+    const categoriesText = getManualCategories();
+
+    if (refs.length) {
+      return res.json({
+        reply: `Manuales de usuario disponibles:\n${categoriesText}\n\nTambién puedo buscar datos relacionados en el Excel GP.GAMMA.v2.NQN.CTC.LP.RN.xlsx.`
+      });
+    }
+
+    return res.json({
+      reply: `Manuales de usuario disponibles:\n${categoriesText}\n\nTambién puedo buscar datos relacionados en el Excel GP.GAMMA.v2.NQN.CTC.LP.RN.xlsx.`
+    });
+  }
+
   const manual = detectManual(q);
 
   if (manual) {
@@ -379,10 +444,15 @@ Cerrados: ${backlogStats.cerrados}
       ? `Excel ${knowledgeResult.doc.file} - hoja ${knowledgeResult.doc.sheet}`
       : knowledgeResult.doc.file;
 
+    const manuals = findManualReferences(message).map(formatManualReference);
+    const manualsText = manuals.length
+      ? `\n\nManuales relacionados:\n- ${manuals.join('\n- ')}`
+      : '';
+
     return res.json({
       reply: `Consulta basada en ${label}:
 
-${knowledgeResult.excerpt}`
+${knowledgeResult.excerpt}${manualsText}`
     });
   }
 
