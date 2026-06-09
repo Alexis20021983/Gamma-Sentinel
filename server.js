@@ -519,9 +519,21 @@ en una tarjeta e incluye:
     },
     tesoreria: {
       title: 'Tesorería',
-      description: 'Sección Tesorería del manual GAMMA. Contiene información sobre caja, pagos y controles financieros.',
+      description: 'Sección Tesorería del manual GAMMA. Contiene información sobre las funciones financieras y la gestión de pagos y cobros.',
       path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
-      page: 25
+      page: 25,
+      content: `Este módulo permite gestionar de forma integral la
+cancelación de resúmenes a través de archivos
+bancarios. Está compuesto por cinco funciones
+principales:
+- Registración de cobros.
+- Archivos de cobros generados.
+- Panel de auditoría.
+- Registración de pagos.
+- Archivos de pagos generados.
+
+Cada una enfocada en una etapa clave del proceso
+financiero, veamos cómo funciona cada una de ellas.`
     },
     'descuentos y bonificaciones': {
       title: 'Descuentos y Bonificaciones',
