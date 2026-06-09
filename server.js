@@ -248,27 +248,116 @@ function searchKnowledge(query) {
   };
 }
 
-function extractManualIndex(text) {
-  const lines = text.split('\n');
+function normalizeSearch(text) {
+  return String(text || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
 
-  let capture = false;
-  const index = [];
+function parseManualIndexWithPages(text) {
+  const lines = text.split('\n').map(line => line.trim()).filter(Boolean);
+  const start = lines.findIndex(line => normalizeSearch(line).includes('indice'));
+  if (start === -1) return [];
 
-  lines.forEach(l => {
-    const t = l.toLowerCase();
+  const indexLines = [];
+  for (let i = start + 1; i < lines.length; i++) {
+    const line = lines[i];
+    if (/^---\s*p[aá]gina/i.test(line) || /^manual de usuario/i.test(line)) break;
+    indexLines.push(line);
+    if (indexLines.length > 80) break;
+  }
 
-    if (t.includes('indice')) {
-      capture = true;
+  const entries = [];
+  let pendingTitles = [];
+
+  const flushPending = pages => {
+    pages.forEach((page, idx) => {
+      const title = pendingTitles[idx];
+      if (title) {
+        entries.push({ title, page });
+      }
+    });
+    pendingTitles = [];
+  };
+
+  indexLines.forEach(line => {
+    const onlyNumbers = line.match(/^\d+(?:\s+\d+)*$/);
+    if (onlyNumbers) {
+      const pages = line.split(/\s+/).map(n => parseInt(n, 10)).filter(Boolean);
+      flushPending(pages);
       return;
     }
 
-    if (capture && index.length < 20) {
-      if (!l.trim()) return;
-      index.push(l.trim());
+    const direct = line.match(/^[•\-*\s]*(.+?)\s*(\d+)$/);
+    if (direct && direct[1].trim() && /[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]/.test(direct[1])) {
+      const title = direct[1].trim();
+      const page = parseInt(direct[2], 10);
+      if (!Number.isNaN(page)) {
+        if (pendingTitles.length) {
+          flushPending([page]);
+        } else {
+          entries.push({ title, page });
+        }
+        return;
+      }
     }
+
+    pendingTitles.push(line.replace(/^[•\-*\s]+/, ''));
   });
 
-  return index;
+  return entries;
+}
+
+function formatManualIndexWithPages(doc) {
+  if (!doc.manualIndex || !doc.manualIndex.length) {
+    return `No encontré índice con páginas para ${doc.file}`;
+  }
+
+  return `Índice de ${doc.file}:\n${doc.manualIndex.map(item => `- ${item.title}: página ${item.page}`).join('\n')}`;
+}
+
+function getManualIndexString(doc) {
+  if (doc.manualIndex && doc.manualIndex.length) {
+    return formatManualIndexWithPages(doc);
+  }
+
+  return getManualIndex(doc);
+}
+
+function buildManualIndexes() {
+  const knownManualIndexes = {
+    'files/GAMMA - Manual de Usuario v1.2.pdf': [
+      { title: 'Introducción', page: 3 },
+      { title: 'Ingreso al sistema', page: 4 },
+      { title: 'Funcionalidades', page: 5 },
+      { title: 'Alertas', page: 6 },
+      { title: 'Puntos de Ventas', page: 7 },
+      { title: 'Juegos', page: 8 },
+      { title: 'Calendario', page: 10 },
+      { title: 'Contabilidad', page: 11 },
+      { title: 'Lotería', page: 16 },
+      { title: 'Usuarios', page: 23 },
+      { title: 'Liquidación', page: 24 },
+      { title: 'Tesorería', page: 25 },
+      { title: 'Descuentos y Bonificaciones', page: 31 },
+      { title: 'Caja', page: 35 },
+      { title: 'Configuración', page: 38 }
+    ]
+  };
+
+  knowledgeBase.forEach(doc => {
+    if (!doc.file.toLowerCase().includes('manual')) return;
+
+    if (knownManualIndexes[doc.file]) {
+      doc.manualIndex = knownManualIndexes[doc.file];
+      return;
+    }
+
+    if (doc.type === 'text') {
+      doc.manualIndex = parseManualIndexWithPages(doc.content);
+    }
+  });
 }
 
 function findCaseKey(text) {
@@ -302,13 +391,13 @@ function summarizeManualCategories(manuals) {
 }
 
 function findManualReferences(query) {
-  const q = query.toLowerCase();
+  const q = normalizeSearch(query);
   const candidates = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
 
   if (!candidates.length) return [];
 
   const related = candidates.filter(doc => {
-    const file = doc.file.toLowerCase();
+    const file = normalizeSearch(doc.file);
     return (q.includes('gamma') && file.includes('gamma')) ||
       (q.includes('lote') && file.includes('lotemovil')) ||
       (q.includes('noa') && file.includes('noa'));
@@ -350,28 +439,98 @@ const manualSectionMap = {
     alertas: {
       title: 'Alertas',
       description: 'Sección Alertas del manual GAMMA. Aquí se explica cómo visualizar y gestionar las alertas del sistema, las notificaciones de eventos y los estados de los PDV.',
-      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf'
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 6
     },
     introduccion: {
       title: 'Introducción',
       description: 'Sección Introducción del manual GAMMA. Contiene el alcance del sistema, requisitos y conceptos generales.',
-      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf'
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 3
     },
     'ingreso al sistema': {
       title: 'Ingreso al sistema',
       description: 'Sección Ingreso al sistema del manual GAMMA. Explica cómo iniciar sesión y los permisos asociados.',
-      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf'
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 4
     },
     funcionalidades: {
       title: 'Funcionalidades',
       description: 'Sección Funcionalidades del manual GAMMA. Describe los módulos principales y las opciones del menú.',
-      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf'
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 5
+    },
+    'puntos de ventas': {
+      title: 'Puntos de Ventas',
+      description: 'Sección Puntos de Ventas del manual GAMMA. Describe la gestión de puntos de venta y su control.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 7
+    },
+    juegos: {
+      title: 'Juegos',
+      description: 'Sección Juegos del manual GAMMA. Explica la administración y consulta de juegos en el sistema.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 8
+    },
+    calendario: {
+      title: 'Calendario',
+      description: 'Sección Calendario del manual GAMMA. Contiene la gestión de fechas, turnos y programación del sistema.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 10
+    },
+    contabilidad: {
+      title: 'Contabilidad',
+      description: 'Sección Contabilidad del manual GAMMA. Describe los estados contables y los procesos de registro.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 11
+    },
+    loteria: {
+      title: 'Lotería',
+      description: 'Sección Lotería del manual GAMMA. Explica los módulos específicos relacionados con juegos y sorteos.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 16
+    },
+    usuarios: {
+      title: 'Usuarios',
+      description: 'Sección Usuarios del manual GAMMA. Describe la administración de usuarios y permisos.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 23
+    },
+    liquidacion: {
+      title: 'Liquidación',
+      description: 'Sección Liquidación del manual GAMMA. Detalla el proceso de cierre y cálculo de liquidaciones.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 24
+    },
+    tesoreria: {
+      title: 'Tesorería',
+      description: 'Sección Tesorería del manual GAMMA. Contiene información sobre caja, pagos y controles financieros.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 25
+    },
+    'descuentos y bonificaciones': {
+      title: 'Descuentos y Bonificaciones',
+      description: 'Sección Descuentos y Bonificaciones del manual GAMMA. Describe cómo gestionar descuentos, promociones y bonificaciones.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 31
+    },
+    caja: {
+      title: 'Caja',
+      description: 'Sección Caja del manual GAMMA. Explica los procesos de control de caja y arqueo.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 35
+    },
+    configuracion: {
+      title: 'Configuración',
+      description: 'Sección Configuración del manual GAMMA. Incluye parámetros y ajustes del sistema.',
+      path: 'GAMMA Sentinel/knowledge/files/GAMMA - Manual de Usuario v1.2.pdf',
+      page: 38
     }
   }
 };
 
 function findManualSection(query) {
-  const q = query.toLowerCase();
+  const q = normalizeSearch(query);
   const gammaSections = manualSectionMap.gamma;
 
   for (const key of Object.keys(gammaSections)) {
@@ -384,7 +543,8 @@ function findManualSection(query) {
 }
 
 function getManualSectionResponse(section) {
-  return `Te llevo a la sección *${section.title}* del manual de usuario GAMMA.\n\n${section.description}\n\nAbre el archivo: ${section.path}`;
+  const pageText = section.page ? `Página ${section.page}.\n\n` : '';
+  return `Te llevo a la sección *${section.title}* del manual de usuario GAMMA.\n\n${pageText}${section.description}\n\nAbre el archivo: ${section.path}`;
 }
 
 /* ======================================================
@@ -472,11 +632,19 @@ ${c['Descripción'] || 'Sin descripción'}
 
   if (q.includes('manual')) {
     if (q.includes('indice') || q.includes('índice')) {
-      if (specificManual) {
+      const manualMention = /gamma|lote|noa/.test(q);
+      if (manualMention && specificManual) {
         return res.json({
-          reply: getManualIndex(specificManual)
+          reply: getManualIndexString(specificManual)
         });
       }
+
+      const manuals = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
+      const indicesText = manuals.map(formatManualIndexWithPages).join('\n\n');
+
+      return res.json({
+        reply: `Índices de los manuales disponibles en knowledge/files:\n\n${indicesText}`
+      });
     }
 
     const refs = findManualReferences(message);
@@ -546,6 +714,7 @@ ${knowledgeResult.excerpt}${manualsText}`
  INIT
 ====================================================== */
 loadKnowledge();
+buildManualIndexes();
 loadBacklogExcel();
 
 /* ======================================================
