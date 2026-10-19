@@ -11,8 +11,9 @@ cambio a `main` y en cada pull request.
    [Alexis20021983/Gamma-Sentinel](https://github.com/Alexis20021983/Gamma-Sentinel).
 2. En Render, selecciona **New +** → **Blueprint** y conecta ese repositorio.
    No lo conectes directamente como un único Static Site: eso no ejecutaría la API.
-3. Render leerá [`render.yaml`](render.yaml) y creará los dos servicios: el
-   frontend Static Site y el backend Web Service.
+3. Render leerá [`render.yaml`](render.yaml) y creará los dos servicios. Para
+   el frontend, el Blueprint requiere `type: web` junto con `runtime: static`;
+   `type: static` no es un tipo de servicio válido.
 4. El Blueprint enlaza el frontend con el host del backend para que el chat use
    la API. Al terminar, abre la URL del Static Site para acceder a la página.
 

@@ -28,4 +28,5 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check server.js
+          node --check "GAMMA Sentinel/js/config.js"
           node --check "GAMMA Sentinel/js/main.js"

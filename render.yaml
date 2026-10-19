@@ -8,8 +8,9 @@ services:
     healthCheckPath: /health
     autoDeploy: true
 
-  - type: static
+  - type: web
     name: gamma-sentinel-site
+    runtime: static
     buildCommand: >-
       printf "window.__GAMMA_BACKEND_URL__ = 'https://%s';\n" "$GAMMA_API_HOST"
       > "GAMMA Sentinel/js/config.js"
