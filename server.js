@@ -472,6 +472,8 @@ function isUserManual(doc) {
 }
 
 function getManualPageLinks(doc, page) {
+  if (!Number.isInteger(page) || page < 1) return [];
+
   const manuals = knowledgeBase.filter(candidate =>
     candidate.file.toLowerCase().includes('manual') && isUserManual(candidate)
   );
@@ -501,7 +503,7 @@ function getManualPageLinks(doc, page) {
     label: pdf
       ? `Abrir ${path.basename(pdf.file)} en la página ${page}`
       : `Abrir ${path.basename(doc.file)} (página ${page} en texto)`,
-    url: pdf ? `${baseUrl}#page=${page}` : baseUrl
+    url: pdf ? `${baseUrl}#page=${page}&zoom=page-fit` : baseUrl
   }];
 }
 

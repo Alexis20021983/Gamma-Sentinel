@@ -258,7 +258,6 @@ main {
   border-radius: 28px;
   background: rgba(255, 254, 250, 0.82);
   box-shadow: var(--shadow);
-  transform: rotate(1.2deg);
 }
 
 .hero-card-top,
@@ -635,6 +634,25 @@ main {
   font-weight: 700;
 }
 
+.chat-clear {
+  flex: 0 0 auto;
+  min-height: 2.25rem;
+  padding: 0.42rem 0.72rem;
+  border: 1px solid #e8e2ed;
+  border-radius: 999px;
+  background: #fbf9fd;
+  color: var(--lavender-ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.chat-clear:hover {
+  border-color: #d5cbe9;
+  background: var(--lavender);
+}
+
 .chat-messages {
   display: flex;
   min-height: 220px;
@@ -920,12 +938,24 @@ main {
   }
 
   .chat-panel {
-    min-height: 540px;
+    height: clamp(390px, 70svh, 560px);
+    min-height: 0;
     padding: 0.85rem;
   }
 
   .chat-header {
+    flex-wrap: wrap;
     gap: 0.55rem;
+  }
+
+  .chat-badge {
+    display: none;
+  }
+
+  .chat-clear {
+    margin-left: auto;
+    padding-inline: 0.6rem;
+    font-size: 0.68rem;
   }
 
   .assistant-avatar {
@@ -935,6 +965,10 @@ main {
 
   .message {
     max-width: 97%;
+  }
+
+  .chat-messages {
+    min-height: 0;
   }
 
   .chat-form {

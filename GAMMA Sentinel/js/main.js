@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatForm = document.getElementById('chatForm');
   const chatInput = document.getElementById('chatInput');
   const chatMessages = document.getElementById('chatMessages');
+  const clearChatBtn = document.getElementById('clearChatBtn');
+  const initialGreeting = '¡Hola! Puedo ayudarte a consultar los manuales de usuario. Prueba con «índice del manual NOA», «¿cómo veo los puntos de venta en LoteMovil?» o «página 6 del manual GAMMA».';
+  const requests = new Set();
+  let conversationRevision = 0;
 
   /* ======================================================
    AGREGAR MENSAJE
@@ -52,10 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const question = chatInput.value.trim();
     if (!question) return;
 
+    const requestRevision = conversationRevision;
+    const controller = new AbortController();
+    requests.add(controller);
+
     addMessage('user', question);
     chatInput.value = '';
 
-    // mensaje temporal
     addMessage('bot', 'Consultando...');
 
     const pendingMessage = chatMessages.lastElementChild;
@@ -67,7 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ message: question })
+        body: JSON.stringify({ message: question }),
+        signal: controller.signal
       });
 
       if (!response.ok) {
@@ -75,13 +83,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const data = await response.json();
+      if (requestRevision !== conversationRevision) return;
 
-      // eliminar "Consultando..."
       pendingMessage.remove();
 
       addMessage('bot', data.reply || 'Sin respuesta', data.manuals);
 
     } catch (error) {
+      if (error.name === 'AbortError' || requestRevision !== conversationRevision) return;
+
       console.error('Error:', error);
 
       pendingMessage.remove();
@@ -90,6 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'bot',
         'No se pudo conectar con el servidor. Verificá que Render esté activo o probá en local.'
       );
+    } finally {
+      requests.delete(controller);
     }
   };
 
@@ -100,6 +112,15 @@ document.addEventListener('DOMContentLoaded', () => {
   chatForm.addEventListener('submit', (event) => {
     event.preventDefault();
     sendMessage();
+  });
+
+  clearChatBtn.addEventListener('click', () => {
+    conversationRevision += 1;
+    requests.forEach((controller) => controller.abort());
+    requests.clear();
+    chatMessages.replaceChildren();
+    chatInput.value = '';
+    addMessage('bot', initialGreeting);
   });
 
   document.querySelectorAll('[data-suggestion]').forEach((button) => {
