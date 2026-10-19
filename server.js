@@ -7,9 +7,11 @@ const XLSX = require('xlsx');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const WEBSITE_DIR = path.join(__dirname, 'GAMMA Sentinel');
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(WEBSITE_DIR));
 
 /* ======================================================
  PATH
@@ -690,14 +692,6 @@ function findCase(question) {
 /* ======================================================
  API
 ====================================================== */
-
-/* ✅ ROOT (nuevo) */
-app.get('/', (req, res) => {
-  res.json({
-    app: 'GAMMA Sentinel PRO',
-    status: 'online'
-  });
-});
 
 /* ✅ HEALTH (FIX CRÍTICO) */
 app.get('/health', (req, res) => {

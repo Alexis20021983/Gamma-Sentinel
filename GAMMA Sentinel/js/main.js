@@ -6,19 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const sendBtn = document.getElementById('sendBtn');
 
   /* ======================================================
-   CONFIG BACKEND
-  ====================================================== */
-  const getBackendUrl = () => {
-    // Producción (GitHub Pages)
-    if (window.__GAMMA_BACKEND_URL__) {
-      return window.__GAMMA_BACKEND_URL__;
-    }
-
-    // Local (Node)
-    return 'http://localhost:3000';
-  };
-
-  /* ======================================================
    AGREGAR MENSAJE
   ====================================================== */
   const addMessage = (type, text) => {
@@ -47,11 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     addMessage('bot', 'Consultando...');
 
     try {
-      const backend = getBackendUrl();
-
-      console.log('Conectando a:', backend);
-
-      const response = await fetch(`${backend}/api/chat`, {
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -77,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       addMessage(
         'bot',
-        'No se pudo conectar con el backend. Verificá que Railway esté activo o probá en local.'
+        'No se pudo conectar con el servidor. Verificá que Render esté activo o probá en local.'
       );
     }
   };
