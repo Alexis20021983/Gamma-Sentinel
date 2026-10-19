@@ -30,3 +30,7 @@ jobs:
           node --check server.js
           node --check "GAMMA Sentinel/js/config.js"
           node --check "GAMMA Sentinel/js/main.js"
+          if grep -q "localhost:3000" "GAMMA Sentinel/js/config.js"; then
+            echo "config.js must not hardcode the local backend URL"
+            exit 1
+          fi
