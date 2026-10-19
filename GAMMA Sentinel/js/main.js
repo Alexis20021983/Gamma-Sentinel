@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatForm = document.getElementById('chatForm');
   const chatInput = document.getElementById('chatInput');
   const chatMessages = document.getElementById('chatMessages');
-  const sendBtn = document.getElementById('sendBtn');
 
   /* ======================================================
    AGREGAR MENSAJE
@@ -59,6 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // mensaje temporal
     addMessage('bot', 'Consultando...');
 
+    const pendingMessage = chatMessages.lastElementChild;
+
     try {
       const backend = window.__GAMMA_BACKEND_URL__ || '';
       const response = await fetch(`${backend}/api/chat`, {
@@ -76,14 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
 
       // eliminar "Consultando..."
-      chatMessages.lastElementChild.remove();
+      pendingMessage.remove();
 
       addMessage('bot', data.reply || 'Sin respuesta', data.manuals);
 
     } catch (error) {
       console.error('Error:', error);
 
-      chatMessages.lastElementChild.remove();
+      pendingMessage.remove();
 
       addMessage(
         'bot',
@@ -96,26 +97,24 @@ document.addEventListener('DOMContentLoaded', () => {
    EVENTOS
   ====================================================== */
 
-  // ✅ BOTÓN
-  if (sendBtn) {
-    sendBtn.addEventListener('click', sendMessage);
-  }
-
-  // ✅ ENTER EN INPUT
-  chatInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      e.stopPropagation();
-      sendMessage();
-    }
+  chatForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    sendMessage();
   });
 
-  // ✅ EVITAR SUBMIT HTML (extra seguridad)
-  if (chatForm) {
-    chatForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+  document.querySelectorAll('[data-suggestion]').forEach((button) => {
+    button.addEventListener('click', () => {
+      chatInput.value = button.dataset.suggestion;
+      sendMessage();
     });
-  }
+  });
+
+  document.querySelectorAll('[data-question]').forEach((button) => {
+    button.addEventListener('click', () => {
+      chatInput.value = button.dataset.question;
+      chatInput.focus();
+      document.getElementById('chat').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
 
 });

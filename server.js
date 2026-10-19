@@ -190,27 +190,7 @@ function loadBacklogExcel() {
  MANUALES
 ====================================================== */
 function detectManual(q) {
-  q = q.toLowerCase();
-
-  if (q.includes('lote') || q.includes('movil') || q.includes('lotemovil')) {
-    return knowledgeBase.find(d =>
-      d.file.toLowerCase().includes('lotemovil')
-    );
-  }
-
-  if (q.includes('gamma')) {
-    return knowledgeBase.find(d =>
-      d.file.toLowerCase().includes('gamma')
-    );
-  }
-
-  if (q.includes('noa')) {
-    return knowledgeBase.find(d =>
-      d.file.toLowerCase().includes('noa')
-    );
-  }
-
-  return null;
+  return findSpecificManual(q);
 }
 
 function searchKnowledge(query) {
@@ -221,6 +201,9 @@ function searchKnowledge(query) {
   if (!tokens.length) return null;
 
   const results = knowledgeBase
+    .filter(doc =>
+      !doc.file.toLowerCase().includes('manual') || isUserManual(doc)
+    )
     .map(doc => {
       const text = doc.content.toLowerCase();
       const score = tokens.reduce((acc, token) => {
@@ -318,7 +301,9 @@ function inferManualForSectionRequest(query, sectionRequest) {
   const sectionText = sectionRequest?.sectionName || '';
   if (!sectionText) return null;
 
-  const manuals = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
+  const manuals = knowledgeBase.filter(doc =>
+    doc.file.toLowerCase().includes('manual') && isUserManual(doc)
+  );
   const matches = manuals.filter(doc => {
     if (!doc.manualIndex) return false;
     return doc.manualIndex.some(item => {
@@ -482,9 +467,13 @@ function getManualLinks(manuals) {
   }));
 }
 
+function isUserManual(doc) {
+  return normalizeSearch(doc.file).includes('usuario');
+}
+
 function getManualPageLinks(doc, page) {
   const manuals = knowledgeBase.filter(candidate =>
-    candidate.file.toLowerCase().includes('manual')
+    candidate.file.toLowerCase().includes('manual') && isUserManual(candidate)
   );
   const normalizedFile = normalizeSearch(doc.file);
   const product = normalizedFile.includes('lotemovil')
@@ -545,7 +534,9 @@ function summarizeManualCategories(manuals) {
 
 function findManualReferences(query) {
   const q = normalizeSearch(query);
-  let candidates = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
+  let candidates = knowledgeBase.filter(doc =>
+    doc.file.toLowerCase().includes('manual') && isUserManual(doc)
+  );
 
   if (!candidates.length) return [];
 
@@ -578,7 +569,9 @@ function findManualReferences(query) {
 
 function findSpecificManual(query) {
   const q = query.toLowerCase();
-  const manuals = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
+  const manuals = knowledgeBase.filter(doc =>
+    doc.file.toLowerCase().includes('manual') && isUserManual(doc)
+  );
 
   if (!manuals.length) return null;
 
@@ -917,9 +910,16 @@ ${c['Descripción'] || 'Sin descripción'}
 
   if (q.includes('indice') || q.includes('índice')) {
     const manuals = findManualReferences(message);
+    const hasManualFilter =
+      /gamma|gama|lote|movil|noa|administrador|admin|usuario|user/.test(normalizeSearch(message)) ||
+      /\b1[.,]\d+\b/.test(normalizeSearch(message));
     const indexSources = getManualIndexSources(manuals.length
       ? manuals
-      : knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual')));
+      : hasManualFilter
+        ? []
+        : knowledgeBase.filter(doc =>
+          doc.file.toLowerCase().includes('manual') && isUserManual(doc)
+        ));
 
     if (indexSources.length) {
       return res.json({
@@ -929,7 +929,7 @@ ${c['Descripción'] || 'Sin descripción'}
     }
 
     return res.json({
-      reply: 'No encontré un índice completo para ese manual. Indica el producto y, si corresponde, si buscas el manual de usuario o administrador.',
+      reply: 'No encontré ese índice entre los manuales de usuario. Indica si buscas GAMMA, LoteMovil o NOA.',
       manuals: []
     });
   }
@@ -946,7 +946,7 @@ ${c['Descripción'] || 'Sin descripción'}
     const categoriesText = summarizeManualCategories(refs);
 
     return res.json({
-      reply: `Manuales disponibles:\n${categoriesText}\n\nSelecciona un enlace para abrir el manual. También puedo buscar datos relacionados en el Excel GP.GAMMA.v2.NQN.CTC.LP.RN.xlsx.`,
+      reply: `Manuales de usuario disponibles:\n${categoriesText}\n\nSelecciona un enlace para abrir el documento o pregunta por una sección específica.`,
       manuals: getManualLinks(refs)
     });
   }
@@ -996,7 +996,7 @@ ${knowledgeResult.excerpt}${manualsText}`,
 
   /* ===== DEFAULT ===== */
   return res.json({
-    reply: 'Consulta no reconocida. Probá con manual, caso o backlog.'
+    reply: 'No encontré esa información en los manuales de usuario. Prueba indicando GAMMA, LoteMovil o NOA y el tema que buscas.'
   });
 });
 

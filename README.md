@@ -1,9 +1,10 @@
 # GAMMA Sentinel
 
-Aplicación con un frontend estático, una API Node.js de chat y una base de
-conocimiento. Render publica el frontend como **Static Site** y ejecuta la API
-como **Web Service**. GitHub almacena el código y ejecuta validaciones en cada
-cambio a `main` y en cada pull request.
+Biblioteca digital de consulta de los manuales de usuario GAMMA, LoteMovil y NOA.
+Incluye acceso a los documentos PDF/TXT y un chat Node.js especializado en
+encontrar procedimientos, secciones e índices. Render publica el frontend como
+**Static Site** y ejecuta la API como **Web Service**. GitHub almacena el código
+y ejecuta validaciones en cada cambio a `main` y en cada pull request.
 
 ## Despliegue en Render
 
@@ -23,11 +24,11 @@ Pide un manual por producto, tipo o versión, por ejemplo:
 
 - `manual GAMMA`
 - `manual de usuario LoteMovil`
-- `manual administrador LoteMovil v1.2`
+- `manual de usuario LoteMovil v1.2`
 - `manual NOA`
 
-El chat responde con enlaces para abrir los PDF y TXT correspondientes. Los
-archivos se sirven desde `GAMMA Sentinel/knowledge/files`.
+El chat responde con enlaces para abrir los PDF y TXT de usuario correspondientes.
+Los archivos se sirven desde `GAMMA Sentinel/knowledge/files`.
 
 También puedes pedir `índice del manual NOA` (o de GAMMA/LoteMovil) para ver
 el índice completo. Cada entrada del índice incluye un enlace que abre el PDF
