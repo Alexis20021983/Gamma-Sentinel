@@ -29,6 +29,11 @@ Pide un manual por producto, tipo o versión, por ejemplo:
 El chat responde con enlaces para abrir los PDF y TXT correspondientes. Los
 archivos se sirven desde `GAMMA Sentinel/knowledge/files`.
 
+También puedes pedir `índice del manual NOA` (o de GAMMA/LoteMovil) para ver
+el índice completo. Cada entrada del índice incluye un enlace que abre el PDF
+directamente en esa página. Para ir a una página concreta, pide, por ejemplo,
+`página 8 del manual de usuario LoteMovil`.
+
 El Blueprint instala las dependencias de la API con `npm ci`, la inicia con
 `npm start` y comprueba su estado en `/health`. Los despliegues posteriores se
 activan automáticamente con cada push a la rama configurada en Render.

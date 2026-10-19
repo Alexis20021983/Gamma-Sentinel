@@ -258,11 +258,14 @@ function normalizeSearch(text) {
 }
 
 function parseSectionPageRequest(text) {
-  const match = String(text || '').match(/(.+?)\s*:\s*p[áa]gina\s*(\d+)/i);
-  if (!match) return null;
+  const query = String(text || '');
+  const sectionMatch = query.match(/(.+?)\s*:\s*p[áa]gina\s*(\d+)/i);
+  const pageMatch = sectionMatch || query.match(/\bp[áa]g(?:ina)?\.?\s*(\d+)\b/i);
+  if (!pageMatch) return null;
+
   return {
-    sectionName: normalizeSearch(match[1].trim()),
-    page: parseInt(match[2], 10)
+    sectionName: sectionMatch ? normalizeSearch(sectionMatch[1].trim()) : '',
+    page: parseInt(sectionMatch ? sectionMatch[2] : pageMatch[1], 10)
   };
 }
 
@@ -329,7 +332,9 @@ function inferManualForSectionRequest(query, sectionRequest) {
 
 function parseManualIndexWithPages(text) {
   const lines = text.split('\n').map(line => line.trim()).filter(Boolean);
-  const start = lines.findIndex(line => normalizeSearch(line).includes('indice'));
+  const start = lines.findIndex(line =>
+    normalizeSearch(line).replace(/\s+/g, '').includes('indice')
+  );
   if (start === -1) return [];
 
   const indexLines = [];
@@ -337,27 +342,28 @@ function parseManualIndexWithPages(text) {
     const line = lines[i];
     if (/^---\s*p[aá]gina/i.test(line) || /^manual de usuario/i.test(line)) break;
     indexLines.push(line);
-    if (indexLines.length > 80) break;
   }
 
   const entries = [];
   let pendingTitles = [];
+  let pendingPages = [];
 
-  const flushPending = pages => {
-    pages.forEach((page, idx) => {
+  const flushPending = () => {
+    pendingPages.forEach((page, idx) => {
       const title = pendingTitles[idx];
       if (title) {
         entries.push({ title, page });
       }
     });
     pendingTitles = [];
+    pendingPages = [];
   };
 
   indexLines.forEach(line => {
     const onlyNumbers = line.match(/^\d+(?:\s+\d+)*$/);
     if (onlyNumbers) {
-      const pages = line.split(/\s+/).map(n => parseInt(n, 10)).filter(Boolean);
-      flushPending(pages);
+      pendingPages.push(...line.split(/\s+/).map(n => parseInt(n, 10)).filter(Boolean));
+      if (pendingPages.length >= pendingTitles.length) flushPending();
       return;
     }
 
@@ -366,11 +372,9 @@ function parseManualIndexWithPages(text) {
       const title = direct[1].trim();
       const page = parseInt(direct[2], 10);
       if (!Number.isNaN(page)) {
-        if (pendingTitles.length) {
-          flushPending([page]);
-        } else {
-          entries.push({ title, page });
-        }
+        pendingTitles.push(title);
+        pendingPages.push(page);
+        if (pendingPages.length >= pendingTitles.length) flushPending();
         return;
       }
     }
@@ -378,7 +382,9 @@ function parseManualIndexWithPages(text) {
     pendingTitles.push(line.replace(/^[•\-*\s]+/, ''));
   });
 
-  return entries;
+  if (pendingTitles.length && pendingPages.length) flushPending();
+
+  return entries.sort((a, b) => a.page - b.page);
 }
 
 function formatManualIndexWithPages(doc) {
@@ -433,6 +439,32 @@ function buildManualIndexes() {
   });
 }
 
+function getManualIndexSources(manuals) {
+  const groups = new Map();
+
+  manuals.forEach(doc => {
+    if (!doc.manualIndex?.length) return;
+
+    const file = normalizeSearch(doc.file);
+    const product = file.includes('lotemovil')
+      ? 'lotemovil'
+      : file.includes('noa')
+        ? 'noa'
+        : file.includes('gamma')
+          ? 'gamma'
+          : '';
+    const role = file.includes('administrador') ? 'administrador' : 'usuario';
+    const key = `${product}:${role}`;
+    const current = groups.get(key);
+
+    if (!current || (doc.type === 'pdf' && current.type !== 'pdf')) {
+      groups.set(key, doc);
+    }
+  });
+
+  return Array.from(groups.values());
+}
+
 function findCaseKey(text) {
   const match = text.match(/\b(?:GAMMA|MAN|SF|[A-Z]{2,})-\d+\b/i);
   return match ? match[0].toUpperCase() : null;
@@ -447,6 +479,47 @@ function getManualLinks(manuals) {
   return manuals.map(doc => ({
     label: `${path.basename(doc.file)} (${doc.type === 'pdf' ? 'PDF' : 'TXT'})`,
     url: `/knowledge/${doc.file.split('/').map(encodeURIComponent).join('/')}`
+  }));
+}
+
+function getManualPageLinks(doc, page) {
+  const manuals = knowledgeBase.filter(candidate =>
+    candidate.file.toLowerCase().includes('manual')
+  );
+  const normalizedFile = normalizeSearch(doc.file);
+  const product = normalizedFile.includes('lotemovil')
+    ? 'lotemovil'
+    : normalizedFile.includes('noa')
+      ? 'noa'
+      : 'gamma';
+  const role = normalizedFile.includes('administrador') ? 'administrador' : 'usuario';
+  const version = normalizedFile.match(/\bv\d+[.,]\d+\b/);
+
+  const pdfs = manuals.filter(candidate => {
+    if (candidate.type !== 'pdf') return false;
+    const file = normalizeSearch(candidate.file);
+    return file.includes(product) &&
+      file.includes(role);
+  });
+  const pdf = pdfs.find(candidate => {
+    const file = normalizeSearch(candidate.file);
+    return !version || file.includes(version[0].replace(',', '.'));
+  }) || (pdfs.length === 1 ? pdfs[0] : null);
+  const target = pdf || doc;
+  const baseUrl = `/knowledge/${target.file.split('/').map(encodeURIComponent).join('/')}`;
+
+  return [{
+    label: pdf
+      ? `Abrir ${path.basename(pdf.file)} en la página ${page}`
+      : `Abrir ${path.basename(doc.file)} (página ${page} en texto)`,
+    url: pdf ? `${baseUrl}#page=${page}` : baseUrl
+  }];
+}
+
+function getManualIndexPageLinks(manuals) {
+  return manuals.flatMap(doc => (doc.manualIndex || []).map(item => {
+    const [link] = getManualPageLinks(doc, item.page);
+    return { ...link, label: `${item.title}: página ${item.page}` };
   }));
 }
 
@@ -542,20 +615,9 @@ function findSpecificManual(query) {
 }
 
 function getManualIndex(doc) {
-  const file = doc.file.toLowerCase();
-
-  if (file.includes('gamma')) {
-    return `Índice del manual de usuario GAMMA:\n\nIntroducción\nIngreso al sistema\nFuncionalidades\nAlertas\nPuntos de Ventas\nJuegos\nCalendario\nContabilidad\nLotería\nUsuarios\nLiquidación\nTesorería\nDescuentos y Bonificaciones\nCaja\nConfiguración`;
-  }
-
-  if (doc.type === 'text') {
-    const idx = extractManualIndex(doc.content);
-    if (idx.length) {
-      return `Índice del manual ${doc.file}:\n\n${idx.join('\n')}`;
-    }
-  }
-
-  return `No pude extraer el índice exacto del manual ${doc.file}, pero el archivo está disponible en ${doc.file}.`;
+  return doc.manualIndex?.length
+    ? formatManualIndexWithPages(doc)
+    : `No encontré índice con páginas para ${doc.file}`;
 }
 
 const manualSectionMap = {
@@ -785,12 +847,39 @@ ${c['Descripción'] || 'Sin descripción'}
   const sectionRequest = parseSectionPageRequest(message);
 
   if (sectionRequest) {
-    const manualForPage = inferManualForSectionRequest(message, sectionRequest);
+    let pageQuery = message;
+    const normalizedQuery = normalizeSearch(message);
+    const indexedGammaSection = sectionRequest.sectionName &&
+      manualSectionMap.gamma[sectionRequest.sectionName];
+
+    if (indexedGammaSection) {
+      pageQuery += ' GAMMA usuario';
+    } else if (!normalizedQuery.includes('administrador') &&
+        !normalizedQuery.includes('admin') &&
+        !normalizedQuery.includes('usuario') &&
+        !normalizedQuery.includes('user')) {
+      pageQuery += ' usuario';
+    }
+
+    const requestedManuals = findManualReferences(pageQuery);
+    const products = new Set(requestedManuals.map(doc => {
+      const file = normalizeSearch(doc.file);
+      return file.includes('lotemovil') ? 'LoteMovil' : file.includes('noa') ? 'NOA' : 'GAMMA';
+    }));
+
+    if (products.size > 1) {
+      return res.json({
+        reply: 'Indica de qué manual necesitas la página: GAMMA, LoteMovil o NOA.',
+        manuals: []
+      });
+    }
+
+    const manualForPage = inferManualForSectionRequest(pageQuery, sectionRequest);
     const excerpt = getManualPageExcerptFromDoc(manualForPage, sectionRequest.page, 1000);
     if (excerpt) {
       return res.json({
         reply: excerpt,
-        manuals: getManualLinks(manualForPage ? [manualForPage] : [])
+        manuals: getManualPageLinks(manualForPage, sectionRequest.page)
       });
     }
 
@@ -798,12 +887,22 @@ ${c['Descripción'] || 'Sin descripción'}
     if (requestedSection && requestedSection.page === sectionRequest.page) {
       const legacyExcerpt = getManualPageExcerpt(requestedSection, 1000);
       if (legacyExcerpt) {
-        const manualLinks = findManualReferences(message);
+        const manualForLink = requestedManuals.find(doc => doc.type === 'pdf') ||
+          requestedManuals.find(doc => doc.type === 'text');
         return res.json({
           reply: legacyExcerpt,
-          manuals: getManualLinks(manualLinks)
+          manuals: manualForLink
+            ? getManualPageLinks(manualForLink, sectionRequest.page)
+            : []
         });
       }
+    }
+
+    if (manualForPage) {
+      return res.json({
+        reply: `Abre el manual ${path.basename(manualForPage.file)} en la página ${sectionRequest.page}.`,
+        manuals: getManualPageLinks(manualForPage, sectionRequest.page)
+      });
     }
   }
 
@@ -816,26 +915,26 @@ ${c['Descripción'] || 'Sin descripción'}
     });
   }
 
-  if (q.includes('manual')) {
-    if (q.includes('indice') || q.includes('índice')) {
-      const manualMention = /gamma|lote|noa/.test(q);
-      if (manualMention && specificManual) {
-        const manuals = findManualReferences(message);
-        return res.json({
-          reply: getManualIndexString(specificManual),
-          manuals: getManualLinks(manuals.length ? manuals : [specificManual])
-        });
-      }
+  if (q.includes('indice') || q.includes('índice')) {
+    const manuals = findManualReferences(message);
+    const indexSources = getManualIndexSources(manuals.length
+      ? manuals
+      : knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual')));
 
-      const manuals = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
-      const indicesText = manuals.map(formatManualIndexWithPages).join('\n\n');
-
+    if (indexSources.length) {
       return res.json({
-        reply: `Índices de los manuales disponibles en knowledge/files:\n\n${indicesText}`,
-        manuals: getManualLinks(manuals)
+        reply: indexSources.map(formatManualIndexWithPages).join('\n\n'),
+        manuals: getManualIndexPageLinks(indexSources)
       });
     }
 
+    return res.json({
+      reply: 'No encontré un índice completo para ese manual. Indica el producto y, si corresponde, si buscas el manual de usuario o administrador.',
+      manuals: []
+    });
+  }
+
+  if (q.includes('manual')) {
     const refs = findManualReferences(message);
     if (!refs.length) {
       return res.json({
@@ -855,16 +954,8 @@ ${c['Descripción'] || 'Sin descripción'}
   const manual = detectManual(q);
 
   if (manual) {
-    const idx = extractManualIndex(manual.content);
-
-    let name = 'Manual';
-
-    if (manual.file.toLowerCase().includes('lote')) name = 'LoteMovil';
-    if (manual.file.toLowerCase().includes('gamma')) name = 'GAMMA';
-    if (manual.file.toLowerCase().includes('noa')) name = 'NOA';
-
     return res.json({
-      reply: `Índice del manual de ${name}:\n\n${idx.join('\n')}`,
+      reply: getManualIndexString(manual),
       manuals: getManualLinks(findManualReferences(message))
     });
   }
