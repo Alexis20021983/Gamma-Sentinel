@@ -1,20 +1,22 @@
 # GAMMA Sentinel
 
-Aplicación Node.js con sitio web estático, API de chat y base de conocimiento.
-El servidor entrega el frontend y la API desde un único servicio de Render.
-GitHub almacena el código y ejecuta validaciones en cada cambio a `main` y en
-cada pull request.
+Aplicación con un frontend estático, una API Node.js de chat y una base de
+conocimiento. Render publica el frontend como **Static Site** y ejecuta la API
+como **Web Service**. GitHub almacena el código y ejecuta validaciones en cada
+cambio a `main` y en cada pull request.
 
 ## Despliegue en Render
 
 1. Sube los cambios a la rama `main` de
    [Alexis20021983/Gamma-Sentinel](https://github.com/Alexis20021983/Gamma-Sentinel).
 2. En Render, selecciona **New +** → **Blueprint** y conecta ese repositorio.
-3. Render leerá [`render.yaml`](render.yaml) y creará el servicio web.
-4. Al finalizar el primer despliegue, abre la URL que Render asigne. El sitio y
-   el chat estarán disponibles en esa misma URL.
+   No lo conectes directamente como un único Static Site: eso no ejecutaría la API.
+3. Render leerá [`render.yaml`](render.yaml) y creará los dos servicios: el
+   frontend Static Site y el backend Web Service.
+4. El Blueprint enlaza el frontend con el host del backend para que el chat use
+   la API. Al terminar, abre la URL del Static Site para acceder a la página.
 
-El Blueprint instala dependencias con `npm ci`, inicia el servicio con
+El Blueprint instala las dependencias de la API con `npm ci`, la inicia con
 `npm start` y comprueba su estado en `/health`. Los despliegues posteriores se
 activan automáticamente con cada push a la rama configurada en Render.
 
@@ -27,14 +29,15 @@ npm ci
 npm start
 ```
 
-Abre `http://localhost:3000`. El servidor usa el puerto asignado por Render en
-producción y carga los documentos de `GAMMA Sentinel/knowledge`.
+Abre `http://localhost:3000`. El servidor sirve el sitio localmente y usa el
+puerto asignado por Render en producción. La API carga los documentos de
+`GAMMA Sentinel/knowledge`.
 
 ## GitHub Actions
 
 El workflow de GitHub Actions instala dependencias y comprueba la sintaxis de
-JavaScript. Render es quien publica la aplicación; GitHub Pages no se usa para
-este despliegue porque el frontend necesita la API de chat.
+JavaScript. Render publica el frontend y el backend; GitHub Pages no se usa en
+este despliegue.
 
 ## Créditos
 

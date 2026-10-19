@@ -34,7 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
     addMessage('bot', 'Consultando...');
 
     try {
-      const response = await fetch('/api/chat', {
+      const backend = window.__GAMMA_BACKEND_URL__ || '';
+      const response = await fetch(`${backend}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
