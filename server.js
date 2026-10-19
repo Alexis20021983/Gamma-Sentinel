@@ -443,16 +443,23 @@ function formatManualReference(doc) {
   return `${label} (${doc.type === 'pdf' ? 'PDF' : 'TXT'})`;
 }
 
+function getManualLinks(manuals) {
+  return manuals.map(doc => ({
+    label: `${path.basename(doc.file)} (${doc.type === 'pdf' ? 'PDF' : 'TXT'})`,
+    url: `/knowledge/${doc.file.split('/').map(encodeURIComponent).join('/')}`
+  }));
+}
+
 function summarizeManualCategories(manuals) {
   const categories = {
-    GAMA: [],
+    GAMMA: [],
     LoteMovil: [],
     NOA: []
   };
 
   manuals.forEach(doc => {
     const file = doc.file.toLowerCase();
-    if (file.includes('gamma')) categories.GAMA.push(formatManualReference(doc));
+    if (file.includes('gamma')) categories.GAMMA.push(formatManualReference(doc));
     else if (file.includes('lotemovil')) categories.LoteMovil.push(formatManualReference(doc));
     else if (file.includes('noa')) categories.NOA.push(formatManualReference(doc));
   });
@@ -465,18 +472,35 @@ function summarizeManualCategories(manuals) {
 
 function findManualReferences(query) {
   const q = normalizeSearch(query);
-  const candidates = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
+  let candidates = knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual'));
 
   if (!candidates.length) return [];
 
-  const related = candidates.filter(doc => {
-    const file = normalizeSearch(doc.file);
-    return (q.includes('gamma') && file.includes('gamma')) ||
-      (q.includes('lote') && file.includes('lotemovil')) ||
-      (q.includes('noa') && file.includes('noa'));
-  });
+  const categories = [];
+  if (q.includes('gamma') || q.includes('gama')) categories.push('gamma');
+  if (q.includes('lote') || q.includes('movil')) categories.push('lotemovil');
+  if (q.includes('noa')) categories.push('noa');
 
-  return related.length ? related : candidates;
+  if (categories.length) {
+    candidates = candidates.filter(doc => {
+      const file = normalizeSearch(doc.file);
+      return categories.some(category => file.includes(category));
+    });
+  }
+
+  if (q.includes('administrador') || q.includes('admin')) {
+    candidates = candidates.filter(doc => normalizeSearch(doc.file).includes('administrador'));
+  } else if (q.includes('usuario') || q.includes('user')) {
+    candidates = candidates.filter(doc => normalizeSearch(doc.file).includes('usuario'));
+  }
+
+  const version = q.match(/\b1[.,]\d+\b/);
+  if (version) {
+    const requestedVersion = version[0].replace(',', '.');
+    candidates = candidates.filter(doc => normalizeSearch(doc.file).includes(requestedVersion));
+  }
+
+  return candidates;
 }
 
 function findSpecificManual(query) {
@@ -485,9 +509,9 @@ function findSpecificManual(query) {
 
   if (!manuals.length) return null;
 
-  const kind = q.includes('gamma')
+  const kind = q.includes('gamma') || q.includes('gama')
     ? 'gamma'
-    : q.includes('lote') || q.includes('lotemovil')
+    : q.includes('lote') || q.includes('movil') || q.includes('lotemovil')
       ? 'lotemovil'
       : q.includes('noa')
         ? 'noa'
@@ -497,7 +521,23 @@ function findSpecificManual(query) {
     ? manuals.filter(doc => doc.file.toLowerCase().includes(kind))
     : manuals;
 
-  if (!candidates.length) return manuals[0];
+  if (!candidates.length) return null;
+
+  const requestedManuals = findManualReferences(query);
+  if (requestedManuals.length) {
+    return requestedManuals.find(doc => doc.type === 'text') || requestedManuals[0];
+  }
+
+  const normalizedQuery = normalizeSearch(query);
+  const hasSpecificFilter =
+    normalizedQuery.includes('administrador') ||
+    normalizedQuery.includes('admin') ||
+    normalizedQuery.includes('usuario') ||
+    normalizedQuery.includes('user') ||
+    /\b1[.,]\d+\b/.test(normalizedQuery);
+
+  if (hasSpecificFilter) return null;
+
   return candidates.find(doc => doc.type === 'text') || candidates[0];
 }
 
@@ -748,14 +788,21 @@ ${c['Descripción'] || 'Sin descripción'}
     const manualForPage = inferManualForSectionRequest(message, sectionRequest);
     const excerpt = getManualPageExcerptFromDoc(manualForPage, sectionRequest.page, 1000);
     if (excerpt) {
-      return res.json({ reply: excerpt });
+      return res.json({
+        reply: excerpt,
+        manuals: getManualLinks(manualForPage ? [manualForPage] : [])
+      });
     }
 
     const requestedSection = manualSectionMap.gamma[sectionRequest.sectionName];
     if (requestedSection && requestedSection.page === sectionRequest.page) {
       const legacyExcerpt = getManualPageExcerpt(requestedSection, 1000);
       if (legacyExcerpt) {
-        return res.json({ reply: legacyExcerpt });
+        const manualLinks = findManualReferences(message);
+        return res.json({
+          reply: legacyExcerpt,
+          manuals: getManualLinks(manualLinks)
+        });
       }
     }
   }
@@ -764,7 +811,8 @@ ${c['Descripción'] || 'Sin descripción'}
 
   if (manualSection && specificManual && specificManual.file.toLowerCase().includes('gamma')) {
     return res.json({
-      reply: getManualSectionResponse(manualSection)
+      reply: getManualSectionResponse(manualSection),
+      manuals: getManualLinks(findManualReferences(message))
     });
   }
 
@@ -772,8 +820,10 @@ ${c['Descripción'] || 'Sin descripción'}
     if (q.includes('indice') || q.includes('índice')) {
       const manualMention = /gamma|lote|noa/.test(q);
       if (manualMention && specificManual) {
+        const manuals = findManualReferences(message);
         return res.json({
-          reply: getManualIndexString(specificManual)
+          reply: getManualIndexString(specificManual),
+          manuals: getManualLinks(manuals.length ? manuals : [specificManual])
         });
       }
 
@@ -781,15 +831,24 @@ ${c['Descripción'] || 'Sin descripción'}
       const indicesText = manuals.map(formatManualIndexWithPages).join('\n\n');
 
       return res.json({
-        reply: `Índices de los manuales disponibles en knowledge/files:\n\n${indicesText}`
+        reply: `Índices de los manuales disponibles en knowledge/files:\n\n${indicesText}`,
+        manuals: getManualLinks(manuals)
       });
     }
 
     const refs = findManualReferences(message);
-    const categoriesText = summarizeManualCategories(refs.length ? refs : knowledgeBase.filter(doc => doc.file.toLowerCase().includes('manual')));
+    if (!refs.length) {
+      return res.json({
+        reply: 'No encontré un manual que coincida con ese producto, tipo o versión. Pregunta por GAMMA, LoteMovil o NOA.',
+        manuals: []
+      });
+    }
+
+    const categoriesText = summarizeManualCategories(refs);
 
     return res.json({
-      reply: `Manuales de usuario disponibles:\n${categoriesText}\n\nTambién puedo buscar datos relacionados en el Excel GP.GAMMA.v2.NQN.CTC.LP.RN.xlsx.`
+      reply: `Manuales disponibles:\n${categoriesText}\n\nSelecciona un enlace para abrir el manual. También puedo buscar datos relacionados en el Excel GP.GAMMA.v2.NQN.CTC.LP.RN.xlsx.`,
+      manuals: getManualLinks(refs)
     });
   }
 
@@ -805,7 +864,8 @@ ${c['Descripción'] || 'Sin descripción'}
     if (manual.file.toLowerCase().includes('noa')) name = 'NOA';
 
     return res.json({
-      reply: `Índice del manual de ${name}:\n\n${idx.join('\n')}`
+      reply: `Índice del manual de ${name}:\n\n${idx.join('\n')}`,
+      manuals: getManualLinks(findManualReferences(message))
     });
   }
 
@@ -830,15 +890,16 @@ Cerrados: ${backlogStats.cerrados}
       ? `Excel ${knowledgeResult.doc.file} - hoja ${knowledgeResult.doc.sheet}`
       : knowledgeResult.doc.file;
 
-    const manuals = findManualReferences(message).map(formatManualReference);
+    const manuals = findManualReferences(message);
     const manualsText = manuals.length
-      ? `\n\nManuales relacionados:\n- ${manuals.join('\n- ')}`
+      ? `\n\nManuales relacionados:\n- ${manuals.map(formatManualReference).join('\n- ')}`
       : '';
 
     return res.json({
       reply: `Consulta basada en ${label}:
 
-${knowledgeResult.excerpt}${manualsText}`
+${knowledgeResult.excerpt}${manualsText}`,
+      manuals: getManualLinks(manuals)
     });
   }
 

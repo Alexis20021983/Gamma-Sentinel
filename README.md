@@ -17,6 +17,18 @@ cambio a `main` y en cada pull request.
 4. El Blueprint enlaza el frontend con el host del backend para que el chat use
    la API. Al terminar, abre la URL del Static Site para acceder a la página.
 
+## Abrir manuales desde el chat
+
+Pide un manual por producto, tipo o versión, por ejemplo:
+
+- `manual GAMMA`
+- `manual de usuario LoteMovil`
+- `manual administrador LoteMovil v1.2`
+- `manual NOA`
+
+El chat responde con enlaces para abrir los PDF y TXT correspondientes. Los
+archivos se sirven desde `GAMMA Sentinel/knowledge/files`.
+
 El Blueprint instala las dependencias de la API con `npm ci`, la inicia con
 `npm start` y comprueba su estado en `/health`. Los despliegues posteriores se
 activan automáticamente con cada push a la rama configurada en Render.

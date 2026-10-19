@@ -8,10 +8,36 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ======================================================
    AGREGAR MENSAJE
   ====================================================== */
-  const addMessage = (type, text) => {
+  const addMessage = (type, text, manuals = []) => {
     const message = document.createElement('article');
     message.className = `message ${type}`;
-    message.innerHTML = `<p>${text}</p>`;
+
+    const paragraph = document.createElement('p');
+    paragraph.textContent = text;
+    message.appendChild(paragraph);
+
+    if (type === 'bot' && Array.isArray(manuals) && manuals.length) {
+      const links = document.createElement('div');
+      links.className = 'manual-links';
+
+      manuals.forEach((manual) => {
+        if (!manual || typeof manual.label !== 'string' ||
+            typeof manual.url !== 'string' || !manual.url.startsWith('/knowledge/')) {
+          return;
+        }
+
+        const link = document.createElement('a');
+        link.href = manual.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = `Abrir ${manual.label}`;
+        links.appendChild(link);
+      });
+
+      if (links.childElementCount) {
+        message.appendChild(links);
+      }
+    }
 
     chatMessages.appendChild(message);
 
@@ -52,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // eliminar "Consultando..."
       chatMessages.lastElementChild.remove();
 
-      addMessage('bot', data.reply || 'Sin respuesta');
+      addMessage('bot', data.reply || 'Sin respuesta', data.manuals);
 
     } catch (error) {
       console.error('Error:', error);
