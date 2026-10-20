@@ -104,7 +104,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const revision = ++speechRevision;
     speechSynthesis.cancel();
     try {
-      const speechText = latestReply.textContent.replace(/\s+/g, ' ').trim();
+      const speechText = latestReply.textContent
+        .replace(/^\s*P[aá]gina\s+\d+\s+de\s+[^:\r\n]+:\s*/i, '')
+        .replace(/\s*Abre el archivo:\s*[^\r\n]*(?:\r?\n|$)[\s\S]*$/i, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      if (!speechText) {
+        setVoiceStatus('La respuesta no contiene texto para leer.');
+        return;
+      }
+
       const utterance = new SpeechSynthesisUtterance(speechText);
       utterance.lang = 'es-AR';
       utterance.addEventListener('start', () => {
