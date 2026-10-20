@@ -24,13 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
       links.className = 'manual-links';
 
       manuals.forEach((manual) => {
-        if (!manual || typeof manual.label !== 'string' ||
-            typeof manual.url !== 'string' || !manual.url.startsWith('/knowledge/')) {
+        if (!manual || typeof manual.label !== 'string' || typeof manual.url !== 'string') {
+          return;
+        }
+
+        const manualUrl = new URL(manual.url, window.location.origin);
+        const isLibraryFile = manualUrl.pathname.startsWith('/knowledge/');
+        const isPdfViewer = manualUrl.pathname === '/pdf-viewer.html';
+        if (manualUrl.origin !== window.location.origin ||
+            (!isLibraryFile && !isPdfViewer)) {
           return;
         }
 
         const link = document.createElement('a');
-        link.href = manual.url;
+        link.href = manualUrl.href;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
         link.textContent = `Abrir ${manual.label}`;

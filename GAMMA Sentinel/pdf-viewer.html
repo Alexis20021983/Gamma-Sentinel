@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fbf7f1" />
+    <title>Visor de manual | GAMMA Sentinel</title>
+    <link rel="stylesheet" href="css/pdf-viewer.css" />
+    <script type="module" src="js/pdf-viewer.js"></script>
+  </head>
+  <body>
+    <header class="viewer-header">
+      <a class="back-link" href="/#chat">← Volver al chat</a>
+      <h1 id="documentTitle">Manual de usuario</h1>
+    </header>
+
+    <main class="viewer-main">
+      <section class="viewer-controls" aria-label="Controles del documento">
+        <button id="previousPage" type="button" aria-label="Página anterior" disabled>Anterior</button>
+        <form id="pageForm">
+          <label for="pageNumber">Página</label>
+          <input id="pageNumber" type="number" min="1" value="1" inputmode="numeric" required />
+          <span id="pageCount" aria-live="polite">de …</span>
+          <button type="submit">Ir</button>
+        </form>
+        <button id="nextPage" type="button" aria-label="Página siguiente" disabled>Siguiente</button>
+      </section>
+
+      <p id="viewerStatus" class="viewer-status" role="status">Cargando el manual…</p>
+      <div class="page-container">
+        <canvas id="pdfPage" role="img" aria-label="Página del manual"></canvas>
+      </div>
+      <p class="viewer-fallback">
+        <a id="originalPdf" href="#" target="_blank" rel="noopener noreferrer">Abrir PDF original</a>
+      </p>
+    </main>
+  </body>
+</html>

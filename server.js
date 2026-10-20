@@ -498,12 +498,15 @@ function getManualPageLinks(doc, page) {
   }) || (pdfs.length === 1 ? pdfs[0] : null);
   const target = pdf || doc;
   const baseUrl = `/knowledge/${target.file.split('/').map(encodeURIComponent).join('/')}`;
+  const pageUrl = pdf
+    ? `/pdf-viewer.html?file=${encodeURIComponent(baseUrl)}&page=${page}`
+    : baseUrl;
 
   return [{
     label: pdf
       ? `Abrir ${path.basename(pdf.file)} en la página ${page}`
       : `Abrir ${path.basename(doc.file)} (página ${page} en texto)`,
-    url: pdf ? `${baseUrl}#page=${page}&zoom=page-fit` : baseUrl
+    url: pageUrl
   }];
 }
 

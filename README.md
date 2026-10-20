@@ -31,9 +31,10 @@ El chat responde con enlaces para abrir los PDF y TXT de usuario correspondiente
 Los archivos se sirven desde `GAMMA Sentinel/knowledge/files`.
 
 También puedes pedir `índice del manual NOA` (o de GAMMA/LoteMovil) para ver
-el índice completo. Cada entrada del índice incluye un enlace que abre el PDF
-directamente en esa página. Para ir a una página concreta, pide, por ejemplo,
-`página 8 del manual de usuario LoteMovil`.
+el índice completo. Cada entrada del índice incluye un enlace al visor que
+muestra esa página directamente, también en celulares. El visor permite cambiar
+de página y ajustar la consulta. Para ir a una página concreta, pide, por
+ejemplo, `página 8 del manual de usuario LoteMovil`.
 
 El Blueprint instala las dependencias de la API con `npm ci`, la inicia con
 `npm start` y comprueba su estado en `/health`. Los despliegues posteriores se
