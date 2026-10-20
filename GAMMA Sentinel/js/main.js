@@ -138,6 +138,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const handleCommandTranscript = (transcript) => {
     const normalized = normalizeVoiceCommand(transcript);
 
+    if ([
+      'desactivar comandos por voz',
+      'desactivar comando por voz',
+      'detener comandos por voz',
+      'apagar comandos por voz'
+    ].includes(normalized)) {
+      commandModeActive = false;
+      dictationActive = false;
+      updateCommandButton();
+      voiceInputBtn.setAttribute('aria-pressed', 'false');
+      voiceInputBtn.textContent = 'Dictar pregunta';
+      if (isRecognizing) recognition.stop();
+      setVoiceStatus('Comandos por voz desactivados.');
+      return;
+    }
+
+    if (['limpiar chat', 'limpiar el chat', 'borrar chat', 'borrar el chat'].includes(normalized)) {
+      dictationActive = false;
+      clearChat(true);
+      return;
+    }
+
     if (!dictationActive) {
       if (normalized === 'leer ultima respuesta') {
         readLatestResponse();
@@ -160,7 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      setVoiceStatus('Comando no reconocido. Di «dictar pregunta» o «leer última respuesta».');
+      setVoiceStatus(
+        'Comando no reconocido. Di «dictar pregunta», «leer última respuesta», «limpiar chat» o «desactivar comandos por voz».'
+      );
       return;
     }
 
@@ -202,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (commandModeActive) {
         setVoiceStatus(dictationActive
           ? 'Te escucho. Cuando termines, di «enviar».'
-          : 'Comandos por voz activos. Di «dictar pregunta» o «leer última respuesta».');
+          : 'Comandos activos. Di «dictar pregunta», «leer última respuesta», «limpiar chat» o «desactivar comandos por voz».');
         return;
       }
 
@@ -446,16 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  /* ======================================================
-   EVENTOS
-  ====================================================== */
-
-  chatForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    sendMessage();
-  });
-
-  clearChatBtn.addEventListener('click', () => {
+  const clearChat = (voiceTriggered = false) => {
     conversationRevision += 1;
     requests.forEach((controller) => controller.abort());
     requests.clear();
@@ -472,11 +487,26 @@ document.addEventListener('DOMContentLoaded', () => {
     voiceInputBtn.textContent = 'Dictar pregunta';
     chatMessages.replaceChildren();
     chatInput.value = '';
-    setVoiceStatus(commandModeActive
-      ? 'Comandos por voz activos. Di «dictar pregunta» o «leer última respuesta».'
-      : 'Puedes dictar tu pregunta o escuchar la última respuesta.');
+    setVoiceStatus(voiceTriggered
+      ? `Chat limpiado. ${commandModeActive
+        ? 'Comandos por voz activos.'
+        : 'Puedes dictar tu pregunta o escuchar la última respuesta.'}`
+      : commandModeActive
+        ? 'Comandos por voz activos. Di «dictar pregunta», «leer última respuesta», «limpiar chat» o «desactivar comandos por voz».'
+        : 'Puedes dictar tu pregunta o escuchar la última respuesta.');
     addMessage('bot', initialGreeting);
+  };
+
+  /* ======================================================
+   EVENTOS
+  ====================================================== */
+
+  chatForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    sendMessage();
   });
+
+  clearChatBtn.addEventListener('click', () => clearChat());
 
   document.querySelectorAll('[data-suggestion]').forEach((button) => {
     button.addEventListener('click', () => {

@@ -35,7 +35,8 @@ independiente: no son el backend ni la fuente de respuestas del chat web.
 - Incluye dictado de preguntas y lectura en voz alta mediante las funciones de
   voz disponibles en el navegador. También permite activar comandos por voz
   continuos: di «dictar pregunta», dicta la consulta y di «enviar»; para oír la
-  respuesta más reciente, di «leer última respuesta».
+  respuesta más reciente, di «leer última respuesta». Di «limpiar chat» para
+  borrar la conversación o «desactivar comandos por voz» para detener la escucha.
 
 El chat web no genera respuestas con un modelo de lenguaje: el servidor aplica
 reglas y búsqueda textual sobre los documentos cargados. Por eso, la respuesta
@@ -306,7 +307,9 @@ publica por sí mismo el agente.
   lectura en voz alta depende de las voces que ofrezca el dispositivo. El
   reconocimiento de voz puede utilizar servicios del navegador. Los comandos
   continuos solo escuchan después de activar «Activar comandos por voz» y se
-  pueden detener desde el mismo botón.
+  pueden detener desde el mismo botón o diciendo «desactivar comandos por voz».
+  Para volver a activarlos se necesita pulsar el botón y conceder el permiso al
+  micrófono.
 
 ## Créditos
 
