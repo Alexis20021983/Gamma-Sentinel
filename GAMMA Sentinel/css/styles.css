@@ -673,6 +673,10 @@ main {
   white-space: pre-wrap;
 }
 
+.message.has-manual-links {
+  width: min(100%, 42rem);
+}
+
 .message p {
   margin: 0;
   font-size: 0.85rem;
@@ -710,6 +714,28 @@ main {
   text-underline-offset: 2px;
 }
 
+.manual-page-links {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  align-items: stretch;
+}
+
+.manual-page-links a {
+  min-width: 0;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #e8e2ed;
+  border-radius: 12px;
+  background: #fbf9fd;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.manual-page-links a:hover {
+  border-color: #d5cbe9;
+  background: var(--lavender);
+}
+
 .chat-suggestions {
   display: flex;
   flex-wrap: wrap;
@@ -732,6 +758,55 @@ main {
 .suggestion-chip:hover {
   border-color: #d5cbe9;
   background: var(--lavender);
+}
+
+.chat-accessibility {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0 0 0.25rem;
+}
+
+.voice-button {
+  min-height: 2.35rem;
+  padding: 0.42rem 0.72rem;
+  border: 1px solid #e8e2ed;
+  border-radius: 999px;
+  background: #fbf9fd;
+  color: var(--lavender-ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.voice-button:hover:not(:disabled) {
+  border-color: #d5cbe9;
+  background: var(--lavender);
+}
+
+.voice-button[aria-pressed="true"] {
+  border-color: #e7b2b7;
+  background: var(--pink);
+  color: #754f5b;
+}
+
+.voice-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.voice-status {
+  min-height: 1.2rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.voice-note {
+  margin: 0 0 0.45rem;
+  color: #99939e;
+  font-size: 0.67rem;
 }
 
 .chat-form {

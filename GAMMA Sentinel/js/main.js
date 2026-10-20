@@ -4,9 +4,137 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatInput = document.getElementById('chatInput');
   const chatMessages = document.getElementById('chatMessages');
   const clearChatBtn = document.getElementById('clearChatBtn');
+  const voiceInputBtn = document.getElementById('voiceInputBtn');
+  const readResponseBtn = document.getElementById('readResponseBtn');
+  const stopReadingBtn = document.getElementById('stopReadingBtn');
+  const voiceStatus = document.getElementById('voiceStatus');
   const initialGreeting = '¡Hola! Puedo ayudarte a consultar los manuales de usuario. Prueba con «índice del manual NOA», «¿cómo veo los puntos de venta en LoteMovil?» o «página 6 del manual GAMMA».';
   const requests = new Set();
   let conversationRevision = 0;
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const speechSynthesis = window.speechSynthesis;
+  let recognition;
+  let isRecognizing = false;
+  let speechRevision = 0;
+
+  const setVoiceStatus = (message) => {
+    voiceStatus.textContent = message;
+  };
+
+  if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.lang = 'es-AR';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.addEventListener('start', () => {
+      isRecognizing = true;
+      voiceInputBtn.setAttribute('aria-pressed', 'true');
+      voiceInputBtn.textContent = 'Escuchando…';
+      setVoiceStatus('Te escucho. Habla ahora.');
+    });
+
+    recognition.addEventListener('result', (event) => {
+      const transcript = event.results[0]?.[0]?.transcript?.trim();
+      if (!transcript) {
+        setVoiceStatus('No se reconoció voz. Inténtalo otra vez o escribe tu pregunta.');
+        return;
+      }
+
+      chatInput.value = transcript;
+      chatInput.focus();
+      setVoiceStatus('Pregunta dictada. Revísala y pulsa Enviar.');
+    });
+
+    recognition.addEventListener('error', (event) => {
+      const messages = {
+        'not-allowed': 'No se autorizó el micrófono. Revisa los permisos del navegador.',
+        'service-not-allowed': 'El navegador no permite usar el servicio de dictado.',
+        'no-speech': 'No se detectó voz. Inténtalo otra vez.',
+        'audio-capture': 'No se encontró un micrófono disponible.',
+        'language-not-supported': 'El dictado en español no está disponible en este navegador.'
+      };
+      setVoiceStatus(messages[event.error] || 'No se pudo iniciar el dictado. Puedes escribir tu pregunta.');
+    });
+
+    recognition.addEventListener('end', () => {
+      isRecognizing = false;
+      voiceInputBtn.setAttribute('aria-pressed', 'false');
+      voiceInputBtn.textContent = 'Dictar pregunta';
+    });
+  } else {
+    voiceInputBtn.disabled = true;
+    setVoiceStatus('El dictado por voz no está disponible en este navegador. Puedes escribir tu pregunta.');
+  }
+
+  if (!speechSynthesis) {
+    readResponseBtn.disabled = true;
+    stopReadingBtn.disabled = true;
+    setVoiceStatus(
+      SpeechRecognition
+        ? 'La lectura en voz alta no está disponible en este navegador.'
+        : 'El dictado y la lectura en voz alta no están disponibles en este navegador.'
+    );
+  }
+
+  voiceInputBtn.addEventListener('click', () => {
+    if (!recognition) return;
+    try {
+      recognition.start();
+    } catch (error) {
+      if (error.name !== 'InvalidStateError') {
+        console.error('No se pudo iniciar el dictado:', error);
+        setVoiceStatus('No se pudo iniciar el dictado. Comprueba los permisos del micrófono.');
+      }
+    }
+  });
+
+  readResponseBtn.addEventListener('click', () => {
+    const replies = chatMessages.querySelectorAll('.message.bot p');
+    const latestReply = [...replies].reverse().find(paragraph =>
+      paragraph.textContent.trim() && paragraph.textContent.trim() !== 'Consultando...'
+    );
+
+    if (!latestReply) {
+      setVoiceStatus('Todavía no hay una respuesta para leer.');
+      return;
+    }
+
+    const revision = ++speechRevision;
+    speechSynthesis.cancel();
+    try {
+      const utterance = new SpeechSynthesisUtterance(latestReply.textContent.trim());
+      utterance.lang = 'es-AR';
+      utterance.addEventListener('start', () => {
+        if (revision !== speechRevision) return;
+        stopReadingBtn.disabled = false;
+        setVoiceStatus('Leyendo la última respuesta.');
+      });
+      utterance.addEventListener('end', () => {
+        if (revision !== speechRevision) return;
+        stopReadingBtn.disabled = true;
+        setVoiceStatus('Terminó la lectura.');
+      });
+      utterance.addEventListener('error', () => {
+        if (revision !== speechRevision) return;
+        stopReadingBtn.disabled = true;
+        setVoiceStatus('No se pudo leer la respuesta en voz alta.');
+      });
+      speechSynthesis.speak(utterance);
+    } catch (error) {
+      console.error('No se pudo leer la respuesta en voz alta:', error);
+      stopReadingBtn.disabled = true;
+      setVoiceStatus('No se pudo iniciar la lectura en voz alta.');
+    }
+  });
+
+  stopReadingBtn.addEventListener('click', () => {
+    speechRevision += 1;
+    speechSynthesis.cancel();
+    stopReadingBtn.disabled = true;
+    setVoiceStatus('Lectura detenida.');
+  });
 
   /* ======================================================
    AGREGAR MENSAJE
@@ -36,15 +164,18 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
+        if (isPdfViewer) links.classList.add('manual-page-links');
+
         const link = document.createElement('a');
         link.href = manualUrl.href;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
-        link.textContent = `Abrir ${manual.label}`;
+        link.textContent = manual.label;
         links.appendChild(link);
       });
 
       if (links.childElementCount) {
+        message.classList.add('has-manual-links');
         message.appendChild(links);
       }
     }
@@ -125,8 +256,15 @@ document.addEventListener('DOMContentLoaded', () => {
     conversationRevision += 1;
     requests.forEach((controller) => controller.abort());
     requests.clear();
+    if (isRecognizing) recognition.abort();
+    if (speechSynthesis) {
+      speechRevision += 1;
+      speechSynthesis.cancel();
+    }
+    stopReadingBtn.disabled = true;
     chatMessages.replaceChildren();
     chatInput.value = '';
+    setVoiceStatus('Puedes dictar tu pregunta o escuchar la última respuesta.');
     addMessage('bot', initialGreeting);
   });
 

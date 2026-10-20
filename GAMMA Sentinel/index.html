@@ -211,6 +211,24 @@
             </button>
           </div>
 
+          <div class="chat-accessibility" aria-label="Herramientas de voz">
+            <button type="button" id="voiceInputBtn" class="voice-button" aria-pressed="false">
+              Dictar pregunta
+            </button>
+            <button type="button" id="readResponseBtn" class="voice-button">
+              Leer última respuesta
+            </button>
+            <button type="button" id="stopReadingBtn" class="voice-button" disabled>
+              Detener lectura
+            </button>
+          </div>
+          <p id="voiceStatus" class="voice-status" role="status" aria-live="polite">
+            Puedes dictar tu pregunta o escuchar la última respuesta.
+          </p>
+          <p class="voice-note">
+            El dictado requiere permiso de micrófono y depende de la compatibilidad del navegador.
+          </p>
+
           <form id="chatForm" class="chat-form">
             <label class="sr-only" for="chatInput">Escribe tu pregunta sobre los manuales</label>
             <input

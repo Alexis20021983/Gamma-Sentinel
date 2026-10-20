@@ -36,6 +36,14 @@ muestra esa página directamente, también en celulares. El visor permite cambia
 de página y ajustar la consulta. Para ir a una página concreta, pide, por
 ejemplo, `página 8 del manual de usuario LoteMovil`.
 
+## Accesibilidad por voz
+
+En el chat, **Dictar pregunta** permite ingresar una consulta con el micrófono y
+**Leer última respuesta** la reproduce con la voz disponible en el dispositivo.
+La lectura se puede detener en cualquier momento. El dictado depende de la
+compatibilidad del navegador, requiere permiso de micrófono y puede utilizar los
+servicios de reconocimiento de voz provistos por el navegador.
+
 El Blueprint instala las dependencias de la API con `npm ci`, la inicia con
 `npm start` y comprueba su estado en `/health`. Los despliegues posteriores se
 activan automáticamente con cada push a la rama configurada en Render.
