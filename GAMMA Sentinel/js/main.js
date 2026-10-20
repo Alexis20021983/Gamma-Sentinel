@@ -104,7 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const revision = ++speechRevision;
     speechSynthesis.cancel();
     try {
-      const utterance = new SpeechSynthesisUtterance(latestReply.textContent.trim());
+      const speechText = latestReply.textContent.replace(/\s+/g, ' ').trim();
+      const utterance = new SpeechSynthesisUtterance(speechText);
       utterance.lang = 'es-AR';
       utterance.addEventListener('start', () => {
         if (revision !== speechRevision) return;
