@@ -49,9 +49,9 @@ El sistema web tiene tres partes:
 1. **Frontend**: HTML, CSS y JavaScript sin framework, alojados en
    `GAMMA Sentinel/`. La página principal es `index.html`; `js/main.js` gestiona
    el chat, sus enlaces y las funciones de voz.
-2. **API y servidor local**: `server.js`, con Node.js y Express. En ejecución
-   local sirve también los archivos estáticos del frontend. En Render, la API y
-   el sitio se publican como servicios separados.
+2. **Servidor y protección de acceso**: `server.js`, con Node.js y Express,
+   sirve la API y los archivos estáticos del frontend tanto localmente como en
+   Render. El sitio, sus documentos y la API requieren la clave compartida.
 3. **Biblioteca**: `GAMMA Sentinel/knowledge/`. El servidor lee los archivos al
    arrancar y mantiene los documentos procesables en memoria; no utiliza una
    base de datos.
@@ -169,22 +169,27 @@ npm ci
 npm start
 ```
 
-Abre <http://localhost:3000>. El servidor usa `PORT` si está definido en el
-entorno y, en caso contrario, el puerto `3000`.
+Antes de iniciar, configura la clave compartida en un archivo `.env` en la raíz
+del proyecto (ese archivo está excluido de Git):
 
-El frontend local llama a la API en el mismo origen. La configuración de
-producción del frontend se genera durante el despliegue en Render.
+```env
+SITE_PASSWORD=escribe-aqui-una-clave-larga
+```
 
-No hace falta una clave de Groq para iniciar el servidor actual. Aunque los
-archivos `.env.example` incluyen variables `GROQ_*` y `CORS_ORIGIN`, el
-`server.js` vigente no las utiliza; la única variable de entorno que consulta es
-`PORT`.
+Abre <http://localhost:3000>. El navegador solicitará usuario y contraseña:
+usa `gamma` como usuario y el valor de `SITE_PASSWORD` como contraseña. El
+servidor usa `PORT` si está definido en el entorno y, en caso contrario, el
+puerto `3000`.
+
+La clave es obligatoria para iniciar el servidor. No la guardes en archivos
+versionados ni la incluyas en el código del frontend.
 
 ## API
 
 ### `GET /health`
 
-Comprueba que el proceso responde y devuelve contadores de los datos cargados.
+Comprueba que el proceso responde sin solicitar autenticación. Se reserva para
+la comprobación de salud de Render y devuelve contadores de los datos cargados.
 Los valores de este ejemplo dependen de los archivos presentes:
 
 ```json
@@ -215,25 +220,30 @@ se devuelve como JSON.
 
 ## Despliegue en Render
 
-El archivo [`render.yaml`](render.yaml) define dos servicios:
+El archivo [`render.yaml`](render.yaml) define un servicio Node que sirve tanto
+la web como la API. La protección HTTP Basic se aplica a la página, los recursos
+estáticos, los documentos y la API; solo `GET /health` queda disponible para la
+comprobación de salud de Render.
 
-- **`gamma-sentinel`**: servicio Node que ejecuta `npm ci` y `npm start`.
-  Render utiliza `GET /health` como comprobación de salud.
-- **`gamma-sentinel-site`**: sitio estático publicado desde `GAMMA Sentinel/`.
-  Su comando de construcción escribe en `js/config.js` la URL pública de la API,
-  agregando `.onrender.com` al host proporcionado por Render mediante
-  `GAMMA_API_HOST`.
+Antes de desplegar, configura `SITE_PASSWORD` en **Environment** del servicio
+`gamma-sentinel` en Render. Usa una clave larga y única; Render la inyecta al
+servidor como variable secreta y no se publica en el frontend. El servicio no
+arrancará si la variable falta.
 
 Para desplegar:
 
 1. Conecta el repositorio a Render mediante **New + → Blueprint**.
-2. Acepta la creación de los dos servicios definidos en `render.yaml`.
-3. Espera a que ambos servicios estén disponibles y abre la URL del sitio
-   estático.
+2. Crea o actualiza el servicio `gamma-sentinel` y agrega `SITE_PASSWORD` en su
+   configuración de entorno antes de desplegar la nueva versión.
+3. Abre la URL del servicio. El navegador pedirá usuario `gamma` y la clave
+   configurada.
+
+Si ya habías desplegado el Blueprint anterior, elimina o desactiva el servicio
+estático `gamma-sentinel-site` en Render: su URL antigua seguiría sirviendo la
+web sin protección aunque el nuevo servicio esté protegido.
 
 La opción `autoDeploy` está activada en el Blueprint; la rama y la política
-efectiva de despliegue se configuran en Render al conectar el repositorio. El
-servicio estático llama a la API por su host público.
+efectiva de despliegue se configuran en Render al conectar el repositorio.
 
 ## Validación y utilidades
 

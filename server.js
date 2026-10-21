@@ -1,14 +1,47 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const XLSX = require('xlsx');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const SITE_PASSWORD = process.env.SITE_PASSWORD;
 const WEBSITE_DIR = path.join(__dirname, 'GAMMA Sentinel');
 
+if (!SITE_PASSWORD) {
+  throw new Error('SITE_PASSWORD es obligatorio para iniciar el servidor.');
+}
+
+function requireSitePassword(req, res, next) {
+  if (req.method === 'GET' && req.path === '/health') {
+    return next();
+  }
+
+  const credentialsHeader = req.get('authorization') || '';
+  const credentialsMatch = /^Basic\s+([A-Za-z0-9+/]+={0,2})$/i.exec(credentialsHeader);
+  const credentials = credentialsMatch
+    ? Buffer.from(credentialsMatch[1], 'base64').toString('utf8')
+    : '';
+  const separatorIndex = credentials.indexOf(':');
+  const username = separatorIndex >= 0 ? credentials.slice(0, separatorIndex) : '';
+  const password = separatorIndex >= 0 ? credentials.slice(separatorIndex + 1) : '';
+  const passwordMatches = crypto.timingSafeEqual(
+    crypto.createHash('sha256').update(password).digest(),
+    crypto.createHash('sha256').update(SITE_PASSWORD).digest()
+  );
+
+  if (username === 'gamma' && passwordMatches) {
+    return next();
+  }
+
+  res.set('WWW-Authenticate', 'Basic realm="GAMMA Sentinel", charset="UTF-8"');
+  return res.status(401).send('Ingresa la clave compartida para acceder a GAMMA Sentinel.');
+}
+
+app.use(requireSitePassword);
 app.use(cors());
 app.use(express.json());
 app.use(express.static(WEBSITE_DIR));

@@ -7,17 +7,6 @@ services:
     startCommand: npm start
     healthCheckPath: /health
     autoDeploy: true
-
-  - type: web
-    name: gamma-sentinel-site
-    runtime: static
-    buildCommand: >-
-      printf "window.__GAMMA_BACKEND_URL__ = 'https://%s.onrender.com';\n" "$GAMMA_API_HOST"
-      > "GAMMA Sentinel/js/config.js"
-    staticPublishPath: GAMMA Sentinel
     envVars:
-      - key: GAMMA_API_HOST
-        fromService:
-          type: web
-          name: gamma-sentinel
-          property: host
+      - key: SITE_PASSWORD
+        sync: false
